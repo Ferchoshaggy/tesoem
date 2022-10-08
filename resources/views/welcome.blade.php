@@ -19,11 +19,9 @@
             background: #193333;
         }
         .but{
-  border: 1px solid white;
-  border-radius: 15px;
-  color: white;
-  padding: 15px 25px;
-  text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 15px; 
+            font-size: 20px;
         }
         .but2{
             color: white;
@@ -32,16 +30,24 @@
         .let{
             color: white;
             text-align: center;
+            margin-top: 55px;
+            font-size: 6vh;
+            font-weight: bold;
         }
-        hr{
-            background-color: white
+        li{
+            background-color: white;
+            height: 5px;
+            list-style:none;
+            margin-top: 55px;
         }
         .reg{
-  border-radius: 15px;
-  background: rgb(53, 184, 21);
-  color: white;
-  padding: 20px 46%;
-  text-decoration: none;
+          border-radius: 15px;
+          background: rgb(53, 184, 21);
+          color: white;
+          width: 100%;
+          text-decoration: none;
+          font-size: 45px;
+          margin-top: 55px;
         }
 
 
@@ -49,7 +55,7 @@
 
 </head>
 <div id="particles-js"  style="width: 100%; height: 100vh; position: fixed; z-index: -1;"></div>
-<body>
+<body style="padding-right: 20px; padding-left: 30px;">
 
 <header>
     <div class="col-12">
@@ -60,7 +66,7 @@
                 <!--  <a href="{{ url('/dashboard') }}" class="text-muted">Dashboard</a> -->
                     @else
                     <a href="#" class="but2"> Centro de Ayuda</a>
-                        <a href="{{ route('login') }}" class="ms-4 but">Iniciar sesion</a>
+                        <a href="{{ route('login') }}" class="ms-4 btn btn-outline-light but">Iniciar Sesión</a>
 
                         @if (Route::has('register'))
             <!-- <a href="{{ route('register') }}" class="ms-4 text-muted">Register</a> -->
@@ -72,20 +78,19 @@
     </div>
 </header>
 <br>
-<div class="row">
+<div class="row" style="padding-top: 5%;">
     <div class="col-md-6">
-<img src="{{asset('img/LogoT.png')}}" class="img-fluid" alt="logo">
-<h1 class="let">Te damos la bienvenida</h1>
-<hr>
-<br>
-<a href="{{ route('register') }}" class="reg">Register</a>
-</div>
+        <img src="{{asset('img/LogoT.png')}}" class="img-fluid" alt="logo">
+        <h1 class="let">Te damos la bienvenida</h1>
+        <li></li>
+        <br>
+        <a href="{{ route('register') }}" class="btn btn-success reg">Registrate</a>
+    </div>
 
     <div class="col-md-6">
         <br>
 
     </div>
-
 
 </div>
 

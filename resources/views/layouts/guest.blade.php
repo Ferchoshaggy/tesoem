@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="background: #193333;">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,13 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <link rel="icon" type="image/jpg" href="{{url('favicon.ico')}}"/>
+        
     </head>
-    <body class="bg-light font-sans antialiased">
+    <div id="particles-js"  style="width: 100%; height: 100vh; position: fixed; z-index: -1;"></div>
+    <body class="font-sans antialiased" style="background-color: rgba(0, 0, 0, 0);">
         {{ $slot }}
     </body>
+    <script src="js/particles.min.js"></script>
+    <script src="js/particulass.js"></script>
 </html>
