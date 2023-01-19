@@ -48,8 +48,8 @@
 
 
                 <div class="mb-0">
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="col-md-6" style="text-align: center;">
+                    <div class="row" style="margin-top: 30px; ">
+                        <div class="col-md-6" style="text-align: center; margin-bottom: 30px;">
                             
                             @if (Route::has('password.request'))
                                 <a class="text-muted me-3" href="{{ route('register') }}" style="text-decoration: none; font-size: 20px;">
@@ -59,7 +59,7 @@
 
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-success" style="color: white; font-size: 25px; padding-left: 20px; padding-right: 20px; width: 100%;">
+                            <button class="btn btn-success bt" style="color: white; font-size: 25px; padding-left: 20px; padding-right: 20px; width: 100%;">
                                 Entrar
                             </button>
                         </div>

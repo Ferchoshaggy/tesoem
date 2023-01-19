@@ -1,3 +1,18 @@
+<style type="text/css">
+    /*este es para el diseño del archivo */
+    .arch{
+      display: none;
+    }
+
+    .boton_file{
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .row {
+    --bs-gutter-x: 0 !important;
+    }
+</style>
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
@@ -23,7 +38,7 @@
         <x-jet-validation-errors class="mb-3" />
 
         <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -32,7 +47,7 @@
 
                 <div class="mb-3">
                     <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
-                                 :value="old('name')" required autofocus autocomplete="name" style="font-weight: bold; font-size: 20px;" placeholder="Nombre"/>
+                                 :value="old('name')" required autofocus autocomplete="name" style="font-weight: bold; font-size: 20px;" placeholder="Nombre" id="nombre"/>
                     <x-jet-input-error for="name"></x-jet-input-error>
                 </div>
 
@@ -44,7 +59,18 @@
                 </div>
 
                 <div class="mb-3">
-                    <x-jet-input type="file" name="foto" required style="font-weight: bold; font-size: 20px;"/>
+
+                            <input id="arch" type="file" name="foto" class="arch" accept="image/*" onchange="document_up(this)">
+                            <label id="arch_button" for="arch" class="boton_file row" style="background-color: white; font-weight: bold; width: 100%; padding: 0; height: 45px;">
+                                <label id="arch_button" for="arch" class="boton_file btn " style="background-color: #ced4da; font-weight: bold; width: 50%; font-size: 20px;">
+                                    Foto
+                                </label>
+                                <label id="text_file" style="width: 50%; padding-top: 10px; padding-left: 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    Campo no Obligatorio
+                                </label>
+
+                            </label>
+                    
                 </div>
 
                 <div class="mb-3">
@@ -74,8 +100,8 @@
                 @endif
 
                 <div class="mb-0">
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="col-md-6" style="text-align: center;">
+                    <div class="row" style="margin-top: 30px; ">
+                        <div class="col-md-6" style="text-align: center; margin-bottom: 30px;">
                             
                             @if (Route::has('password.request'))
                                 <a class="text-muted me-3" href="{{ route('login') }}" style="text-decoration: none; font-size: 20px;">

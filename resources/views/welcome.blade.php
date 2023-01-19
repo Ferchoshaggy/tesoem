@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link rel="icon" type="image/jpg" href="{{url('favicon.ico')}}"/>
     <style>
 
         body {
@@ -93,9 +93,9 @@ object-fit: cover;
             @if (Route::has('login'))
                 <div class="">
                     @auth
-                <!--  <a href="{{ url('/dashboard') }}" class="text-muted">Dashboard</a> -->
+                    <a href="{{ url('/dashboard') }}" class="ms-4 btn btn-outline-light but">Entrar</a> 
                     @else
-                    <a href="#" class="but2"> Centro de Ayuda</a>
+                    <a href="{{url('/ayuda')}}" class="but2"> Centro de Ayuda</a>
                         <a href="{{ route('login') }}" class="ms-4 btn btn-outline-light but">Iniciar Sesión</a>
 
                         @if (Route::has('register'))

@@ -27,6 +27,14 @@
 .brand-link{
     background: #295454 !important;
 }
+/*login*/
+.user-footer{
+    background-color: black !important;
+}
+.bg-olive{
+    background-color: black !important;
+}
+
 li{
     font-weight: bold;
 }
@@ -39,3 +47,11 @@ li{
     background-color: #193333 !important;
     
 }
+
+.sidebar-dark-olive .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-olive .nav-sidebar>.nav-item>.nav-link.active{
+    background-color: #193333 !important;
+}
+body{
+    background-color: #193333 !important;
+}
+
