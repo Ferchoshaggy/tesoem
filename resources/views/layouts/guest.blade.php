@@ -16,7 +16,11 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         <link rel="icon" type="image/jpg" href="{{url('favicon.ico')}}"/>
-        
+        <style type="text/css">
+            .btn-success:hover {
+                color: #000000 !important;
+            }
+        </style>
     </head>
     <div id="particles-js"  style="width: 100%; height: 100vh; position: fixed; z-index: -1;"></div>
     <body class="font-sans antialiased" style="background-color: rgba(0, 0, 0, 0);">
@@ -24,4 +28,28 @@
     </body>
     <script src="js/particles.min.js"></script>
     <script src="js/particulass.js"></script>
+    <script type="text/javascript">
+        function document_up(file){
+
+            if (file.files[0]!=null){
+                if(file.value.split('.').pop()=="png" || file.value.split('.').pop()=="jpg" || file.value.split('.').pop()=="ico" || file.value.split('.').pop()=="gif"){
+                    document.getElementById("text_file").innerHTML=file.value;
+                }else{
+                    alert("USA FORMATOS COMO png,jpg y gif. \n RECUERDA QUE NO ES OBLIGATORIA");
+                    file.value=null;
+                    document.getElementById("text_file").innerHTML="Campo no Obligatorio";
+                }
+            }else{
+                file.value=null;
+                document.getElementById("text_file").innerHTML="Campo no Obligatorio";
+            }
+        }
+        document.getElementById("nombre").addEventListener("keyup",function(){
+        this.value = this.value.toUpperCase();
+        });
+
+        document.getElementById("nombre").addEventListener("change",function(){
+            this.value = this.value.toUpperCase();
+        });
+    </script>
 </html>
