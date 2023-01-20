@@ -36,14 +36,14 @@ class CreateNewUser implements CreatesNewUsers
 
             if ($input['foto']->getClientOriginalExtension()=="png" || $input['foto']->getClientOriginalExtension()=="jpg" || $input['foto']->getClientOriginalExtension()=="ico" || $input['foto']->getClientOriginalExtension()=="gif") {
                 //guardamos la nueva
-                $foto = rand(11111,99999).'foto_user'.$input['matricula'].".".$input['foto']->getClientOriginalExtension(); 
+                $foto = rand(11111,99999).'foto_user'.$input['matricula'].".".$input['foto']->getClientOriginalExtension();
                 $destinationPath = public_path().'/fotos_users';
                 $file_save = $input['foto'];
                 $file_save->move($destinationPath,$foto);
             }
-            
+
         }
-        
+
 
         return User::create([
             'name' => $input['name'],
@@ -51,6 +51,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'matricula' => $input['matricula'],
             'foto' => $foto,
+            'tipo_user'=>3,
         ]);
     }
 }

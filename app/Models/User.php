@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\tabla_roles;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,7 @@ class User extends Authenticatable
         'password',
         'matricula',
         'foto',
+        'tipo_user'
     ];
 
     /**
@@ -69,14 +71,18 @@ class User extends Authenticatable
         }else{
             return asset("fotos_users\\".$this->foto);
         }
-        
+
     }
+
+    public function role(){
+        return $this->belongsTo(tabla_roles::class,'tipo_user');
+    }
+
 
     public function adminlte_desc(){
 
         //odtenemos el dato de la tabla de ese usuario, para saber que tipo de usuario es
-
-        return "ADMINISTRADOR";
+        return $this->role->tipo;
 
     }
 
