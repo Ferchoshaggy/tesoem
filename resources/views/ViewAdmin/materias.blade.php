@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Aprobacion de documentos')
+@section('title', 'Materias')
 
 @section('content_header')
 <!--este es para el selected2 -->
@@ -13,14 +13,6 @@
 @stop
 
 @section('content')
-
-<div class="card-body secciones_body">
-            En este apartado seleccionaras las materias que llevaste en tu institucion universitaria previa.
-</div>
-
-<div class="card-body secciones_body" style=" text-align: left;">
-
-</div>
 
 
 @stop

@@ -55,4 +55,4 @@ Route::post('/update_documents', [DocumentsController::class,'update_documents']
 Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
 
 //documentos Administrador
-Route::get('/ADocumentos',[ADocumentosController::class,'view_document'])->name('Documents_view');
+Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');

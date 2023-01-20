@@ -326,7 +326,12 @@ return [
             'text' => 'Materias',
             'url'  => '/Materias',
             'icon'    => 'nav-icon fas fa-fw  fa-book',
-            'id' => 'materias', 
+            'id' => 'materias',
+        ],
+        [
+            'text' => 'Documentos',
+            'route'  => 'Documents_view',
+            'icon'    => 'nav-icon fas fa-fw fa-thin fa-cloud',
         ],
     ],
 
