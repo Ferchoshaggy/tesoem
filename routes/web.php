@@ -5,6 +5,9 @@ use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\SaveFromController;
 use App\Http\Controllers\UserConfigController;
+use App\Http\Controllers\ADocumentsController;
+use App\Http\Controllers\AMateriasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,3 +53,6 @@ Route::post('/update_documents', [DocumentsController::class,'update_documents']
 
 //materias
 Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
+
+//documentos Administrador
+Route::get('/ADocumentos',[ADocumentosController::class,'view_document'])->name('Documents_view');

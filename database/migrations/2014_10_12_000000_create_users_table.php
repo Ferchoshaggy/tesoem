@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string("foto")->nullable();
             $table->string('matricula')->unique();
-            $table->string('tipo_user')->nullable();
+            $table->unsignedBigInteger('tipo_user');
+            $table->foreign("tipo_user")->references("id")->on("tabla_roles")->onDelete("cascade");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
