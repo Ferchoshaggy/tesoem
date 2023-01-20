@@ -123,7 +123,7 @@
 
 <div class="card-body secciones_body">
     
-    @if($h_academico != null && $dictamen != null && $comprobante != null && $certificado != null)
+    @if($h_academico != null && $dictamen != null && $comprobante != null)
     Todos los documentos han sido subidos correctamente, espera la comprobacion de los mismos, se le notificara al correo personal que proporcionaste o en la campana de notificaciones para que continues con tu tramite.
     <br>
     <div class="col-md-12" style="text-align: right;">
@@ -139,37 +139,38 @@
 </div>
 
 <div class="card-body secciones_body">
-    @if($h_academico != null && $dictamen != null && $comprobante != null && $certificado != null)
+    @if($h_academico != null && $dictamen != null && $comprobante != null)
 
     <form method="POST" action="{{url('/update_documents')}}" enctype="multipart/form-data">
         @csrf
 
         <div class="row">
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <img id="img1" src="{{url('icons/D5.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up_edit(this)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success">Editar</label>
             </div>
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Dictamen</label><br>
                 <img id="img2" src="{{url('icons/D6.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo2" type="file" name="dictamen" class="archivo" onchange="document_up_edit(this)" accept=".pdf">
                 <label id="archivo2_button" for="archivo2" class="boton_file btn btn-success">Editar</label>
             </div>
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Comprobante de pago</label><br>
                 <img id="img3" src="{{url('icons/D8.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo3" type="file" name="c_pago" class="archivo" onchange="document_up_edit(this)" accept=".pdf">
                 <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success">Editar</label>
             </div>
+            <!--
             <div class="col-md-3" style="margin-bottom: 25px;">
                 <label>Certificado medico</label><br>
                 <img id="img4" src="{{url('icons/D9.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo4" type="file" name="c_medico" class="archivo" onchange="document_up_edit(this)" accept=".pdf">
                 <label id="archivo4_button" for="archivo4" class="boton_file btn btn-success">Editar</label>
             </div>
-            
+            -->
         </div>
         <div class="row">
             <div class="col-md-11" style="text-align: left; padding: 20px">
@@ -190,35 +191,36 @@
         @csrf
 
         <div class="row">
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <img id="img1" src="{{url('icons/D1.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up(this)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success">Subir</label>
             </div>
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Dictamen</label><br>
                 <img id="img2" src="{{url('icons/D2.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo2" type="file" name="dictamen" class="archivo" onchange="document_up(this)" accept=".pdf">
                 <label id="archivo2_button" for="archivo2" class="boton_file btn btn-success">Subir</label>
             </div>
-            <div class="col-md-3" style="margin-bottom: 25px;">
+            <div class="col-md-4" style="margin-bottom: 25px;">
                 <label>Comprobante de pago</label><br>
                 <img id="img3" src="{{url('icons/D3.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo3" type="file" name="c_pago" class="archivo" onchange="document_up(this)" accept=".pdf">
                 <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success">Subir</label>
             </div>
+            <!--
             <div class="col-md-3" style="margin-bottom: 25px;">
                 <label>Certificado medico</label><br>
                 <img id="img4" src="{{url('icons/D4.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo4" type="file" name="c_medico" class="archivo" onchange="document_up(this)" accept=".pdf">
                 <label id="archivo4_button" for="archivo4" class="boton_file btn btn-success">Subir</label>
             </div>
-            
+            -->
         </div>
         <div class="row">
             <div class="col-md-11" style="text-align: left; padding: 20px">
-                Al subir los 4 archivos no olvides presionar el botón guardar para que se envie tu progreso
+                Al subir los 3 archivos no olvides presionar el botón guardar para que se envie tu progreso
             </div>
             <div class="col-md-1">
                 <br><br>
@@ -404,7 +406,7 @@
             
         }
         //alert($('#archivo1').get(0).files[0]);
-        if ($('#archivo1').get(0).files[0]==null && $('#archivo2').get(0).files[0]==null && $('#archivo3').get(0).files[0]==null && $('#archivo4').get(0).files[0]==null){
+        if ($('#archivo1').get(0).files[0]==null && $('#archivo2').get(0).files[0]==null && $('#archivo3').get(0).files[0]==null){
 
             document.getElementById("button_envio").disabled=true;
         }else{
@@ -415,7 +417,7 @@
     }
 
     function documenten_exit(file){
-        if(document.getElementById("img4").src=="{{url('icons/D9.png')}}" && document.getElementById("img3").src=="{{url('icons/D8.png')}}" && document.getElementById("img2").src=="{{url('icons/D6.png')}}" && document.getElementById("img1").src=="{{url('icons/D5.png')}}"){
+        if(document.getElementById("img3").src=="{{url('icons/D8.png')}}" && document.getElementById("img2").src=="{{url('icons/D6.png')}}" && document.getElementById("img1").src=="{{url('icons/D5.png')}}"){
             document.getElementById("button_envio").disabled=false;
         }else{
             document.getElementById("button_envio").disabled=true;

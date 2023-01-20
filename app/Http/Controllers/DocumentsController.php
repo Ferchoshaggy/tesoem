@@ -20,8 +20,8 @@ class DocumentsController extends Controller
         $h_academico=DB::table("historial_academico")->where("id_user",Auth::user()->id)->first();
         $dictamen=DB::table("dictamen")->where("id_user",Auth::user()->id)->first();
         $comprobante=DB::table("comprobante_pago")->where("id_user",Auth::user()->id)->first();
-        $certificado=DB::table("certificado_medico")->where("id_user",Auth::user()->id)->first();
-        return view("Documents.documents",compact("h_academico","dictamen","comprobante","certificado"));
+        //$certificado=DB::table("certificado_medico")->where("id_user",Auth::user()->id)->first();
+        return view("Documents.documents",compact("h_academico","dictamen","comprobante"));
     }
 
     public function save_documents(Request $request){
@@ -36,9 +36,9 @@ class DocumentsController extends Controller
 
         echo "<br>".$request['h_academico']->getClientOriginalExtension();
 
-        if ($request['h_academico']->getClientOriginalExtension()=="pdf" && $request['dictamen']->getClientOriginalExtension()=="pdf" && $request['c_pago']->getClientOriginalExtension()=="pdf" && $request['c_medico']->getClientOriginalExtension()=="pdf") {
+        if ($request['h_academico']->getClientOriginalExtension()=="pdf" && $request['dictamen']->getClientOriginalExtension()=="pdf" && $request['c_pago']->getClientOriginalExtension()=="pdf") {
 
-            if($request['h_academico']!=null && $request['dictamen']!=null && $request['c_pago']!=null && $request['c_medico']!=null ){
+            if($request['h_academico']!=null && $request['dictamen']!=null && $request['c_pago']!=null ){
 
                 /*eliminar la foto si es que existe
                 if($foto_delete->foto!=null){
@@ -64,11 +64,12 @@ class DocumentsController extends Controller
                 $file_save->move($destinationPath,$c_pago);
 
                 //4
+                /*
                 $c_medico = rand(11111,99999).'c_medico'.Auth::user()->matricula.".pdf"; 
                 $destinationPath = public_path().'/documents_c_medico';
                 $file_save = $request->file('c_medico');
                 $file_save->move($destinationPath,$c_medico);
-
+                */
             }else{
                 //te falta archivos
                 return redirect()->back()->with(['message' => 'Faltan archivos', 'color' => 'dark','tipo' => 'falta']);
@@ -99,11 +100,13 @@ class DocumentsController extends Controller
                 "fecha" => date("Y-m-d"),
             ]);
 
+            /*
             DB::table("certificado_medico")->insert([
                 "id_user" => Auth::user()->id,
                 "ruta" => $c_medico,
                 "fecha" => date("Y-m-d"),
             ]);
+            */
 
             return redirect()->back()->with(['message' => "Archivos guardados con exito", 'color' => 'success','tipo' => 'agregado']);
             //echo "seguardo";
@@ -123,7 +126,8 @@ class DocumentsController extends Controller
         $dictamen=null;
         $c_pago=null;
         $c_medico=null;
-        if ($request['h_academico']!=null) {
+
+        if ($request['h_academico']!=null){
             $ruta_h_academico=DB::table("historial_academico")->where("id_user",Auth::user()->id)->first();
             //eliminar el pdf agregado anterioromente
             if($ruta_h_academico!=null){
@@ -168,6 +172,7 @@ class DocumentsController extends Controller
             $file_save->move($destinationPath,$c_pago);
         }
 
+        /*
         if ($request['c_medico']!=null) {
             $ruta_medico=DB::table("certificado_medico")->where("id_user",Auth::user()->id)->first();
             //eliminar el pdf agregado anterioromente
@@ -182,9 +187,9 @@ class DocumentsController extends Controller
             $file_save = $request->file('c_medico');
             $file_save->move($destinationPath,$c_medico);
         }
-
+        */
         try {
-            if ($h_academico!=null) {
+            if ($h_academico!=null){
                 DB::table("historial_academico")->insert([
                     "id_user" => Auth::user()->id,
                     "ruta" => $h_academico,
@@ -208,7 +213,7 @@ class DocumentsController extends Controller
                     "fecha" => date("Y-m-d"),
                 ]);
             }
-            
+            /*
             if ($c_medico!=null) {
                 DB::table("certificado_medico")->insert([
                     "id_user" => Auth::user()->id,
@@ -216,8 +221,7 @@ class DocumentsController extends Controller
                     "fecha" => date("Y-m-d"),
                 ]);
             }
-            
-
+            */
             return redirect()->back()->with(['message' => "Archivo(s) actualizado(s) con exito", 'color' => 'warning','tipo' => 'actualizar']);
             //echo "seguardo";
         } catch (\Exception $e) {
