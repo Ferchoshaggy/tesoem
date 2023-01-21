@@ -12,15 +12,18 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
-        <link rel="icon" type="image/jpg" href="{{url('favicon.ico')}}"/>
         <style type="text/css">
             .btn-success:hover {
                 color: #000000 !important;
             }
         </style>
+
+        <!-- Scripts -->
+        <!--
+        <script src="{{ mix('js/app.js') }}" defer></script>
+        -->
+        <link rel="icon" type="image/jpg" href="{{url('favicon.ico')}}"/>
+        
     </head>
     <div id="particles-js"  style="width: 100%; height: 100vh; position: fixed; z-index: -1;"></div>
     <body class="font-sans antialiased" style="background-color: rgba(0, 0, 0, 0);">
@@ -28,6 +31,7 @@
     </body>
     <script src="js/particles.min.js"></script>
     <script src="js/particulass.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript">
         function document_up(file){
 
@@ -50,6 +54,24 @@
 
         document.getElementById("nombre").addEventListener("change",function(){
             this.value = this.value.toUpperCase();
+        });
+
+        $(document).ready(function() {
+            $.ajax({
+              url: "{{url('/carreras_tesoem')}}",
+              dataType: "json",
+              timeout : 80000,
+              //context: document.body
+            }).done(function(carreras) {
+
+              if(carreras==null){
+                console.log("sin carreras, por favor de avisar del problema");
+              }else{
+                for (var i = 0; i <carreras.length; i++) {
+                    $("#select_carrera").append('<option value="'+carreras[i].id+'">'+carreras[i].nombre+'</option>');
+                }
+              }
+            });
         });
     </script>
 </html>

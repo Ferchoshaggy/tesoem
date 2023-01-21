@@ -7,6 +7,7 @@ use App\Http\Controllers\SaveFromController;
 use App\Http\Controllers\UserConfigController;
 use App\Http\Controllers\ADocumentsController;
 use App\Http\Controllers\AMateriasController;
+use App\Http\Controllers\UrlLibresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::middleware([
 
 });
 */
+
+//url libres para uso fuera del login
+Route::get('/carreras_tesoem', [UrlLibresController::class,'carreras_tesoem'])->name('carreras_tesoem');
+
 //save from new register school and materias
 Route::post('/save_form', [SaveFromController::class,'salvar_registro'])->name('salvar_registro');
 

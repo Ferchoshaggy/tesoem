@@ -31,6 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+
         $foto=null;
         if (isset($input['foto'])) {
 
@@ -43,8 +44,6 @@ class CreateNewUser implements CreatesNewUsers
             }
 
         }
-
-
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
@@ -52,6 +51,7 @@ class CreateNewUser implements CreatesNewUsers
             'matricula' => $input['matricula'],
             'foto' => $foto,
             'tipo_user'=>3,
+            'carrera_tesoem' => $input['carrera_tesoem'],
         ]);
     }
 }

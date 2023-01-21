@@ -30,7 +30,8 @@ class User extends Authenticatable
         'password',
         'matricula',
         'foto',
-        'tipo_user'
+        'tipo_user',
+        'carrera_tesoem'
     ];
 
     /**

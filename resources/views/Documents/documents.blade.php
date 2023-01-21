@@ -173,10 +173,10 @@
             -->
         </div>
         <div class="row">
-            <div class="col-md-11" style="text-align: left; padding: 20px">
+            <div class="col-md-10" style="text-align: left; padding: 20px">
                 Solo sera cambiado el archivo que edites.
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2" style="text-align: right;">
                 <br><br>
                 <button class="btn btn-success" id="button_envio" disabled title="Guardar"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
             </div>
@@ -219,10 +219,10 @@
             -->
         </div>
         <div class="row">
-            <div class="col-md-11" style="text-align: left; padding: 20px">
+            <div class="col-md-10" style="text-align: left; padding: 20px">
                 Al subir los 3 archivos no olvides presionar el botón guardar para que se envie tu progreso
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2" style="text-align: right;">
                 <br><br>
                 <button class="btn btn-success" id="button_envio" disabled title="Guardar"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
             </div>

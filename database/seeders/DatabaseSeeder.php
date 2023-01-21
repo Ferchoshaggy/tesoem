@@ -24,14 +24,27 @@ class DatabaseSeeder extends Seeder
                 ]);
         }
 
+        date_default_timezone_set('America/Mexico_City');
+
+        DB::table('instituciones')->insert([
+            'nombre'  => 'Tecnologico de Estudios Superiores del Oriente del Estado de México',
+            'fecha' => date("Y-m-d"),
+        ]);
+
+        DB::table('carreras')->insert([
+            'nombre'=> 'Ingenieria en Sistemas Computaciones',
+            'id_institucion' => 1,
+            'fecha' => date("Y-m-d"),
+        ]);
+
         DB::table('users')->insert([
             'name'  => 'SuperAdministrador',
             'tipo_user' => 1,
             'email'     => 'admin@gmail.com',
             'matricula' => '186010016',
+            'carrera_tesoem' => 1,
             'password'  => bcrypt('123456789'),
         ]);
-
 
     }
 }
