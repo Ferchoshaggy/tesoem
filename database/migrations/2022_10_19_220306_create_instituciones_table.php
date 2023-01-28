@@ -15,8 +15,10 @@ class CreateInstitucionesTable extends Migration
     {
         Schema::create('instituciones', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_user')->nullable();
             $table->string("nombre");
             $table->date("fecha");
+             $table->foreign("id_user")->references("id")->on("users")->onDelete("set null");
         });
     }
 
