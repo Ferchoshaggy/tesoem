@@ -58,6 +58,13 @@ Route::post('/update_documents', [DocumentsController::class,'update_documents']
 
 //materias
 Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
+Route::post('/save_form_institucion', [MateriasController::class,'guardar_institucion'])->name('guardar_institucion');
+Route::post('/save_form_carrera', [MateriasController::class,'guardar_carrera'])->name('guardar_carrera');
+Route::get('/consulta_instituciones', [MateriasController::class,'consulta_instituciones'])->name('consulta_instituciones');
+Route::get('/consulta_carreras/{id}', [MateriasController::class,'consulta_carreras'])->name('consulta_carreras');
+Route::get('/consulta_existencia_materias/{id_institucion}/{id_carrera}/{numero_semestre}', [MateriasController::class,'consulta_existencia_materias'])->name('consulta_existencia_materias');
+Route::post('/save_materias', [MateriasController::class,'guardar_materias'])->name('guardar_materias');
+Route::post('/save_calificaciones', [MateriasController::class,'guardar_calificaciones'])->name('guardar_calificaciones');
 
 //documentos Administrador
 Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');

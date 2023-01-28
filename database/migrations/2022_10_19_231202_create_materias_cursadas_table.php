@@ -16,11 +16,11 @@ class CreateMateriasCursadasTable extends Migration
         Schema::create('materias_cursadas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_materia');
-            $table->unsignedBigInteger('id_user');
-            $table->string("calificacion")->nullable();
+            $table->unsignedBigInteger('id_proceso_alumno');
+            $table->integer("calificacion")->nullable();
             $table->date("fecha");
             $table->foreign("id_materia")->references("id")->on("materias")->onDelete("cascade");
-            $table->foreign("id_user")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("id_proceso_alumno")->references("id")->on("procesos_alumno")->onDelete("cascade");
         });
     }
 

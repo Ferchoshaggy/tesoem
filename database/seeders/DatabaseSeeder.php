@@ -27,15 +27,29 @@ class DatabaseSeeder extends Seeder
         date_default_timezone_set('America/Mexico_City');
 
         DB::table('instituciones')->insert([
-            'nombre'  => 'Tecnologico de Estudios Superiores del Oriente del Estado de México',
+            'nombre'  => 'TECNOLOGICO DE ESTUDIOS SUPERIORES DEL ORIENTE DEL ESTADO DE MÉXICO',
             'fecha' => date("Y-m-d"),
         ]);
 
         DB::table('carreras')->insert([
-            'nombre'=> 'Ingenieria en Sistemas Computaciones',
+            'nombre'=> 'INGENIERIA EN SISTEMAS COMPUTACIONES',
             'id_institucion' => 1,
             'fecha' => date("Y-m-d"),
+            'clave' => "jdjkd2333",
         ]);
+
+        for($i=1;$i<6;$i++){
+
+                DB::table('materias')->insert([
+                    "id_institucion" => 1,
+                    "id_carrera" => 1,
+                    "semestre" => $i,
+                    "nombre" => "materia".$i,
+                    "matricula" => "mat".$i,
+                    "temario" => "url",
+                    "fecha" => date("Y-m-d"),
+                ]);
+        }
 
         DB::table('users')->insert([
             'name'  => 'SuperAdministrador',

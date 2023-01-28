@@ -31,7 +31,8 @@ class User extends Authenticatable
         'matricula',
         'foto',
         'tipo_user',
-        'carrera_tesoem'
+        'carrera_tesoem',
+        'id_proceso_activo'
     ];
 
     /**
