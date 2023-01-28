@@ -13,6 +13,7 @@
     --bs-gutter-x: 0 !important;
     }
 </style>
+
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
@@ -47,7 +48,7 @@
 
                 <div class="mb-3">
                     <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
-                                 :value="old('name')" required autofocus autocomplete="name" style="font-weight: bold; font-size: 20px;" placeholder="Nombre" id="nombre"/>
+                                 :value="old('name')" required autofocus autocomplete="name" style="font-weight: bold; font-size: 20px;" placeholder="Nombre(s)" id="nombre"/>
                     <x-jet-input-error for="name"></x-jet-input-error>
                 </div>
 
@@ -71,6 +72,13 @@
 
                             </label>
                     
+                </div>
+
+                <div class="mb-3">
+                    <select name="carrera_tesoem" class="form-select" style="font-weight: bold; font-size: 20px;" id="select_carrera" required>
+                        <option value="" selected disabled>Carrera deseada del TESOEM </option>
+
+                    </select>
                 </div>
 
                 <div class="mb-3">

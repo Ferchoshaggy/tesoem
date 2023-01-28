@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistorialAcademicoTable extends Migration
+class CreateComprobantePagoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateHistorialAcademicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('historial_academico', function (Blueprint $table) {
+        Schema::create('comprobante_pago', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_proceso_alumno');
             $table->string("ruta");
             $table->date("fecha");
             $table->text("descripcion")->nullable();
-            $table->string("aprobacion")->nullable();
-            $table->foreign("id_user")->references("id")->on("users")->onDelete("cascade");
+            $table->integer("estatus")->nullable();
+            $table->foreign("id_proceso_alumno")->references("id")->on("procesos_alumno")->onDelete("cascade");
         });
     }
 
@@ -31,6 +31,6 @@ class CreateHistorialAcademicoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historial_academico');
+        Schema::dropIfExists('comprobante_pago');
     }
 }
