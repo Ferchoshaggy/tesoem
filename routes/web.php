@@ -8,6 +8,8 @@ use App\Http\Controllers\UserConfigController;
 use App\Http\Controllers\ADocumentsController;
 use App\Http\Controllers\AMateriasController;
 use App\Http\Controllers\UrlLibresController;
+use App\Http\Controllers\FormatosController;
+use App\Http\Controllers\HorarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +67,12 @@ Route::get('/consulta_carreras/{id}', [MateriasController::class,'consulta_carre
 Route::get('/consulta_existencia_materias/{id_institucion}/{id_carrera}/{numero_semestre}', [MateriasController::class,'consulta_existencia_materias'])->name('consulta_existencia_materias');
 Route::post('/save_materias', [MateriasController::class,'guardar_materias'])->name('guardar_materias');
 Route::post('/save_calificaciones', [MateriasController::class,'guardar_calificaciones'])->name('guardar_calificaciones');
+
+//formatos
+Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
+
+//horario
+Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 
 //documentos Administrador
 Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');

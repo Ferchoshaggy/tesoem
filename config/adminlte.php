@@ -328,6 +328,21 @@ return [
             'icon'    => 'nav-icon fas fa-fw  fa-book',
             'id' => 'materias',
         ],
+
+        [
+            'text' => 'Formatos',
+            'url'  => '/Formatos',
+            'icon'    => 'nav-icon fas fa-list',
+            'id' => 'formatos',
+        ],
+
+        [
+            'text' => 'Horarios',
+            'url'  => '/Horarios',
+            'icon'    => 'nav-icon fas fa-regular fa-clock',
+            'id' => 'horarios',
+        ],
+
         [
             'text' => 'Documentos',
             'route'  => 'Documents_view',

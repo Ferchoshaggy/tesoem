@@ -32,6 +32,7 @@ class DocumentsController extends Controller
                 "fecha" => date("Y-m-d"),
                 "estatus" => 1,
                 "etapa" => 1,
+                "tipo_proceso" => 1,
             ]);
             //odtenemos el id de lo que se ababa de insertar
             $id = DB::getPdo()->lastInsertId();
