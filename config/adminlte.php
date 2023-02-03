@@ -325,7 +325,7 @@ return [
         [
             'text' => 'Materias',
             'url'  => '/Materias',
-            'icon'    => 'nav-icon fas fa-fw  fa-book',
+            'icon'    => 'nav-icon fas fa-fw fa-book',
             'id' => 'materias',
         ],
 
@@ -345,8 +345,23 @@ return [
 
         [
             'text' => 'Documentos',
-            'route'  => 'Documents_view',
-            'icon'    => 'nav-icon fas fa-fw fa-thin fa-cloud',
+            'route'=> 'Documents_view',
+            'icon' => 'nav-icon fas fa-cloud-upload-alt',
+        ],
+        [
+            'text' => 'Catalogo de Materias',
+            'route'=> 'materias_view',
+            'icon' => 'nav-icon far fa-file-alt',
+        ],
+        [
+            'text' => 'Validaciones',
+            'route'=> 'validacion_view',
+            'icon' => 'nav-icon far fa-list-alt',
+        ],
+        [
+            'text' => 'Cuentas',
+            'route'=> 'cuentas_view',
+            'icon' => 'nav-icon fas fa-users',
         ],
     ],
 

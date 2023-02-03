@@ -7,9 +7,14 @@ use App\Http\Controllers\SaveFromController;
 use App\Http\Controllers\UserConfigController;
 use App\Http\Controllers\ADocumentsController;
 use App\Http\Controllers\AMateriasController;
+
+use App\Http\Controllers\AValidacionesController;
+use App\Http\Controllers\ACuentasController;
+
 use App\Http\Controllers\UrlLibresController;
 use App\Http\Controllers\FormatosController;
 use App\Http\Controllers\HorarioController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -76,3 +81,12 @@ Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_h
 
 //documentos Administrador
 Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');
+
+//Catalogo de materias
+Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('materias_view');
+
+//validaciones
+Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
+
+//Cuentas
+Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');
