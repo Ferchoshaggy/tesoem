@@ -21,7 +21,7 @@ class MateriasController extends Controller
 
         if($proceso->semestre!=null && $proceso->id_institucion_old!=null && $proceso->id_carrera_old!=null){
             $materias=DB::table("materias")->where("id_institucion",$proceso->id_institucion_old)->where("id_carrera",$proceso->id_carrera_old)->where("semestre","<=",$proceso->semestre)->get();
-            $materias_cursadas=DB::table("materias_cursadas")->where("id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
+            $materias_cursadas=DB::table("calificaciones_materias")->where("id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
         }else{
             $materias=null;
             $materias_cursadas=null;
@@ -199,7 +199,7 @@ class MateriasController extends Controller
             
             try {
 
-                DB::table("materias_cursadas")->insert([
+                DB::table("calificaciones_materias")->insert([
                     "id_materia" => $request["id_materia_guardada"][$i],
                     "id_proceso_alumno" => Auth::user()->id_proceso_activo,
                     "calificacion" => $request["calificaciones"][$i],
