@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         }
 
         DB::table('users')->insert([
-            'name'  => 'SuperAdministrador',
+            'name'  => 'ProgramadorSupremo',
             'tipo_user' => 1,
             'email'     => 'admin@gmail.com',
             'matricula' => '186010016',

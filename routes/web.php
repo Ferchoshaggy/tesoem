@@ -82,3 +82,8 @@ Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])-
 
 //Cuentas
 Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');
+Route::get('/ACuentasJax/{page?}',[ACuentasController::class,'view_cuentasJax'])->name('cuentas_viewJax');
+Route::get('/search_user/{id}',[ACuentasController::class,'user_modal'])->name('search_user');
+Route::post('/cambios_user',[ACuentasController::class,'editar_user'])->name('cambios_user');
+Route::post('/delete_user',[ACuentasController::class,'eliminar_user'])->name('delete_user');
+Route::post('/nuevo_user',[ACuentasController::class,'save_user'])->name('nuevo_user');
