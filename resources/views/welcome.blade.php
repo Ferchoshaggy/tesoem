@@ -65,7 +65,7 @@
 }
 .slider{
 display: flex;
-width: 400%; /*Modificar si quiero agregar mas imagenes 100% por imagen*/
+width: 600%; /*Modificar si quiero agregar mas imagenes 100% por imagen*/
 height: 400px;
 margin-left: -100%;
 }
@@ -93,7 +93,7 @@ object-fit: cover;
             @if (Route::has('login'))
                 <div class="">
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="ms-4 btn btn-outline-light but">Entrar</a> 
+                    <a href="{{ url('/dashboard') }}" class="ms-4 btn btn-outline-light but">Entrar</a>
                     @else
                     <a href="{{url('/ayuda')}}" class="but2"> Centro de Ayuda</a>
                         <a href="{{ route('login') }}" class="ms-4 btn btn-outline-light but">Iniciar Sesión</a>
@@ -134,6 +134,12 @@ object-fit: cover;
     </div>
       <div class="slider__section">
         <img src="{{asset('img/C4.jpg')}}" alt="" class="slider__img">
+    </div>
+    <div class="slider__section">
+        <img src="{{asset('img/C5.jpg')}}" alt="" class="slider__img">
+    </div>
+    <div class="slider__section">
+        <img src="{{asset('img/C6.jpg')}}" alt="" class="slider__img">
     </div>
     </div>
 
