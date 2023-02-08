@@ -92,6 +92,9 @@ Route::post('/finalizarDoc',[ADocumentsController::class,'Docfinalizar'])->name(
 
 //Catalogo de materias
 Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('materias_view');
+Route::get('/AMateriasJax/{page?}',[AMateriasController::class,'view_materiasJax'])->name('materias_viewJax');
+Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])->name('save_catmaterias');
+
 
 //validaciones
 Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');

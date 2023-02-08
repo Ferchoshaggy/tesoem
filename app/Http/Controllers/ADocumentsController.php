@@ -78,7 +78,12 @@ public function aceptadoHA(Request $request){
             "estatus"=>5,
             ]);
 
-        return response()->json([]);
+            $datosUser=DB::table("users")->where("id",$request["id_user2"])->first();
+            $procesos=DB::table('procesos_alumno')->where("id_user",$datosUser->id)->first();
+            $comprobante=DB::table('comprobante_pago')->where("id_proceso_alumno",$procesos->id)->first();
+            $historial=DB::table('historial_academico')->where("id_proceso_alumno",$procesos->id)->first();
+
+        return json_encode([$comprobante,$historial]);
     }
 
 }
@@ -89,14 +94,19 @@ public function aceptadoCP(Request $request){
             "estatus"=>5,
             ]);
 
-        return response()->json([]);
+            $datosUser=DB::table("users")->where("id",$request["id_user3"])->first();
+            $procesos=DB::table('procesos_alumno')->where("id_user",$datosUser->id)->first();
+            $comprobante=DB::table('comprobante_pago')->where("id_proceso_alumno",$procesos->id)->first();
+            $historial=DB::table('historial_academico')->where("id_proceso_alumno",$procesos->id)->first();
+
+        return json_encode([$comprobante,$historial]);
     }
 }
 
 public function Docfinalizar (Request $request){
     if($request->ajax()){
         DB::table('procesos_alumno')->where("id",$request["id_pa_f"])->update([
-            "estatus"=>5,
+            "estatus"=>1,
             "etapa"=>2,
             ]);
 

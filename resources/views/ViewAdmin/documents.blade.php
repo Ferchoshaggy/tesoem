@@ -215,10 +215,11 @@ Esta Seguro de aprobar el Historial Academico, esta accion no podra ser cambiada
 Esta Seguro de aprobar el Comprobante de Pago, esta accion no podra ser cambiada
 </label>
         </div>
-        <form id="form-CP-aprobar" action="/CPaceptado" method="POST">
+        <form id="form-CP-aprobar" action="{{ url('/CPaceptado') }}" method="POST">
             @csrf
         <div class="modal-footer">
             <input type="hidden" name="id_cp2" id="id_cp2">
+            <input type="hidden" name="id_user3" id="id_user3">
         <button type="button" class="btn btn-success" id="btnAprovarCP">Aceptar</button>
         </div>
     </form>
@@ -235,7 +236,7 @@ Esta Seguro de aprobar el Comprobante de Pago, esta accion no podra ser cambiada
 Esta accion implica que estara aprobando el tramite lo cual dara al alumno de manera automatica acceso al siguiente paso.
 </label>
         </div>
-        <form id="form-fin-tramite" action="/finalizarDoc" method="POST">
+        <form id="form-fin-tramite" action="{{ url('/finalizarDoc') }}" method="POST">
             @csrf
         <div class="modal-footer">
             <input type="hidden" name="id_pa_f" id="id_pa_f">
@@ -305,7 +306,7 @@ Esta accion implica que estara aprobando el tramite lo cual dara al alumno de ma
 
 <script>
 
-    //FUNCION PARA MOSTRAR LA TABLA AL ENTRAR A CUENTAS
+    //FUNCION PARA MOSTRAR LA TABLA AL ENTRAR A DOCUMENTOS
     $(document).ready(function() {
     tableRE();
 });
@@ -361,6 +362,7 @@ function tomar_id($id_tr){
     document.getElementById('id_pa_f').value=procesos.id;
 
     document.getElementById('id_user2').value=datosUser.id;
+    document.getElementById('id_user3').value=datosUser.id;
 
 document.querySelector('#embH').setAttribute('src',"/documents_h_academico/"+historial.ruta);
 document.querySelector('#embC').setAttribute('src',"/documents_c_pago/"+comprobante.ruta);
@@ -507,15 +509,20 @@ $("#btnAprovarHA").click(function(e){
         cache: false,
         contentType: false,
         processData: false,
-        success:function(Response){
+        success:function([comprobante,historial]){
             jQuery.noConflict();
             document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
             document.getElementById("AproHistorial").disabled=true;
             document.getElementById("btnRechazarH").disabled=true;
+            if(comprobante.estatus==5 && historial.estatus==5){
+    document.getElementById("aprobarDoc").disabled=false;
+}else{
+    document.getElementById("aprobarDoc").disabled=true;
+}
             $('#MAprobarHA').modal('hide');
-            $('#aprobarDocumento').modal('hide');
             tableRE();
             $("#form-HA-aprobar")[0].reset();
+
 
         },
         error:function (Response){
@@ -544,13 +551,17 @@ $("#btnAprovarCP").click(function(e){
         cache: false,
         contentType: false,
         processData: false,
-        success:function(Response){
+        success:function([comprobante,historial]){
             jQuery.noConflict();
             document.getElementById("img-cp").src="{{url('icons/D8.png')}}";
             document.getElementById("AproComprobante").disabled=true;
             document.getElementById("btnRechazarP").disabled=true;
+            if(comprobante.estatus==5 && historial.estatus==5){
+    document.getElementById("aprobarDoc").disabled=false;
+}else{
+    document.getElementById("aprobarDoc").disabled=true;
+}
             $('#MAprobarCP').modal('hide');
-            $('#aprobarDocumento').modal('hide');
             tableRE();
             $("#form-CP-aprobar")[0].reset();
         },
