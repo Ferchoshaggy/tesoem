@@ -572,98 +572,98 @@
 
 @section('css')
 
-<style type="text/css">
+    <style type="text/css">
 
-    .form-control:disabled, .form-control[readonly] {
-        background-color: #ababab !important;
-    }
-    input[type="file"]{
-        background: white;
-        outline: none;
-     }
-      ::-webkit-file-upload-button{
-        margin-top: -22px;
-        margin-left: -15px;
-        background-color: #28a745;
-        color: white;
-        height: 35px;
-        border: none;
-        outline: none;
-        font-weight: bolder;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-      ::-webkit-file-upload-button:hover{
-       background: #111111;
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #ababab !important;
+        }
+        input[type="file"]{
+            background: white;
+            outline: none;
+         }
+          ::-webkit-file-upload-button{
+            margin-top: -22px;
+            margin-left: -15px;
+            background-color: #28a745;
+            color: white;
+            height: 35px;
+            border: none;
+            outline: none;
+            font-weight: bolder;
+            cursor: pointer;
+            border-radius: 5px;
+          }
+          ::-webkit-file-upload-button:hover{
+           background: #111111;
 
-      }
-    .secciones_body{
-        background-color: #234747;
-        border-radius: 10px; 
-        margin-bottom: 35px; 
-        color: #fff; 
-        text-align: center; 
-        font-size: 20px;
-    }
-    /*este es para el diseño del archivo */
-    .archivo{
-      display: none;
-    }
+          }
+        .secciones_body{
+            background-color: #234747;
+            border-radius: 10px; 
+            margin-bottom: 35px; 
+            color: #fff; 
+            text-align: center; 
+            font-size: 20px;
+        }
+        /*este es para el diseño del archivo */
+        .archivo{
+          display: none;
+        }
 
-    .boton_file{
-        font-weight: bold; 
-        font-size: 1.3rem; 
-        color: #8f9ca8; 
-        cursor: pointer;
-        padding-top: 3px;
-    }
-    html{
-        background-color: #193333;
-    }
+        .boton_file{
+            font-weight: bold; 
+            font-size: 1.3rem; 
+            color: #8f9ca8; 
+            cursor: pointer;
+            padding-top: 3px;
+        }
+        html{
+            background-color: #193333;
+        }
 
-    .edit_select{
-        color: #fff;
-        background-color: #28a745;
-        border: 1px solid #28a745;
-        font-weight: bold;
-        font-size: 1.3rem;
-        padding-left: 10px;
-        padding-top: 4px;
-    }
-    .input_edit{
-        font-size: 1.3rem;
-        font-weight: bold;
-    }
+        .edit_select{
+            color: #fff;
+            background-color: #28a745;
+            border: 1px solid #28a745;
+            font-weight: bold;
+            font-size: 1.3rem;
+            padding-left: 10px;
+            padding-top: 4px;
+        }
+        .input_edit{
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
 
-    .select2-selection__rendered {
-      line-height: 31px !important;
-    }
-    .select2-container .select2-selection--single {
-          height: 35px !important;
-    }
-    .select2-selection__arrow {
-          height: 34px !important;
-    }
-    
-    .select2-selection__rendered{
-        margin-top: -5px !important;
-    }
+        .select2-selection__rendered {
+          line-height: 31px !important;
+        }
+        .select2-container .select2-selection--single {
+              height: 35px !important;
+        }
+        .select2-selection__arrow {
+              height: 34px !important;
+        }
+        
+        .select2-selection__rendered{
+            margin-top: -5px !important;
+        }
 
-    .select2-container--default .select2-selection--single {
-        background-color: #28a745 !important;
-        border: 1px solid #28a745 !important;
-        font-weight: bold !important;
-        font-size: 1.3rem !important;
-        padding-left: 10px !important;
-        padding-top: 4px !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #fff !important;
-    }
-    .select2-selection__arrow{
-        color: #fff !important;
-    }
-</style>
+        .select2-container--default .select2-selection--single {
+            background-color: #28a745 !important;
+            border: 1px solid #28a745 !important;
+            font-weight: bold !important;
+            font-size: 1.3rem !important;
+            padding-left: 10px !important;
+            padding-top: 4px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #fff !important;
+        }
+        .select2-selection__arrow{
+            color: #fff !important;
+        }
+    </style>
 
 @stop
 

@@ -249,6 +249,23 @@
 <!-- este es para el selected2-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        $.ajax({
+            url:"{{url('/consuta_materias_admin')}}",
+            type:'GET',
+            dataType:'json',
+            timeout : 80000,
+        }).done(function(materias_admin){
+
+            if(materias_admin!=null){
+
+            }else{
+                alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando");
+            }
+        });
+    });
+
     var id_registro=null;
 
     function tomar_id(id){
@@ -260,6 +277,10 @@
         var url="{{url('/temarios')}}"+"/"+url_temario;
         document.getElementById("embad").src=url;
         document.getElementById("ver").href=url;
+    }
+
+    function buscar_temario(materia_select){
+
     }
 
     function materias_cursadas() {
@@ -311,7 +332,7 @@
                                                 '<input type="number" name="calificacion_old" class="form-control input_edit" id="calificacion_old" value="'+materias_cursadas[0][j].calificacion+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px; text-align: ;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary btn-sm" onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
+                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
                                             '</div>'+
                                         '</div>'
                                     );
@@ -320,7 +341,7 @@
                                     $("#"+i+"_s_new").append(
                                         '<div class="row" style="text-align: center;">'+
                                             '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<select class="form-control edit_select" id="carrera_new">'+
+                                                '<select class="form-control edit_select" id="carrera_new[]" name="carrera_new[]" data-fila="'+j+'" onchange="buscar_temario(this);">'+
                                                     '<option value="" disabled selected>.:Materias:.</option>'+
                                                     '@foreach($materias_new as $materia_new)'+
                                                     '<option value="{{$materia_new->id}}">{{$materia_new->nombre}}</option>'+
@@ -328,7 +349,7 @@
                                                 '</select>'+
                                             '</div>'+
                                             '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<select class="form-control edit_select" id="matricula_c_new">'+
+                                                '<select class="form-control edit_select" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" onchange="buscar_temario(this);">'+
                                                     '<option value="" disabled selected>.:Claves Mat.:.</option>'+
                                                     '@foreach($materias_new as $materia_new)'+
                                                     '<option value="{{$materia_new->id}}">{{$materia_new->matricula}}</option>'+
@@ -336,13 +357,14 @@
                                                 '</select>'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<input type="number" name="valor" class="form-control input_edit" id="valor" placeholder="%">'+
+                                                '<input type="number" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-warning btn-sm">Validar</button>'+
+                                                '<button type="button" id="pdf_temario_old" class="btn btn-warning ">Validar</button>'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary btn-sm" onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
+                                                '<button type="button" id="pdf_temario_old[]" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
+                                                '<input type="hidden" data-fila="'+j+'" id="temario_new[]" name="temario_new[]"></input>'+
                                             '</div>'+
                                         '</div>'
                                     );

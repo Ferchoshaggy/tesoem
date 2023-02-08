@@ -37,4 +37,8 @@ class AValidacionesController extends Controller
 
         return json_encode($materias_cursadas);
     }
+
+    public function consuta_materias_admin(){
+        
+    }
 }
