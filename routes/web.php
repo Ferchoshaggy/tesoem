@@ -87,6 +87,7 @@ Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('mat
 
 //validaciones
 Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
+Route::get("/AMaterias_cursadas/{id}",[AValidacionesController::class,'materias_cursadas'])->name('materias_cursadas');
 
 //Cuentas
 Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');

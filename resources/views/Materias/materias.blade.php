@@ -14,99 +14,6 @@
 
 @section('content')
 
-<style type="text/css">
-
-    .form-control:disabled, .form-control[readonly] {
-        background-color: #ababab !important;
-    }
-    input[type="file"]{
-        background: white;
-        outline: none;
-     }
-      ::-webkit-file-upload-button{
-        margin-top: -22px;
-        margin-left: -15px;
-        background-color: #28a745;
-        color: white;
-        height: 35px;
-        border: none;
-        outline: none;
-        font-weight: bolder;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-      ::-webkit-file-upload-button:hover{
-       background: #111111;
-
-      }
-    .secciones_body{
-        background-color: #234747;
-        border-radius: 10px; 
-        margin-bottom: 35px; 
-        color: #fff; 
-        text-align: center; 
-        font-size: 20px;
-    }
-    /*este es para el diseño del archivo */
-    .archivo{
-      display: none;
-    }
-
-    .boton_file{
-        font-weight: bold; 
-        font-size: 1.3rem; 
-        color: #8f9ca8; 
-        cursor: pointer;
-        padding-top: 3px;
-    }
-    html{
-        background-color: #193333;
-    }
-
-    .edit_select{
-        color: #fff;
-        background-color: #28a745;
-        border: 1px solid #28a745;
-        font-weight: bold;
-        font-size: 1.3rem;
-        padding-left: 10px;
-        padding-top: 4px;
-    }
-    .input_edit{
-        font-size: 1.3rem;
-        font-weight: bold;
-    }
-
-    .select2-selection__rendered {
-      line-height: 31px !important;
-    }
-    .select2-container .select2-selection--single {
-          height: 35px !important;
-    }
-    .select2-selection__arrow {
-          height: 34px !important;
-    }
-    
-    .select2-selection__rendered{
-        margin-top: -5px !important;
-    }
-
-    .select2-container--default .select2-selection--single {
-        background-color: #28a745 !important;
-        border: 1px solid #28a745 !important;
-        font-weight: bold !important;
-        font-size: 1.3rem !important;
-        padding-left: 10px !important;
-        padding-top: 4px !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #fff !important;
-    }
-    .select2-selection__arrow{
-        color: #fff !important;
-    }
-</style>
-
 <div>
     <h3 style="color: white; margin-bottom: 45px;">Materias</h3>
 </div>
@@ -200,27 +107,27 @@
     <div class="row">
         @if($proceso->etapa>2)
         <div class="col-md-12" style="text-align: center;">
-            <img src="{{url('icons/M1.png')}}" style="width: 25%; height: auto;"><br><br>
+            <img src="{{url('icons/M13.png')}}" style="width: 25%; height: auto;"><br><br>
             <div style="font-size: 50px; text-align: center;">
                 Todos tus documentos y datos fueron aprobados para el paso dos.
             </div>
         </div>
         @elseif($proceso->estatus==1)
-        <div class="col-md-2">
+        <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
         <div class="col-md-10" style="padding-top: 25px; text-align: left;">
             En este apartado seleccionaras las materias que llevaste en tu institucion universitaria previa.
         </div>
         @elseif($proceso->estatus==2)
-        <div class="col-md-2">
+        <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
         <div class="col-md-10" style="padding-top: 25px; text-align: left;">
             Bien hecho todas tus materias se cargaron correctamente, ahora solo procede a asignar la calificación que optuviste en cada materia en el apartado de abajo.
         </div>
         @elseif($proceso->estatus==4)
-        <div class="col-md-2">
+        <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
         <div class="col-md-10" style="padding-top: 25px; text-align: left;">
@@ -431,7 +338,7 @@
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
             <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#agregar_institucion" onclick="document.getElementById('iniciar_materias').click();" id="paso_siguiente" onclick="reinicio_modal_check();">Si estoy seguro</button>
+            <button type="button" class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#agregar_institucion" onclick="document.getElementById('iniciar_materias').click(); reinicio_modal_check();" id="paso_siguiente" >Si estoy seguro</button>
         </div>
     </div>
   </div>
@@ -664,6 +571,99 @@
 @stop
 
 @section('css')
+
+<style type="text/css">
+
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #ababab !important;
+    }
+    input[type="file"]{
+        background: white;
+        outline: none;
+     }
+      ::-webkit-file-upload-button{
+        margin-top: -22px;
+        margin-left: -15px;
+        background-color: #28a745;
+        color: white;
+        height: 35px;
+        border: none;
+        outline: none;
+        font-weight: bolder;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      ::-webkit-file-upload-button:hover{
+       background: #111111;
+
+      }
+    .secciones_body{
+        background-color: #234747;
+        border-radius: 10px; 
+        margin-bottom: 35px; 
+        color: #fff; 
+        text-align: center; 
+        font-size: 20px;
+    }
+    /*este es para el diseño del archivo */
+    .archivo{
+      display: none;
+    }
+
+    .boton_file{
+        font-weight: bold; 
+        font-size: 1.3rem; 
+        color: #8f9ca8; 
+        cursor: pointer;
+        padding-top: 3px;
+    }
+    html{
+        background-color: #193333;
+    }
+
+    .edit_select{
+        color: #fff;
+        background-color: #28a745;
+        border: 1px solid #28a745;
+        font-weight: bold;
+        font-size: 1.3rem;
+        padding-left: 10px;
+        padding-top: 4px;
+    }
+    .input_edit{
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    .select2-selection__rendered {
+      line-height: 31px !important;
+    }
+    .select2-container .select2-selection--single {
+          height: 35px !important;
+    }
+    .select2-selection__arrow {
+          height: 34px !important;
+    }
+    
+    .select2-selection__rendered{
+        margin-top: -5px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        background-color: #28a745 !important;
+        border: 1px solid #28a745 !important;
+        font-weight: bold !important;
+        font-size: 1.3rem !important;
+        padding-left: 10px !important;
+        padding-top: 4px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #fff !important;
+    }
+    .select2-selection__arrow{
+        color: #fff !important;
+    }
+</style>
 
 @stop
 
