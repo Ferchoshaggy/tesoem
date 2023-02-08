@@ -509,6 +509,7 @@ function Carrera_tec(){
               if(carreras==null){
                 console.log("sin carreras, por favor de avisar del problema");
               }else{
+                $("#select_carrera").empty();
                 for (var i = 0; i <carreras.length; i++) {
                     $("#select_carrera").append('<option value="'+carreras[i].id+'">'+carreras[i].nombre+'</option>');
                 }

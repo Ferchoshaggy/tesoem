@@ -76,7 +76,7 @@ public function save_user(Request $request){
             $file_image->move($destinationPath,$foto);
             //$foto="/up_file_participantes_eventos/".$time;
         }else{
-            $foto=$foto_delete->foto;
+            $foto=null;
         }
 
 DB::table('users')->insert([
