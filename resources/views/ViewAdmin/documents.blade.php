@@ -364,8 +364,8 @@ function tomar_id($id_tr){
     document.getElementById('id_user2').value=datosUser.id;
     document.getElementById('id_user3').value=datosUser.id;
 
-document.querySelector('#embH').setAttribute('src',"/documents_h_academico/"+historial.ruta);
-document.querySelector('#embC').setAttribute('src',"/documents_c_pago/"+comprobante.ruta);
+document.querySelector('#embH').setAttribute('src',"{{ url('/documents_h_academico') }}"+"/"+historial.ruta);
+document.querySelector('#embC').setAttribute('src',"{{ url('/documents_c_pago/') }}"+"/"+comprobante.ruta);
 
 if(historial.estatus==3){
     document.getElementById("img-ha").src="{{url('icons/D14.png')}}";
