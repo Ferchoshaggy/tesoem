@@ -29,26 +29,8 @@
 
 <div class="card-body secciones_body2" style=" text-align: left;">
 <div class="table-responsive">
-    <table class="table" style="width: 100%">
-        <thead>
-          <tr>
-            <th style="text-align: center;">Carrera</th>
-            <th style="text-align: center;">Semestre</th>
-            <th style="text-align: center;">Grupo</th>
-            <th style="text-align: center;">Nombre</th>
-            <th style="text-align: center;">Estatus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr onclick="tomar_id()" style="background-color: rgb(49, 146, 238)" data-toggle="modal" data-target="#aprobarDocumento">
-            <td style="text-align: center;">Pica culos</td>
-            <td style="text-align: center;">2</td>
-            <td style="text-align: center;">3s11</td>
-            <td style="text-align: center;">pablito ruiz</td>
-            <td style="text-align: center;">pendiente</td>
-          </tr>
-        </tbody>
-      </table>
+<div id="table-document"></div>
+
 </div>
 
 <!-- Modal Aprobacion documento-->
@@ -63,20 +45,20 @@
 <div class="row">
 
 <div class="col-md-6">
-<img src="{{ url('icons/D1.png') }}"  style="width: 15%; height: auto; margin-right: 20px">
+<img src="{{ url('icons/D1.png') }}"  style="width: 15%; height: auto; margin-right: 20px" id="img-ha">
 Historial academico
 </div>
 
 <div class="col-md-2">
-<button class="btn btn-success btn2">Ver Documento</button>
+<button class="btn btn-success btn2" data-toggle="modal" data-target="#HistorialDoc">Ver Documento</button>
 </div>
 
 <div class="col-md-2">
-<button class="btn btn-success btn2">Aprobar</button>
+<button class="btn btn-success btn2" id="AproHistorial" data-toggle="modal" data-target="#MAprobarHA">Aprobar</button>
 </div>
 
 <div class="col-md-2">
-<button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDoc">Rechazar</button>
+<button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDocH" id="btnRechazarH">Rechazar</button>
 </div>
 
 </div>
@@ -84,20 +66,20 @@ Historial academico
 <div class="row">
 
     <div class="col-md-6">
-    <img src="{{ url('icons/D3.png') }}"  style="width: 15%; height: auto; margin-right: 20px">
+    <img src="{{ url('icons/D3.png') }}"  style="width: 15%; height: auto; margin-right: 20px" id="img-cp">
     Comprobante de pago
     </div>
 
     <div class="col-md-2">
-    <button class="btn btn-success btn2">Ver Documento</button>
+    <button class="btn btn-success btn2" data-toggle="modal" data-target="#ComprobanteDoc">Ver Documento</button>
     </div>
 
     <div class="col-md-2">
-    <button class="btn btn-success btn2">Aprobar</button>
+    <button class="btn btn-success btn2" id="AproComprobante" data-toggle="modal" data-target="#MAprobarCP">Aprobar</button>
     </div>
 
     <div class="col-md-2">
-    <button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDoc">Rechazar</button>
+    <button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDocP" id="btnRechazarP">Rechazar</button>
     </div>
 
     </div>
@@ -105,32 +87,162 @@ Historial academico
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-        <button class="btn" id="aprobarDoc" style="color: white" disabled>Terminar Tramite</button>
+        <button class="btn" id="aprobarDoc" style="color: white" disabled  data-toggle="modal" data-target="#MFinalizando">Terminar Tramite</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal Cancelar-->
-<div class="modal fade" id="CancelarDoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<!-- Modal Cancelar historial-->
+<div class="modal fade" id="CancelarDocH" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="secciones_body3">
 <div class="row">
 <div class="col-md-10">
-<label for="" style="font-size: 25px">Motivos de Rechazo para el archivo</label>
+<label for="" style="font-size: 25px">Motivos de Rechazo para el archivo Historial Academico</label>
 </div>
 <div class="col-md-2">
     <img src="{{ url('icons/D4.png') }}" style="width: 50%; height: 100%;">
 </div>
 </div>
 <br>
-<textarea name="rechazo" id="rechazo" class="form-control" rows="10" style="border-radius: 10px;"></textarea>
+<form id="form-HA-rechazado" action="{{ url("/HArechazado") }}" method="POST">
+    @csrf
+<textarea name="rechazoH" id="rechazoH" class="form-control" rows="10" style="border-radius: 10px;" onkeyup="rechazadoHA();"></textarea>
 <br>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn" style="color: white" id="rechazarDoc" disabled>Rechazar</button>
+            <input type="hidden" name="id_ha" id="id_ha">
+            <input type="hidden" name="id_ha_pa" id="id_ha_pa">
+          <button type="button" class="btn" style="color: white" id="rechazarDocHA" disabled>Rechazar</button>
         </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal Cancelar Comprobante-->
+<div class="modal fade" id="CancelarDocP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="secciones_body3">
+<div class="row">
+<div class="col-md-10">
+<label for="" style="font-size: 25px">Motivos de Rechazo para el archivo Comprobante de pago</label>
+</div>
+<div class="col-md-2">
+    <img src="{{ url('icons/D4.png') }}" style="width: 50%; height: 100%;">
+</div>
+</div>
+<br>
+<form id="form-CP-rechazado" action="{{ url("/CPrechazado") }}" method="POST">
+    @csrf
+<textarea name="rechazoP" id="rechazoP" class="form-control" rows="10" style="border-radius: 10px;" onkeyup="rechazadoCP();"></textarea>
+<br>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id_cp" id="id_cp">
+            <input type="hidden" name="id_cp_pa" id="id_cp_pa">
+          <button type="button" class="btn" style="color: white" id="rechazarDocCP" disabled>Rechazar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Modal historial-->
+<div class="modal fade" id="HistorialDoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="secciones_body3">
+
+<embed id="embH" type="application/pdf" style="width:100%; height: 600px;">
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Comprobante-->
+<div class="modal fade" id="ComprobanteDoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="secciones_body3">
+
+            <embed id="embC" type="application/pdf" style="width:100%; height: 600px;">
+
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal aviso aprobar historial-->
+  <div class="modal fade" id="MAprobarHA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+<label style="font-size: 20px">
+Esta Seguro de aprobar el Historial Academico, esta accion no podra ser cambiada
+</label>
+        </div>
+        <form id="form-HA-aprobar" action="{{ url("/HAaceptado") }}" method="POST">
+            @csrf
+        <div class="modal-footer">
+            <input type="hidden" name="id_ha2" id="id_ha2">
+            <input type="hidden" name="id_user2" id="id_user2">
+        <button type="button" class="btn btn-success" id="btnAprovarHA">Aceptar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal aviso aprobar comprobante-->
+  <div class="modal fade" id="MAprobarCP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+<label style="font-size: 20px">
+Esta Seguro de aprobar el Comprobante de Pago, esta accion no podra ser cambiada
+</label>
+        </div>
+        <form id="form-CP-aprobar" action="{{ url('/CPaceptado') }}" method="POST">
+            @csrf
+        <div class="modal-footer">
+            <input type="hidden" name="id_cp2" id="id_cp2">
+            <input type="hidden" name="id_user3" id="id_user3">
+        <button type="button" class="btn btn-success" id="btnAprovarCP">Aceptar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal final de tramite-->
+  <div class="modal fade" id="MFinalizando" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+<label style="font-size: 20px">
+Esta accion implica que estara aprobando el tramite lo cual dara al alumno de manera automatica acceso al siguiente paso.
+</label>
+        </div>
+        <form id="form-fin-tramite" action="{{ url('/finalizarDoc') }}" method="POST">
+            @csrf
+        <div class="modal-footer">
+            <input type="hidden" name="id_pa_f" id="id_pa_f">
+        <button type="button" class="btn" id="btnFinalizado" style="color: white">Continuar</button>
+        </div>
+    </form>
       </div>
     </div>
   </div>
@@ -191,5 +303,311 @@ Historial academico
 </script>
 <!-- este es para el selected2-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+    //FUNCION PARA MOSTRAR LA TABLA AL ENTRAR A DOCUMENTOS
+    $(document).ready(function() {
+    tableRE();
+});
+
+//FUNCION PARA LA PAGINACION
+$(document).on("click",".pagination li a",function(e){
+e.preventDefault();
+var url=$(this).attr("href");
+
+$.ajax({
+type:'get',
+url:url,
+success: function(carreras,usuarios){
+$('#table-document').empty().html(carreras,usuarios);
+}
+});
+
+});
+
+//FUNCION PARA RECARGAR TABLA
+var tableRE = function(){
+    $.ajax({
+type:'get',
+url:"{{ url('/ADocumentosJax') }}",
+success: function(carreras,usuarios){
+$('#table-document').empty().html(carreras,usuarios);
+}
+ });
+}
+
+//FUNCION PARA BUSCAR DATOS DEL USUARIO A EDITAR
+var id_user=null;
+
+function tomar_id($id_tr){
+    id_user=$id_tr;
+
+    $.ajax({
+    url: "{{url('/search_doc')}}"+'/'+id_user,
+  dataType: "json",
+  //context: document.body
+}).done(function([datosUser,procesos,comprobante,historial]) {
+  if([datosUser==null]){
+    jQuery.noConflict();
+    document.getElementById('id_cp').value=comprobante.id;
+    document.getElementById('id_cp_pa').value=procesos.id;
+
+    document.getElementById('id_ha').value=historial.id;
+    document.getElementById('id_ha_pa').value=procesos.id;
+
+    document.getElementById('id_ha2').value=historial.id;
+    document.getElementById('id_cp2').value=comprobante.id;
+
+    document.getElementById('id_pa_f').value=procesos.id;
+
+    document.getElementById('id_user2').value=datosUser.id;
+    document.getElementById('id_user3').value=datosUser.id;
+
+document.querySelector('#embH').setAttribute('src',"/documents_h_academico/"+historial.ruta);
+document.querySelector('#embC').setAttribute('src',"/documents_c_pago/"+comprobante.ruta);
+
+if(historial.estatus==3){
+    document.getElementById("img-ha").src="{{url('icons/D14.png')}}";
+    document.getElementById("AproHistorial").disabled=true;
+    document.getElementById("btnRechazarH").disabled=true;
+}else if(historial.estatus==5){
+    document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
+    document.getElementById("AproHistorial").disabled=true;
+    document.getElementById("btnRechazarH").disabled=true;
+}
+
+if(comprobante.estatus==3){
+    document.getElementById("img-cp").src="{{url('icons/D12.png')}}";
+    document.getElementById("AproComprobante").disabled=true;
+    document.getElementById("btnRechazarP").disabled=true;
+}else if(comprobante.estatus==5){
+    document.getElementById("img-cp").src="{{url('icons/D8.png')}}";
+    document.getElementById("AproComprobante").disabled=true;
+    document.getElementById("btnRechazarP").disabled=true;
+}
+
+if(comprobante.estatus==5 && historial.estatus==5){
+    document.getElementById("aprobarDoc").disabled=false;
+}else{
+    document.getElementById("aprobarDoc").disabled=true;
+}
+
+if(procesos.estatus==5){
+    document.getElementById("aprobarDoc").disabled=true;
+}
+
+  }else{
+
+  }
+});
+}
+
+function rechazadoCP(){
+    var c=document.getElementById("rechazoP").value;
+if(c){
+    document.getElementById('rechazarDocCP').disabled=false;
+}else{
+    document.getElementById('rechazarDocCP').disabled=true;
+}
+}
+
+function rechazadoHA(){
+var h=document.getElementById("rechazoH").value;
+if(h){
+    document.getElementById('rechazarDocHA').disabled=false;
+}else{
+    document.getElementById('rechazarDocHA').disabled=true;
+}
+}
+
+//ajax cancelar Historial
+
+$(document).ready(function() {
+
+$("#rechazarDocHA").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-HA-rechazado")[0]);
+
+     $.ajax({
+      url:"{{url('/HArechazado')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(Response){
+            jQuery.noConflict();
+            document.getElementById("img-ha").src="{{url('icons/D14.png')}}";
+            document.getElementById("AproHistorial").disabled=true;
+            document.getElementById("btnRechazarH").disabled=true;
+            $('#CancelarDocH').modal('hide');
+            tableRE();
+            $("#form-HA-rechazado")[0].reset();
+        },
+        error:function (Response){
+            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }
+
+    });
+});
+});
+
+//ajax cancelar comprobante
+
+$(document).ready(function() {
+
+$("#rechazarDocCP").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-CP-rechazado")[0]);
+
+     $.ajax({
+      url:"{{url('/CPrechazado')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(Response){
+            jQuery.noConflict();
+            document.getElementById("img-cp").src="{{url('icons/D12.png')}}";
+            document.getElementById("AproComprobante").disabled=true;
+            document.getElementById("btnRechazarP").disabled=true;
+            $('#CancelarDocP').modal('hide');
+            tableRE();
+            $("#form-HA-rechazado")[0].reset();
+        },
+        error:function (Response){
+            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }
+
+    });
+});
+});
+
+//ajax aprobar Historial
+
+$(document).ready(function() {
+
+$("#btnAprovarHA").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-HA-aprobar")[0]);
+
+     $.ajax({
+      url:"{{url('/HAaceptado')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function([comprobante,historial]){
+            jQuery.noConflict();
+            document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
+            document.getElementById("AproHistorial").disabled=true;
+            document.getElementById("btnRechazarH").disabled=true;
+            if(comprobante.estatus==5 && historial.estatus==5){
+    document.getElementById("aprobarDoc").disabled=false;
+}else{
+    document.getElementById("aprobarDoc").disabled=true;
+}
+            $('#MAprobarHA').modal('hide');
+            tableRE();
+            $("#form-HA-aprobar")[0].reset();
+
+
+        },
+        error:function (Response){
+            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }
+
+    });
+});
+});
+
+//ajax aprobar comprobante
+
+$(document).ready(function() {
+
+$("#btnAprovarCP").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-CP-aprobar")[0]);
+
+     $.ajax({
+      url:"{{url('/CPaceptado')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function([comprobante,historial]){
+            jQuery.noConflict();
+            document.getElementById("img-cp").src="{{url('icons/D8.png')}}";
+            document.getElementById("AproComprobante").disabled=true;
+            document.getElementById("btnRechazarP").disabled=true;
+            if(comprobante.estatus==5 && historial.estatus==5){
+    document.getElementById("aprobarDoc").disabled=false;
+}else{
+    document.getElementById("aprobarDoc").disabled=true;
+}
+            $('#MAprobarCP').modal('hide');
+            tableRE();
+            $("#form-CP-aprobar")[0].reset();
+        },
+        error:function (Response){
+            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }
+
+    });
+});
+});
+
+//ajax finalizar tramite
+
+$(document).ready(function() {
+
+$("#btnFinalizado").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-fin-tramite")[0]);
+
+     $.ajax({
+      url:"{{url('/finalizarDoc')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(Response){
+            jQuery.noConflict();
+            $('#MFinalizando').modal('hide');
+            $('#aprobarDocumento').modal('hide');
+            tableRE();
+            $("#form-fin-tramite")[0].reset();
+        },
+        error:function (Response){
+            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }
+
+    });
+});
+});
+
+
+</script>
+
 
 @stop

@@ -81,9 +81,20 @@ Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_h
 
 //documentos Administrador
 Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');
+Route::get('/ADocumentosJax/{page?}',[ADocumentsController::class,'view_documenJax'])->name('Documents_viewJax');
+Route::get('/search_doc/{id}',[ADocumentsController::class,'doc_modal'])->name('search_doc');
+Route::post('/HArechazado',[ADocumentsController::class,'rechazadoHA'])->name('HArechazado');
+Route::post('/CPrechazado',[ADocumentsController::class,'rechazadoCP'])->name('CPrechazado');
+Route::post('/HAaceptado',[ADocumentsController::class,'aceptadoHA'])->name('HAaceptado');
+Route::post('/CPaceptado',[ADocumentsController::class,'aceptadoCP'])->name('CPaceptado');
+Route::post('/finalizarDoc',[ADocumentsController::class,'Docfinalizar'])->name('finalizarDoc');
+
 
 //Catalogo de materias
 Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('materias_view');
+Route::get('/AMateriasJax/{page?}',[AMateriasController::class,'view_materiasJax'])->name('materias_viewJax');
+Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])->name('save_catmaterias');
+
 
 //validaciones
 Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
