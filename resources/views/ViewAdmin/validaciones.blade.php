@@ -250,16 +250,19 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 
+    var materias_admin_c=null;
+
     $(document).ready(function() {
         $.ajax({
-            url:"{{url('/consuta_materias_admin')}}",
+            url:"{{url('/AMaterias_admin')}}",
             type:'GET',
             dataType:'json',
             timeout : 80000,
         }).done(function(materias_admin){
 
             if(materias_admin!=null){
-
+                materias_admin_c=materias_admin;
+                //console.log(materias_admin_c);
             }else{
                 alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando");
             }
@@ -279,8 +282,37 @@
         document.getElementById("ver").href=url;
     }
 
+    function pasar_url_pdf_2(fila) {
+        var url="{{url('/temarios')}}"+"/"+document.getElementById("temario_new_"+fila).value;
+        document.getElementById("embad").src=url;
+        document.getElementById("ver").href=url;
+     } 
+
     function buscar_temario(materia_select){
 
+        for (var i = 0; i < $("select[id='matricula_c_new[]']").length; i++) {
+            if($("select[id='matricula_c_new[]']")[i].dataset.fila==materia_select.dataset.fila){
+                $("select[id='matricula_c_new[]']")[i].value=materia_select.value;
+                //console.log($("select[id='matricula_c_new[]'] option:selected")[i].text);
+
+            }
+        }
+
+        for (var i = 0; i < materias_admin_c.length; i++) {
+            if (materia_select.value==materias_admin_c[i].id){
+                document.getElementById("temario_new_"+materia_select.dataset.fila).value=materias_admin_c[i].temario;
+                document.getElementById("pdf_temario_"+materia_select.dataset.fila).disabled=false;
+                break;
+            }
+        }
+    }
+
+    function cambio_select(select) {
+        for (var i = 0; i < $("select[id='carrera_new[]']").length; i++) {
+            if($("select[id='carrera_new[]']")[i].dataset.fila==select.dataset.fila){
+                $("select[id='carrera_new[]']")[i].value=select.value;
+            }
+        }
     }
 
     function materias_cursadas() {
@@ -323,13 +355,13 @@
                                     $("#"+i+"_s_old").append(
                                         '<div class="row" style="text-align: center;">'+
                                             '<div class="col-xl-5" style="margin-bottom: 10px;">'+
-                                                '<input type="text" name="materia_old" class="form-control input_edit" id="materia_old" value="'+materias_cursadas[0][j].nombre+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();">'+
+                                                '<input type="text" name="materia_old[]" class="form-control input_edit" id="materia_old[]" value="'+materias_cursadas[0][j].nombre+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<input type="text" name="clave_old" class="form-control input_edit" id="clave_old" value="'+materias_cursadas[0][j].matricula+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();">'+
+                                                '<input type="text" name="clave_old[]" class="form-control input_edit" id="clave_old[]" value="'+materias_cursadas[0][j].matricula+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<input type="number" name="calificacion_old" class="form-control input_edit" id="calificacion_old" value="'+materias_cursadas[0][j].calificacion+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();">'+
+                                                '<input type="number" name="calificacion_old[]" class="form-control input_edit" id="calificacion_old[]" value="'+materias_cursadas[0][j].calificacion+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px; text-align: ;">'+
                                                 '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
@@ -349,7 +381,7 @@
                                                 '</select>'+
                                             '</div>'+
                                             '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<select class="form-control edit_select" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" onchange="buscar_temario(this);">'+
+                                                '<select class="form-control edit_select" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" onchange="cambio_select(this);">'+
                                                     '<option value="" disabled selected>.:Claves Mat.:.</option>'+
                                                     '@foreach($materias_new as $materia_new)'+
                                                     '<option value="{{$materia_new->id}}">{{$materia_new->matricula}}</option>'+
@@ -360,11 +392,11 @@
                                                 '<input type="number" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-warning ">Validar</button>'+
+                                                '<button type="button" id="pdf_temario_old" class="btn btn-warning" onclick="ruta_temario('+j+')">Validar</button>'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_old[]" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
-                                                '<input type="hidden" data-fila="'+j+'" id="temario_new[]" name="temario_new[]"></input>'+
+                                                '<button type="button" id="pdf_temario_'+j+'" class="btn btn-primary" onclick="pasar_url_pdf_2('+j+');" data-toggle="modal" data-target="#pdf_visor" disabled>VER</button>'+
+                                                '<input type="hidden" id="temario_new_'+j+'" name="temario_new_'+j+'" style="display: none;" ></input>'+
                                             '</div>'+
                                         '</div>'
                                     );

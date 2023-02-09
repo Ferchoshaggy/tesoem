@@ -99,6 +99,7 @@ Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])
 //validaciones
 Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
 Route::get("/AMaterias_cursadas/{id}",[AValidacionesController::class,'materias_cursadas'])->name('materias_cursadas');
+Route::get("/AMaterias_admin",[AValidacionesController::class,'consuta_materias_admin'])->name('consuta_materias_admin');
 
 //Cuentas
 Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');

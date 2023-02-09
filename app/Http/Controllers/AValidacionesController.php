@@ -39,6 +39,7 @@ class AValidacionesController extends Controller
     }
 
     public function consuta_materias_admin(){
-        
+        $materias_admin=DB::table("materias")->where("id_carrera",Auth::user()->carrera_tesoem)->select('id','matricula','temario')->get();
+        return json_encode($materias_admin);
     }
 }
