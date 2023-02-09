@@ -47,6 +47,30 @@ Route::middleware([
 
 });
 */
+Route::group(['middleware' => ['auth', 'admin']], function () {
+
+    Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');
+});
+
+Route::group(['middleware' => ['auth', 'docente']], function () {
+
+    Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');
+    Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('materias_view');
+    Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
+
+});
+
+Route::group(['middleware' => ['auth', 'alumno']], function () {
+    Route::get('/dashboard', [DocumentsController::class,'view_documents'])->name('view_documents');
+    Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
+    Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
+    Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
+});
+
+
+
+//redirect login
+Route::get('/redirects',[UserConfigController::class,'index'])->name('index_vista');
 
 //url libres para uso fuera del login
 Route::get('/carreras_tesoem', [UrlLibresController::class,'carreras_tesoem'])->name('carreras_tesoem');
@@ -59,12 +83,12 @@ Route::get('/User_config', [UserConfigController::class,'vista_user_edit'])->nam
 Route::post('/Actualizar_user', [UserConfigController::class,'user_actualizar'])->name('user_actualizar');
 
 //documents
-Route::get('/dashboard', [DocumentsController::class,'view_documents'])->name('view_documents');
+
 Route::post('/save_documents', [DocumentsController::class,'save_documents'])->name('save_documents');
 Route::post('/update_documents', [DocumentsController::class,'update_documents'])->name('update_documents');
 
 //materias
-Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
+
 Route::post('/save_form_institucion', [MateriasController::class,'guardar_institucion'])->name('guardar_institucion');
 Route::post('/save_form_carrera', [MateriasController::class,'guardar_carrera'])->name('guardar_carrera');
 Route::get('/consulta_instituciones', [MateriasController::class,'consulta_instituciones'])->name('consulta_instituciones');
@@ -74,13 +98,13 @@ Route::post('/save_materias', [MateriasController::class,'guardar_materias'])->n
 Route::post('/save_calificaciones', [MateriasController::class,'guardar_calificaciones'])->name('guardar_calificaciones');
 
 //formatos
-Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
+
 
 //horario
-Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
+
 
 //documentos Administrador
-Route::get('/ADocumentos',[ADocumentsController::class,'view_documen'])->name('Documents_view');
+
 Route::get('/ADocumentosJax/{page?}',[ADocumentsController::class,'view_documenJax'])->name('Documents_viewJax');
 Route::get('/search_doc/{id}',[ADocumentsController::class,'doc_modal'])->name('search_doc');
 Route::post('/HArechazado',[ADocumentsController::class,'rechazadoHA'])->name('HArechazado');
@@ -91,16 +115,15 @@ Route::post('/finalizarDoc',[ADocumentsController::class,'Docfinalizar'])->name(
 
 
 //Catalogo de materias
-Route::get('/AMaterias',[AMateriasController::class,'view_materias'])->name('materias_view');
+
 Route::get('/AMateriasJax/{page?}',[AMateriasController::class,'view_materiasJax'])->name('materias_viewJax');
 Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])->name('save_catmaterias');
 
 
 //validaciones
-Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
+
 
 //Cuentas
-Route::get('/ACuentas',[ACuentasController::class,'view_cuentas'])->name('cuentas_view');
 Route::get('/ACuentasJax/{page?}',[ACuentasController::class,'view_cuentasJax'])->name('cuentas_viewJax');
 Route::get('/search_user/{id}',[ACuentasController::class,'user_modal'])->name('search_user');
 Route::post('/cambios_user',[ACuentasController::class,'editar_user'])->name('cambios_user');

@@ -13,7 +13,18 @@ class UserConfigController extends Controller
     {
         $this->middleware('auth');
     }
-    
+    public function index(){
+        $role = Auth::user()->tipo_user;
+        $checkrole = explode(',', $role);
+        if (in_array(1, $checkrole)) {
+            return redirect('/ACuentas');
+        }else if(in_array(2, $checkrole)) {
+            return redirect('/ADocumentos');
+        }else if(in_array(3, $checkrole)){
+            return redirect('/dashboard');
+        }
+    }
+
     public function vista_user_edit(){
 
         //echo Auth::user()->id;
@@ -27,7 +38,7 @@ class UserConfigController extends Controller
         $foto_delete=DB::table("users")->where("id",Auth::user()->id)->first();
 
         $time = date("d-m-Y")."-".time();
-        
+
         if($request['foto']!=null){
 
             //eliminar la foto si es que existe
@@ -36,7 +47,7 @@ class UserConfigController extends Controller
                 File::delete($rute_fotos);
             }
             //guardamos la nueva
-            $foto = $time.''.rand(11111,99999).'foto'.$foto_delete->id.".".$request['foto']->getClientOriginalExtension(); 
+            $foto = $time.''.rand(11111,99999).'foto'.$foto_delete->id.".".$request['foto']->getClientOriginalExtension();
             $destinationPath = public_path().'/fotos_users';
             $file_image = $request->file('foto');
             $file_image->move($destinationPath,$foto);
@@ -74,7 +85,7 @@ class UserConfigController extends Controller
                 "email"=>$request['correo'],
                 "foto"=>$foto
             ]);
-            
+
         }
 
         return redirect()->back()->with(['message' => 'Datos Actualizados con Éxito', 'color' => 'warning']);

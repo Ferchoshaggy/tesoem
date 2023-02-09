@@ -157,7 +157,7 @@
         </div>
         <div class="modal-footer">
            <label for="">Para Finalizar presiona el boton de guardar</label>
-          <button class="btn btn-success" id="btnsavemat"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
+          <button class="btn btn-success" id="btnsavemat" disabled><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
         </div>
       </div>
     </form>
@@ -423,18 +423,23 @@ $("#btnsavemat").click(function(e){
         cache: false,
         contentType: false,
         processData: false,
-        success:function(Response){
+        success:function([semestre]){
             jQuery.noConflict();
             $('#agregarMateria').modal('hide');
             document.getElementById("button_file2").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario';
             $('.dinamic-row').remove();
             $("#form-save-materias")[0].reset();
             tableRE();
-            document.getElementById("labelguardado").innerHTML="Las materias fueron correctamente Guardadas para el semestre numero";
+            document.getElementById("labelguardado").innerHTML="Las materias fueron correctamente Guardadas para el semestre numero "+semestre;
             $('#modal-exitoG').modal('show');
 
-        }, error:function (response){
-            alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+        }, error:function ([semestre]){
+            alert("Ocurrio un Problema y no se guardaron tus campos dinamicos solo se guardo la primea fila de campos intentalo de nuevo");
+            $('#agregarMateria').modal('hide');
+            document.getElementById("button_file2").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario';
+            $('.dinamic-row').remove();
+            $("#form-save-materias")[0].reset();
+            tableRE();
         }
 
     });

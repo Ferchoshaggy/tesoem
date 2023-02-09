@@ -320,12 +320,14 @@ return [
             'text' => 'Documentos',
             'url'  => '/dashboard',
             'icon'    => 'nav-icon fas fa-fw fa-thin fa-cloud',
+            'can' => 'alumnos',
         ],
 
         [
             'text' => 'Materias',
             'url'  => '/Materias',
             'icon'    => 'nav-icon fas fa-fw fa-book',
+            'can' => 'alumnos',
             'id' => 'materias',
         ],
 
@@ -333,6 +335,7 @@ return [
             'text' => 'Formatos',
             'url'  => '/Formatos',
             'icon'    => 'nav-icon fas fa-list',
+            'can' => 'alumnos',
             'id' => 'formatos',
         ],
 
@@ -340,6 +343,7 @@ return [
             'text' => 'Horarios',
             'url'  => '/Horarios',
             'icon'    => 'nav-icon fas fa-regular fa-clock',
+            'can' => 'alumnos',
             'id' => 'horarios',
         ],
 
@@ -347,21 +351,25 @@ return [
             'text' => 'Documentos',
             'route'=> 'Documents_view',
             'icon' => 'nav-icon fas fa-cloud-upload-alt',
+            'can' =>  'docentes',
         ],
         [
             'text' => 'Catalogo de Materias',
             'route'=> 'materias_view',
             'icon' => 'nav-icon far fa-file-alt',
+            'can' =>  'docentes',
         ],
         [
             'text' => 'Validaciones',
             'route'=> 'validacion_view',
             'icon' => 'nav-icon far fa-list-alt',
+            'can' => 'docentes',
         ],
         [
             'text' => 'Cuentas',
             'route'=> 'cuentas_view',
             'icon' => 'nav-icon fas fa-users',
+            'can' => 'administrador-docente',
         ],
     ],
 
