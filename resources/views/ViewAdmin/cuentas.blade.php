@@ -217,7 +217,7 @@
         </div>
 
     <div class="col-md-4">
-    <label for="">Cambiar Contraseña</label>
+    <label for="">Contraseña</label>
     <input type="password" class="form-control" id="Contraseña" name="contraseña" onkeyup="validarForm();">
     </div>
 

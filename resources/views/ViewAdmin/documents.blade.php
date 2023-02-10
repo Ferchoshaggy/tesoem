@@ -525,7 +525,7 @@ $("#btnAprovarHA").click(function(e){
 
 
         },
-        error:function (Response){
+        error:function ([comprobante,historial]){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
         }
 
@@ -565,7 +565,7 @@ $("#btnAprovarCP").click(function(e){
             tableRE();
             $("#form-CP-aprobar")[0].reset();
         },
-        error:function (Response){
+        error:function ([comprobante,historial]){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
         }
 
