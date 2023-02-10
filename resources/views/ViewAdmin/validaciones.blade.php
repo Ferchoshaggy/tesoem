@@ -174,7 +174,6 @@
     </div>
   </div>
 </div>
-
 @stop
 
 @section('css')
@@ -276,6 +275,14 @@
         materias_cursadas();
     }
 
+    function cambio_color(input) {
+        if (input.value<=69){
+            input.style.backgroundColor="#FF7663";
+        }else{
+            input.style.backgroundColor="#B1F9D8"; //FFF886
+        }
+    }
+
     function pasar_url_pdf(url_temario) {
         var url="{{url('/temarios')}}"+"/"+url_temario;
         document.getElementById("embad").src=url;
@@ -288,13 +295,81 @@
         document.getElementById("ver").href=url;
      } 
 
+    function activar_check(lavel) {
+
+        for (var i = 0; i < $("input[id='validacion[]']").length; i++) {
+            if($("input[id='validacion[]']")[i].dataset.fila==lavel.dataset.fila){
+                $("input[id='validacion[]']")[i].click();
+                //console.log($("select[id='matricula_c_new[]'] option:selected")[i].text);
+                break;
+            }
+        }
+    }
+
+    function cambio_texto_lavel(check) {
+
+        for (var i = 0; i < $("label[id='label_check[]']").length; i++) {
+            if($("label[id='label_check[]']")[i].dataset.fila==check.dataset.fila){
+                if(check.checked){
+                    check.value="si";
+                    $("label[id='label_check[]']")[i].innerHTML="SI";
+                }else{
+                    $("label[id='label_check[]']")[i].innerHTML="NO";
+                    check.value="no";
+                }
+                break;
+            }
+        }
+    }
+
+    function varificar_porcentaje(input){
+        for (var i = 0; i < $("select[id='matricula_c_new[]']").length; i++) {
+            if($("select[id='matricula_c_new[]']")[i].dataset.fila==input.dataset.fila){
+
+                if(input.value>=80 && $("input[id='calificacion_old[]']")[i].value>=70){
+                    $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
+                    /*
+                    $("input[id='validacion[]']")[i].checked=true;
+                    $("label[id='label_check[]']")[i].innerHTML="SI";
+                    */
+                }
+                if(input.value<80){
+                    $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#FF7663";
+                    /*
+                    $("input[id='validacion[]']")[i].checked=false;
+                    $("label[id='label_check[]']")[i].innerHTML="NO";
+                    */
+                }
+                break;
+            }
+        }
+    }
+
     function buscar_temario(materia_select){
 
+        //al otro select tambien seleccionamos el campo
         for (var i = 0; i < $("select[id='matricula_c_new[]']").length; i++) {
             if($("select[id='matricula_c_new[]']")[i].dataset.fila==materia_select.dataset.fila){
                 $("select[id='matricula_c_new[]']")[i].value=materia_select.value;
                 //console.log($("select[id='matricula_c_new[]'] option:selected")[i].text);
 
+                //esta es para verificar si las claves son iguales
+                if($("input[id='clave_old[]']")[i].value==$("select[id='matricula_c_new[]'] option:selected")[i].text){
+                    console.log("si");
+                    $("input[id='valor[]']")[i].value=100;
+                    $("input[id='validacion[]']")[i].checked=true;
+                    $("label[id='label_check[]']")[i].innerHTML="SI";
+                    $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
+                    if ($("input[id='calificacion_old[]']")[i].value<70){
+                        $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#FFF886";
+                    }
+                }else{
+                    $("input[id='valor[]']")[i].value=0;
+                    $("input[id='validacion[]']")[i].checked=false;
+                    $("label[id='label_check[]']")[i].innerHTML="NO";
+                    $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#FF7663";
+                }
+                break;
             }
         }
 
@@ -311,8 +386,41 @@
         for (var i = 0; i < $("select[id='carrera_new[]']").length; i++) {
             if($("select[id='carrera_new[]']")[i].dataset.fila==select.dataset.fila){
                 $("select[id='carrera_new[]']")[i].value=select.value;
+                break;
             }
         }
+
+        //cpmparamos claves si son iguales
+        for (var i = 0; i < $("input[id='clave_old[]']").length; i++) {
+            if($("input[id='clave_old[]']")[i].dataset.fila==select.dataset.fila){
+                if($("input[id='clave_old[]']")[i].value==select.options[select.selectedIndex].text){
+                    console.log("si");
+                    $("input[id='valor[]']")[i].value=100;
+                    $("input[id='validacion[]']")[i].checked=true;
+                    $("label[id='label_check[]']")[i].innerHTML="SI";
+                    select.style.backgroundColor="#B1F9D8";
+                    if ($("input[id='calificacion_old[]']")[i].value<70){
+                        select.style.backgroundColor="#FFF886";
+                    }
+                }else{
+                    $("input[id='valor[]']")[i].value=0;
+                    $("input[id='validacion[]']")[i].checked=false;
+                    $("label[id='label_check[]']")[i].innerHTML="NO";
+                    select.style.backgroundColor="#FF7663";
+                }
+                break;
+            }
+        }
+
+        for (var i = 0; i < materias_admin_c.length; i++) {
+            if (select.value==materias_admin_c[i].id){
+                document.getElementById("temario_new_"+select.dataset.fila).value=materias_admin_c[i].temario;
+                document.getElementById("pdf_temario_"+select.dataset.fila).disabled=false;
+                break;
+            }
+        }
+
+
     }
 
     function materias_cursadas() {
@@ -324,8 +432,8 @@
 
             if(materias_cursadas!=null){
                 console.log(materias_cursadas);
-
-
+                $("#div_principal_1").empty();
+                $("#div_principal_2").empty();
                 if (materias_cursadas[1].tipo_proceso==1){
 
                     for (var i = 1; i <= materias_cursadas[1].semestre; i++) {
@@ -352,19 +460,27 @@
 
                                 if(materias_cursadas[0][j].semestre==i){
 
+                                    if(materias_cursadas[0][j].calificacion<=69){
+                                        var color="#FF7663";
+
+                                    }else{
+                                        var color="#B1F9D8";
+                                        
+                                    }
+
                                     $("#"+i+"_s_old").append(
                                         '<div class="row" style="text-align: center;">'+
                                             '<div class="col-xl-5" style="margin-bottom: 10px;">'+
-                                                '<input type="text" name="materia_old[]" class="form-control input_edit" id="materia_old[]" value="'+materias_cursadas[0][j].nombre+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
+                                                '<input type="text" name="materia_old[]" class="form-control input_edit" id="materia_old[]" value="'+materias_cursadas[0][j].nombre+'"  onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<input type="text" name="clave_old[]" class="form-control input_edit" id="clave_old[]" value="'+materias_cursadas[0][j].matricula+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
+                                                '<input type="text" name="clave_old[]" class="form-control input_edit" id="clave_old[]" value="'+materias_cursadas[0][j].matricula+'" onkeyup="this.value = this.value.toUpperCase(); " onchange="this.value = this.value.toUpperCase(); " data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<input type="number" name="calificacion_old[]" class="form-control input_edit" id="calificacion_old[]" value="'+materias_cursadas[0][j].calificacion+'"  onkeyup="this.value = this.value.toUpperCase(); inputs_empy();" onchange="this.value = this.value.toUpperCase(); inputs_empy();" data-fila="'+j+'">'+
+                                                '<input type="number" name="calificacion_old[]" class="form-control input_edit" id="calificacion_old[]" value="'+materias_cursadas[0][j].calificacion+'"  onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase(); cambio_color(this);" data-fila="'+j+'" style="background-color: '+color+';" min="0">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px; text-align: ;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor">VER</button>'+
+                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor" title="VER TEMARIO">VER</button>'+
                                             '</div>'+
                                         '</div>'
                                     );
@@ -372,30 +488,27 @@
 
                                     $("#"+i+"_s_new").append(
                                         '<div class="row" style="text-align: center;">'+
-                                            '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<select class="form-control edit_select" id="carrera_new[]" name="carrera_new[]" data-fila="'+j+'" onchange="buscar_temario(this);">'+
-                                                    '<option value="" disabled selected>.:Materias:.</option>'+
+                                            '<div class="col-xl-4" style="margin-bottom: 10px;">'+
+                                                '<select class="form-control edit_select" id="carrera_new[]" name="carrera_new[]" data-fila="'+j+'" onchange="buscar_temario(this);" title="MATERIA">'+
+                                                    '<option value="" disabled selected style="background-color: #fff;">.:Materias:.</option>'+
                                                     '@foreach($materias_new as $materia_new)'+
-                                                    '<option value="{{$materia_new->id}}">{{$materia_new->nombre}}</option>'+
+                                                    '<option value="{{$materia_new->id}}" style="background-color: #fff;">{{$materia_new->nombre}}</option>'+
                                                     '@endforeach'+
                                                 '</select>'+
                                             '</div>'+
-                                            '<div class="col-xl-3" style="margin-bottom: 10px;">'+
-                                                '<select class="form-control edit_select" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" onchange="cambio_select(this);">'+
-                                                    '<option value="" disabled selected>.:Claves Mat.:.</option>'+
+                                            '<div class="col-xl-4" style="margin-bottom: 10px;">'+
+                                                '<select class="form-control edit_select" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" onchange="cambio_select(this);" title="CALVE DE LA MATERIA">'+
+                                                    '<option value="" disabled selected style="background-color: #fff;">.:Claves Mat.:.</option>'+
                                                     '@foreach($materias_new as $materia_new)'+
-                                                    '<option value="{{$materia_new->id}}">{{$materia_new->matricula}}</option>'+
+                                                    '<option value="{{$materia_new->id}}" style="background-color: #fff;">{{$materia_new->matricula}}</option>'+
                                                     '@endforeach'+
                                                 '</select>'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<input type="number" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%">'+
+                                                '<input type="number" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%" onchange="varificar_porcentaje(this);" title="% DE SIMILITUD" data-fila="'+j+'">'+
                                             '</div>'+
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_old" class="btn btn-warning" onclick="ruta_temario('+j+')">Validar</button>'+
-                                            '</div>'+
-                                            '<div class="col-xl-2" style="margin-bottom: 10px;">'+
-                                                '<button type="button" id="pdf_temario_'+j+'" class="btn btn-primary" onclick="pasar_url_pdf_2('+j+');" data-toggle="modal" data-target="#pdf_visor" disabled>VER</button>'+
+                                                '<button type="button" id="pdf_temario_'+j+'" class="btn btn-primary" onclick="pasar_url_pdf_2('+j+');" data-toggle="modal" data-target="#pdf_visor" disabled title="VER TEMARIO">VER</button>'+
                                                 '<input type="hidden" id="temario_new_'+j+'" name="temario_new_'+j+'" style="display: none;" ></input>'+
                                             '</div>'+
                                         '</div>'
