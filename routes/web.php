@@ -118,7 +118,8 @@ Route::post('/finalizarDoc',[ADocumentsController::class,'Docfinalizar'])->name(
 
 Route::get('/AMateriasJax/{page?}',[AMateriasController::class,'view_materiasJax'])->name('materias_viewJax');
 Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])->name('save_catmaterias');
-
+Route::get('/search_mate/{id}',[AMateriasController::class,'materia_search'])->name('search_mate');
+Route::post('/delete_materia',[AMateriasController::class,'materia_eliminar'])->name('delete_materia');
 
 //validaciones
 

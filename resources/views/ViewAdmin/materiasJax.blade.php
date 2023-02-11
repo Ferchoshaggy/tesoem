@@ -9,7 +9,7 @@
     </thead>
     <tbody>
 @foreach ($materias as $materia)
-      <tr>
+      <tr onclick="tomar_id({{ $materia->id }})">
         <td style="text-align: center;">{{ $materia->semestre }}</td>
         <td style="text-align: center;">{{ $materia->nombre }}</td>
         <td style="text-align: center;">{{ $materia->matricula }}</td>

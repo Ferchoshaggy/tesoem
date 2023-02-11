@@ -15,58 +15,6 @@
 @section('content')
 
 
-@if(Session::get('tipo')== "error")
-    <div class="alert alert-{{ Session::get('color') }}" role="alert" style="font-weight: bold;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-server" viewBox="0 0 16 16">
-          <path d="M1.333 2.667C1.333 1.194 4.318 0 8 0s6.667 1.194 6.667 2.667V4c0 1.473-2.985 2.667-6.667 2.667S1.333 5.473 1.333 4V2.667z"/>
-          <path d="M1.333 6.334v3C1.333 10.805 4.318 12 8 12s6.667-1.194 6.667-2.667V6.334a6.51 6.51 0 0 1-1.458.79C11.81 7.684 9.967 8 8 8c-1.966 0-3.809-.317-5.208-.876a6.508 6.508 0 0 1-1.458-.79z"/>
-          <path d="M14.667 11.668a6.51 6.51 0 0 1-1.458.789c-1.4.56-3.242.876-5.21.876-1.966 0-3.809-.316-5.208-.876a6.51 6.51 0 0 1-1.458-.79v1.666C1.333 14.806 4.318 16 8 16s6.667-1.194 6.667-2.667v-1.665z"/>
-        </svg> &nbsp;&nbsp;&nbsp;
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
-                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </button>
-        {{ Session::get('message') }}
-
-    </div>
-@endif
-
-@if(Session::get('tipo')== "pdf_null")
-    <div class="alert alert-{{ Session::get('color') }}" role="alert" style="font-weight: bold; margin-bottom: 45px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-          <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-        </svg> &nbsp;&nbsp;&nbsp;
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
-                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </button>
-        {{ Session::get('message') }}
-
-    </div>
-@endif
-
-@if(Session::get('tipo')== "falta")
-    <div class="alert alert-{{ Session::get('color') }}" role="alert" style="font-weight: bold; margin-bottom: 45px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
-          <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
-        </svg> &nbsp;&nbsp;&nbsp;
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
-                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </button>
-        {{ Session::get('message') }}
-
-    </div>
-@endif
-
-
 <div class="card-body secciones_body">
     <div class="row">
         <div class="col-md-10">
@@ -84,7 +32,6 @@
 <div class="table-responsive">
 <div id="table-materias"></div>
 
-
 </div>
 
 <!-- Modal agregar materia-->
@@ -92,6 +39,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h3>Agregar Materias</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
                   <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
@@ -104,8 +52,7 @@
         <div class="secciones_body3">
           <div class="row">
 <div class="col-md-10">
-<label for="" style="font-size: 25px">Agregar Materias</label>
-<p style="font-size: 15px">A continuacion agregaras el semestre y las materias que corresponden a este Junto con su clave y creditos de la misma. El boton con el signo "+"
+<p style="font-size: 18px">A continuacion agregaras el semestre y las materias que corresponden a este Junto con su clave y creditos de la misma. El boton con el signo "+"
    te permite agregar una materia, agrega solo las que contiene el semestre, si agregas de mas, el boton con el signo "-" la eliminara.
 </p>
 </div>
@@ -120,7 +67,7 @@
 <label for="SEMESTRE">Semestre Numero</label>
 </div>
 <div class="col-md-2">
-    <input type="number" id="semestre" class="form-control" name="semestre" min="1" pattern="^[0-9]+">
+    <input type="number" id="semestre" class="form-control" name="semestre" min="1" pattern="^[0-9]+" onkeyup="valMate();">
 </div>
 
 </div>
@@ -129,20 +76,20 @@
 <div class="row">
 <div class="col-md-3">
 <label for="Materias">Materias</label>
-<input type="text" class="form-control" id="materias" name="materias" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();">
+<input type="text" class="form-control" id="materias" name="materias" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();" onkeyup="valMate();">
 </div>
 <div class="col-md-3">
 <label for="" style="visibility: hidden">--</label>
-<input type="text" class="form-control" id="clave" name="clave" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();">
+<input type="text" class="form-control" id="clave" name="clave" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();" onkeyup="valMate();">
 </div>
 <div class="col-md-2">
 <label for="" style="visibility: hidden">--</label>
-<input type="number" class="form-control" name="creditos" id="creditos" placeholder="CREDITOS">
+<input type="number" class="form-control" name="creditos" id="creditos" placeholder="CREDITOS" onkeyup="valMate();">
 </div>
 <div class="col-md-3">
 <label for="" style="visibility: hidden">--</label>
 
-<input type="file" name="temario" id="foto_archivo2" class="form-control input_edit archivo" onchange="cambio_foto(this);">
+<input type="file" name="temario" id="foto_archivo2" class="form-control input_edit archivo" onchange="cambio_foto(this); valMate();">
 <label id="button_file2" for="foto_archivo2" class="form-control boton_file" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario</label>
 
 </div>
@@ -181,6 +128,183 @@
       </div>
     </div>
   </div>
+
+    <!--menu de opciones de la tabla-->
+    <div id="menu_opciones" class="visible_off " style=" padding: 15px; background-color: #193333;">
+
+        <button type="button" class="close" style="margin-right: -5px; margin-top: -15px; margin-bottom: 10px" onclick="cerrar_menu();">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+        </button>
+
+        <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_materia" onclick="materia_edit();">
+            Editar
+          </button>
+          <br>
+        <button class="btn" style="color:white" data-toggle="modal" data-target="#eliminar_materia" onclick="materia_delete();">
+            Eliminar
+          </button>
+          <br>
+        <button class="btn" style="color:white" data-toggle="modal" data-target="#aginar_materia">
+           Asignar grupo/horario
+          </button>
+          <br>
+          <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_asignar">
+           Editar grupo/horario
+          </button>
+        </div>
+
+<!-- Modal Editar materia-->
+<div class="modal fade" id="editar_materia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h3>Editar Materia</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="secciones_body3">
+            <div class="row">
+                <div class="col-md-10">
+                <p style="font-size: 20px">A continuacion Editaras el semestre y las materias que corresponden a este Junto con su clave y creditos de la misma.
+                </p>
+                </div>
+                <div class="col-md-2">
+                    <center><img src="{{ url('icons/M1.png') }}" alt="" style="width: 70%; height: auto;"></center>
+                </div>
+                          </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                <label for="SEMESTRE">Semestre Numero</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="semestre2" class="form-control" name="semestre" min="1" pattern="^[0-9]+">
+                </div>
+
+                </div>
+                <br>
+
+                <div class="row">
+                <div class="col-md-3">
+                <label for="Materias">Materias</label>
+                <input type="text" class="form-control" id="materias2" name="materias" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();" >
+                </div>
+                <div class="col-md-3">
+                <label for="" style="visibility: hidden">--</label>
+                <input type="text" class="form-control" id="clave2" name="clave" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();">
+                </div>
+                <div class="col-md-2">
+                <label for="" style="visibility: hidden">--</label>
+                <input type="number" class="form-control" name="creditos" id="creditos2" placeholder="CREDITOS">
+                </div>
+                <div class="col-md-3">
+                <label for="" style="visibility: hidden">--</label>
+
+                <input type="file" name="temario" id="foto_archivo22" class="form-control input_edit archivo" onchange="editar_archivo(this)"; >
+                <label id="button_file22" for="foto_archivo22" class="form-control boton_file" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario</label>
+
+                </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id_updatemat" id="id_updatemat">
+            <label for="">Para Finalizar presiona el boton de Editar</label>
+            <button class="btn btn-success" id="btneditmat2" disabled><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Modal Eliminar materia-->
+<div class="modal fade" id="eliminar_materia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h3>Eliminar Materia</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="secciones_body3">
+          <div style="text-align: center; font-size: 25px">
+          <label>Estas seguro de Eliminar la materia</label><br>
+          <label for="" id="labelconfma"></label><br>
+          <label for="" id="labelclavee"></label><br>
+          <label for="" style="color:red">Esta accion no es reversible</label>
+           </div>
+        </div>
+        <div class="modal-footer">
+        <form id="form-delete-mate" action="{{ url('/delete_materia') }}" method="POST">
+            @csrf
+            <input type="hidden" name="id_matDELE" id="id_matDELE">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="btndelemate">Continuar</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Moda asignar horario materia-->
+<div class="modal fade" id="aginar_materia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h3>Asignar Horario a Materia</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="secciones_body3">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal editar asignacion materia-->
+<div class="modal fade" id="editar_asignar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h3>Editar Asiginacion de horario a Materia</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="secciones_body3">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 </div>
@@ -252,6 +376,20 @@
         cursor: pointer;
         padding-top: 3px;
     }
+    .visible_on{
+        display: block;
+        position: fixed;
+        background: white;
+        border-radius: 15px;
+        width: auto;
+    }
+    .visible_off{
+        display: none;
+    }
+    .paginate_button{
+    position:sticky;
+}
+
 </style>
 @stop
 
@@ -361,6 +499,26 @@ function cambio_foto(file){
     }
   }
 
+  //agregar temario PDF
+
+function editar_archivo(file){
+    var url_img=null;
+    if (file.files[0]!=null){
+        if(file.value.split('.').pop()=="pdf"){
+          document.getElementById("button_file22").innerHTML=file.value;
+        }else{
+
+            document.getElementById("button_file22").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario';
+            alert("EL ARCHIVO NO ES ACEPTADO");
+            file.value=null;
+
+        }
+    }else{
+        document.getElementById("button_file22").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario';
+        file.value=null;
+    }
+  }
+
 //funcion para input file dinamico
 
 function temario_edit($fila_file){
@@ -434,6 +592,7 @@ $("#btnsavemat").click(function(e){
             $('#modal-exitoG').modal('show');
 
         }, error:function ([semestre]){
+            jQuery.noConflict();
             alert("Ocurrio un Problema y no se guardaron tus campos dinamicos solo se guardo la primea fila de campos intentalo de nuevo");
             $('#agregarMateria').modal('hide');
             document.getElementById("button_file2").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario';
@@ -450,6 +609,129 @@ $("#btnsavemat").click(function(e){
 $(".alert").fadeTo(2000, 500).slideUp(500, function(){
     $(".alert").slideUp(500);
 });
+
+//funcion para validar primeros datos
+function valMate(){
+    let semnue=document.getElementById("semestre").value;
+    let mate=document.getElementById("materias").value;
+    let cla=document.getElementById("clave").value;
+    let cred=document.getElementById("creditos").value;
+    let tema=document.getElementById("foto_archivo2").value;
+
+if(semnue && mate && cla && cred && tema){
+    document.getElementById('btnsavemat').disabled=false;
+}else{
+    document.getElementById('btnsavemat').disabled=true;
+}
+
+}
+
+//funcione para mostrar cuadro de opciones
+
+var id_mate=null;
+    function tomar_id($id_tr) {
+        id_mate=$id_tr;
+        var coordenadas_y=event.clientY; //odtenemos el valor de la posicion del boton
+        var coordenadas_x=event.clientX; //odtenemos el valor de la posicion del boton
+        menu_opciones.style.top=coordenadas_y-15+"px";
+        menu_opciones.style.left=coordenadas_x-15+"px";
+        menu_opciones.classList.add("visible_on");
+        menu_opciones.classList.remove("visible_off");
+      //alert($id_tr);
+    }
+    menu_opciones.addEventListener("mouseleave",function(){
+          menu_opciones.classList.remove("visible_on");
+          menu_opciones.classList.add("visible_off");
+    });
+    function cerrar_menu(){
+        menu_opciones.classList.remove("visible_on");
+        menu_opciones.classList.add("visible_off");
+    }
+
+//funciones eliminar la materia
+
+function materia_delete(){
+
+    $.ajax({
+  url: "{{url('/search_mate')}}"+'/'+id_mate,
+  dataType: "json",
+  //context: document.body
+}).done(function(materia) {
+  if(materia==null){
+document.getElementById('labelconfma').innerHTML=null;
+document.getElementById('labelclavee').innerHTML=null;
+document.getElementById('id_matDELE').value=null;
+
+  }else{
+document.getElementById('labelconfma').innerHTML=materia.nombre;
+document.getElementById('labelclavee').innerHTML="con la matricula: "+materia.matricula;
+document.getElementById('id_matDELE').value=materia.id;
+  }
+});
+}
+
+//ajax para eliminar materias
+$(document).ready(function() {
+
+$("#btndelemate").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-delete-mate")[0]);
+
+     $.ajax({
+        url:"{{url('/delete_materia')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(response){
+            jQuery.noConflict();
+            $('#eliminar_materia').modal('hide');
+            $("#form-delete-mate")[0].reset();
+            tableRE();
+
+        }, error:function (response){
+            jQuery.noConflict();
+            $('#eliminar_materia').modal('hide');
+            alert("Ocurrio un Problema y no se elimino intentalo de nuevo");
+
+        }
+    });
+});
+});
+
+function materia_edit(){
+
+    $.ajax({
+  url: "{{url('/search_mate')}}"+'/'+id_mate,
+  dataType: "json",
+  //context: document.body
+}).done(function(materia) {
+  if(materia==null){
+document.getElementById('semestre2').value=null;
+document.getElementById('materias2').value=null;
+document.getElementById('clave2').value=null;
+document.getElementById('creditos2').value=null;
+document.getElementById('id_updatemat').value=null;
+
+  }else{
+document.getElementById('semestre2').value=materia.semestre;
+document.getElementById('materias2').value=materia.nombre;
+document.getElementById('clave2').value=materia.matricula;
+document.getElementById('creditos2').value=materia.creditos;
+document.getElementById('id_updatemat').value=materia.id;
+document.getElementById('button_file22').innerHTML=materia.temario;
+
+  }
+});
+
+}
+
+
+
 </script>
 
 @stop

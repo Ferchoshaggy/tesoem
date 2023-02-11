@@ -94,8 +94,17 @@ if (isset($request["temarioD"])) {
         }
     }
 
+public function materia_search($id){
+    $materia=DB::table('materias')->where('id',$id)->first();
+    return json_encode($materia);
+}
 
+public function materia_eliminar(Request $request){
+    if($request->ajax()){
 
-
+DB::table('materias')->where('id',$request["id_matDELE"])->delete();
+return response()->json([]);
+    }
+}
 
 }
