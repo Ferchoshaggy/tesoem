@@ -824,6 +824,10 @@
 
     function envio_form_institucion(){
 
+        document.getElementById("texto_exito").style.display="none";
+        document.getElementById("check_off").style.display="none";
+        document.getElementById("carga_espera").style.display="block";
+
         var dataString =new FormData($("#institucion_carrera_form")[0]);
         $.ajax({
             url:"{{url('/save_form_institucion')}}",
@@ -842,6 +846,7 @@
                 instituciones_recarga();
             }else{
                 alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando");
+                document.getElementById("check_off").style.display="block";
             }
         });
     }
@@ -849,6 +854,10 @@
 
 //estas funciones son para el modal tres, que es para agregar una carrera
     function envio_form_carrera(){
+
+        document.getElementById("texto_exito").style.display="none";
+        document.getElementById("check_off").style.display="none";
+        document.getElementById("carga_espera").style.display="block";
 
         var dataString =new FormData($("#carrera_form")[0]);
         $.ajax({
@@ -869,6 +878,7 @@
                 document.getElementById('carrera_form').reset();
             }else{
                 alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando");
+                document.getElementById("check_off").style.display="block";
             }
         });
     }
