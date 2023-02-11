@@ -76,11 +76,11 @@
 <div class="row">
 <div class="col-md-3">
 <label for="Materias">Materias</label>
-<input type="text" class="form-control" id="materias" name="materias" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();" onkeyup="valMate();">
+<input type="text" class="form-control" id="materias" name="materias" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase(); valMate();">
 </div>
 <div class="col-md-3">
 <label for="" style="visibility: hidden">--</label>
-<input type="text" class="form-control" id="clave" name="clave" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();" onkeyup="valMate();">
+<input type="text" class="form-control" id="clave" name="clave" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase(); valMate();">
 </div>
 <div class="col-md-2">
 <label for="" style="visibility: hidden">--</label>
