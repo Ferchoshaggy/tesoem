@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use File;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -31,7 +32,7 @@ class AMateriasController extends Controller
         if($request['temario']!=null){
 
             //guardamos la nueva
-            $archivo = $time.''.rand(11111,99999).'temario'.".".$request['temario'].".pdf";
+            $archivo = $time.''.rand(11111,99999).'temario'.".".$request['temario']->getClientOriginalExtension();
             $destinationPath = public_path().'/temarios';
             $file_save = $request['temario'];
             $file_save->move($destinationPath,$archivo);
@@ -60,7 +61,7 @@ if (isset($request["temarioD"])) {
 
                                 if($request['temarioD'][$j]->getClientOriginalExtension()=="pdf"){
 
-                                    $temario = rand(11111,99999)."temario_".$request['materiasD'][$j].".pdf";
+                                    $temario = rand(11111,99999)."temario_".$request['materiasD'][$j]->getClientOriginalExtension();
                                     $destinationPath = public_path().'/temarios';
                                     $file_save = $request['temarioD'][$j];
                                     $file_save->move($destinationPath,$temario);
@@ -106,5 +107,86 @@ DB::table('materias')->where('id',$request["id_matDELE"])->delete();
 return response()->json([]);
     }
 }
+
+
+public function update_materia(Request $request){
+    if($request->ajax()){
+
+$temario_delete=DB::table('materias')->where('id',$request["id_updatemat"])->first();
+
+$time = date("d-m-Y")."-".time();
+
+if($request['temario']!=null){
+
+    //eliminar el temario existente
+    if($temario_delete->temario!=null){
+        $rute_temario=public_path().'\temarios\\'.$temario_delete->temario;
+        File::delete( $rute_temario);
+    }
+    //guardamos el nuevo temario
+    $temario = $time.''.rand(11111,99999).'temario'.".".$request['temario']->getClientOriginalExtension();
+    $destinationPath = public_path().'/temarios';
+    $file_save = $request->file('temario');
+    $file_save->move($destinationPath,$temario);
+
+}else{
+    $temario=$temario_delete->temario;
+}
+
+
+DB::table('materias')->where('id',$request["id_updatemat"])->update([
+   'semestre'=>$request["semestre"],
+   'nombre'=>$request["materias"],
+   'matricula'=>$request["clave"],
+   'temario'=>$temario,
+   'creditos'=>$request["creditos"],
+   'fecha'=>date("Y-m-d"),
+]);
+
+
+return response()->json([]);
+    }
+}
+
+public function materia_asignar(Request $request){
+    if($request->ajax()){
+
+DB::table('horarios')->insert([
+
+'id_materia'=>$request["id_asigmate"],
+'grupo'=>$request["grupo"],
+'hora_inicio'=>$request["hora_ini"],
+'hora_fin'=>$request["hora_fin"],
+'dia'=>$request["dia"],
+
+]);
+
+if (isset($request["grupoD"])) {
+    for($i=0;$i<count($request['grupoD']);$i++){
+
+        try {
+
+            DB::table('horarios')->insert([
+
+                'id_materia'=>$request["id_asigmate"],
+                'grupo'=>$request["grupoD"][$i],
+                'hora_inicio'=>$request["hora_iniD"][$i],
+                'hora_fin'=>$request["hora_finD"][$i],
+                'dia'=>$request["diaD"][$i],
+
+                ]);
+
+
+        } catch (\Exception $e) {
+return json_encode([]);
+        }
+
+}}
+
+return response()->json([]);
+    }
+}
+
+
 
 }

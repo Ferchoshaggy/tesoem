@@ -120,6 +120,8 @@ Route::get('/AMateriasJax/{page?}',[AMateriasController::class,'view_materiasJax
 Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])->name('save_catmaterias');
 Route::get('/search_mate/{id}',[AMateriasController::class,'materia_search'])->name('search_mate');
 Route::post('/delete_materia',[AMateriasController::class,'materia_eliminar'])->name('delete_materia');
+Route::post('/update_materia',[AMateriasController::class,'update_materia'])->name('update_materia');
+Route::post('/asignar_materia',[AMateriasController::class,'materia_asignar'])->name('asignar_materia');
 
 //validaciones
 

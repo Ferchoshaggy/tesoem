@@ -60,8 +60,8 @@
     <center><img src="{{ url('icons/M1.png') }}" alt="" style="width: 70%; height: auto;"></center>
 </div>
           </div>
-
-
+<hr style="background-color: white">
+<br>
 <div class="row">
     <div class="col-md-2">
 <label for="SEMESTRE">Semestre Numero</label>
@@ -147,7 +147,7 @@
             Eliminar
           </button>
           <br>
-        <button class="btn" style="color:white" data-toggle="modal" data-target="#aginar_materia">
+        <button class="btn" style="color:white" data-toggle="modal" data-target="#aginar_materia" onclick="materia_asignar();">
            Asignar grupo/horario
           </button>
           <br>
@@ -169,6 +169,8 @@
                 </svg>
             </button>
         </div>
+        <form id="form-update-materia" action="{{ url('/update_materia') }}" method="POST" enctype="multipart/form-data">
+            @csrf
         <div class="secciones_body3">
             <div class="row">
                 <div class="col-md-10">
@@ -178,8 +180,9 @@
                 <div class="col-md-2">
                     <center><img src="{{ url('icons/M1.png') }}" alt="" style="width: 70%; height: auto;"></center>
                 </div>
-                          </div>
-
+            </div>
+            <hr style="background-color: white">
+<br>
 
                 <div class="row">
                     <div class="col-md-2">
@@ -188,7 +191,6 @@
                 <div class="col-md-2">
                     <input type="number" id="semestre2" class="form-control" name="semestre" min="1" pattern="^[0-9]+">
                 </div>
-
                 </div>
                 <br>
 
@@ -217,9 +219,10 @@
         <div class="modal-footer">
             <input type="hidden" name="id_updatemat" id="id_updatemat">
             <label for="">Para Finalizar presiona el boton de Editar</label>
-            <button class="btn btn-success" id="btneditmat2" disabled><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
+            <button class="btn btn-success" id="btneditmat2"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
         </div>
       </div>
+    </form>
     </div>
   </div>
 
@@ -270,14 +273,90 @@
                 </svg>
             </button>
         </div>
+        <form id="form_asignar_mate" action="{{ url('/asignar_materia') }}" method="POST">
+            @csrf
         <div class="secciones_body3">
-          ...
+            <div class="row">
+                <div class="col-md-10">
+                <p style="font-size: 20px">A continuacion asignaras los horarios a la materia seleccionada.
+                    El boton con el signo "+" te permite agregar una materia, agrega solo las que contiene el semestre, si agregas de mas, el boton con el signo "-" la eliminara.
+                 </p>
+                </p>
+                </div>
+                <div class="col-md-2">
+                    <center><img src="{{ url('icons/M1.png') }}" alt="" style="width: 70%; height: auto;"></center>
+                </div>
+            </div>
+            <hr style="background-color: white">
+<br>
+
+<div class="row">
+
+<div class="col-md-6">
+<label>Materia</label>
+<input type="text" id="asigmatM" class="form-control" style="background: gray; border: gray; color: black;font-family: Georgia, serif" disabled>
+</div>
+
+<div class="col-md-3">
+    <label>Clave</label>
+    <input type="text" id="asigmatC" class="form-control" disabled style="background: gray; border: gray; color: black;font-family: Georgia, serif">
+</div>
+
+<div class="col-md-3">
+    <label>Creditos</label>
+    <input type="number" id="asigmatCR" class="form-control" disabled style="background: gray; border: gray; color: black;font-family: Georgia, serif">
+</div>
+
+</div>
+
+<div class="row" style="margin-top: 20px">
+
+<div class="col-md-3">
+<label>Grupo</label>
+<input type="text" class="form-control" name="grupo">
+</div>
+
+<div class="col-md-2">
+<label>Horarios de:</label>
+<input type="time" name="hora_ini" class="form-control">
+</div>
+
+<div class="col-md-2">
+<label>A:</label>
+<input type="time" name="hora_fin" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Dia</label>
+<select name="dia" class="form-control">
+    <option value="" selected disabled>Seleccione Dia</option>
+    <option value="lunes">Lunes</option>
+    <option value="martes">martes</option>
+    <option value="miercoles">miercoles</option>
+    <option value="jueves">jueves</option>
+    <option value="viernes">viernes</option>
+</select>
+</div>
+
+<div class="col-md-1">
+    <label style="visibility: hidden">--</label>
+    <button class="btn btn-primary form-control" id="masmateriasasig">+</button>
+</div>
+
+</div>
+
+<div id="masasigmate"></div>
+
+
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <input type="hidden" id="id_asigmate" name="id_asigmate">
+          <label for="">Para Finalizar presiona el boton de Guardar</label>
+          <button type="button" class="btn btn-success" id="btnsaveasigmat"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
         </div>
       </div>
+    </form>
     </div>
   </div>
 
@@ -299,7 +378,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
         </div>
       </div>
     </div>
@@ -703,6 +782,7 @@ $("#btndelemate").click(function(e){
 });
 });
 
+//funciones para editar materia
 function materia_edit(){
 
     $.ajax({
@@ -716,6 +796,7 @@ document.getElementById('materias2').value=null;
 document.getElementById('clave2').value=null;
 document.getElementById('creditos2').value=null;
 document.getElementById('id_updatemat').value=null;
+document.getElementById('button_file22').innerHTML=null;
 
   }else{
 document.getElementById('semestre2').value=materia.semestre;
@@ -730,7 +811,146 @@ document.getElementById('button_file22').innerHTML=materia.temario;
 
 }
 
+//ajax para editar materias
+$(document).ready(function() {
 
+$("#btneditmat2").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-update-materia")[0]);
+
+     $.ajax({
+        url:"{{url('/update_materia')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(response){
+            jQuery.noConflict();
+            $('#editar_materia').modal('hide');
+            tableRE();
+
+        }, error:function (response){
+            jQuery.noConflict();
+            $('#editar_materia').modal('hide');
+            alert("Ocurrio un Problema y no se edito intentalo de nuevo");
+
+        }
+    });
+});
+});
+
+    //Campos dinamicos de asignacion materias
+    $(function () {
+    var j = 0;
+    $('#masmateriasasig').click(function (e) {
+      e.preventDefault();
+        j++;
+$('#masasigmate').append('<div class="row dinamic-rowA" id="newRowA'+j+'">'
++'<div class="col-md-3" >'
++'<label>Grupo</label>'
++'<input type="text" class="form-control" id="grupoD[]" name="grupoD[]" onkeyup="this.value = this.value.toUpperCase();">'
++'</div>'
++'<div class="col-md-2">'
++'<label>Horarios de:</label>'
++'<input type="time" class="form-control" id="hora_iniD[]" name="hora_iniD[]">'
++'</div>'
++'<div class="col-md-2">'
++'<label>A:</label>'
++'<input type="time" class="form-control" name="hora_finD[]" id="hora_finD[]">'
++'</div>'
+
++'<div class="col-md-4">'
++'<label>Dia</label>'
+
++'<select name="diaD[]" class="form-control">'
++    '<option value="" selected disabled>Seleccione Dia</option>'
++    '<option value="lunes">Lunes</option>'
++    '<option value="martes">martes</option>'
++    '<option value="miercoles">miercoles</option>'
++    '<option value="jueves">jueves</option>'
++    '<option value="viernes">viernes</option>'
++'</select>'
+
++'</div>'
+
++'<div class="col-md-1">'
++'<label style="visibility: hidden">--</label>'
++'<button type="button" class="removeAsig btn btn-danger form-control" id="'+j+'">-</button>'
++'</div>'
++'</div>'
+
+        );
+    });
+
+     $(document).on('click', '.removeAsig', function(e) {
+       e.preventDefault();
+        var id = $(this).attr("id");
+         $('#newRowA'+id+'').remove();
+      });
+
+  });
+
+function materia_asignar(){
+    $.ajax({
+  url: "{{url('/search_mate')}}"+'/'+id_mate,
+  dataType: "json",
+  //context: document.body
+}).done(function(materia) {
+  if(materia==null){
+
+document.getElementById('asigmatM').value=null;
+document.getElementById('asigmatC').value=null;
+document.getElementById('asigmatCR').value=null;
+document.getElementById('id_asigmate').value=null;
+
+  }else{
+
+document.getElementById('asigmatM').value=materia.nombre;
+document.getElementById('asigmatC').value=materia.matricula;
+document.getElementById('asigmatCR').value=materia.creditos;
+document.getElementById('id_asigmate').value=materia.id;
+
+  }
+});
+}
+
+//ajax para asignar materias
+$(document).ready(function() {
+
+$("#btnsaveasigmat").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form_asignar_mate")[0]);
+
+     $.ajax({
+        url:"{{url('/asignar_materia')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(response){
+            jQuery.noConflict();
+            $('#aginar_materia').modal('hide');
+            $("#form_asignar_mate")[0].reset();
+            $('.dinamic-rowA').remove();
+            tableRE();
+
+        }, error:function (response){
+            jQuery.noConflict();
+            $('#aginar_materia').modal('hide');
+            alert("Ocurrio un Problema y no se asigno el horario intentalo de nuevo");
+
+        }
+    });
+});
+});
 
 </script>
 
