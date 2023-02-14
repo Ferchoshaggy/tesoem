@@ -313,7 +313,7 @@
 
 <div class="col-md-3">
 <label>Grupo</label>
-<input type="text" class="form-control" name="grupo">
+<input type="text" class="form-control" name="grupo" onkeyup="this.value = this.value.toUpperCase();">
 </div>
 
 <div class="col-md-2">
@@ -331,10 +331,10 @@
 <select name="dia" class="form-control">
     <option value="" selected disabled>Seleccione Dia</option>
     <option value="lunes">Lunes</option>
-    <option value="martes">martes</option>
-    <option value="miercoles">miercoles</option>
-    <option value="jueves">jueves</option>
-    <option value="viernes">viernes</option>
+    <option value="martes">Martes</option>
+    <option value="miercoles">Miercoles</option>
+    <option value="jueves">Jueves</option>
+    <option value="viernes">Viernes</option>
 </select>
 </div>
 
@@ -869,10 +869,10 @@ $('#masasigmate').append('<div class="row dinamic-rowA" id="newRowA'+j+'">'
 +'<select name="diaD[]" class="form-control">'
 +    '<option value="" selected disabled>Seleccione Dia</option>'
 +    '<option value="lunes">Lunes</option>'
-+    '<option value="martes">martes</option>'
-+    '<option value="miercoles">miercoles</option>'
-+    '<option value="jueves">jueves</option>'
-+    '<option value="viernes">viernes</option>'
++    '<option value="martes">Martes</option>'
++    '<option value="miercoles">Miercoles</option>'
++    '<option value="jueves">Jueves</option>'
++    '<option value="viernes">Viernes</option>'
 +'</select>'
 
 +'</div>'
