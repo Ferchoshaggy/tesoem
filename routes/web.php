@@ -99,6 +99,7 @@ Route::post('/save_calificaciones', [MateriasController::class,'guardar_califica
 
 //formatos
 
+Route::get('/ANEXO_VI', [FormatosController::class,'pdf_anexo_6'])->name('pdf_anexo_6');
 
 //horario
 
@@ -124,6 +125,13 @@ Route::post('/update_materia',[AMateriasController::class,'update_materia'])->na
 Route::post('/asignar_materia',[AMateriasController::class,'materia_asignar'])->name('asignar_materia');
 
 //validaciones
+
+Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
+Route::get("/AMaterias_cursadas/{id}",[AValidacionesController::class,'materias_cursadas'])->name('materias_cursadas');
+Route::get("/AMaterias_admin",[AValidacionesController::class,'consuta_materias_admin'])->name('consuta_materias_admin');
+Route::post("/Asave_form_datos_alumno_up",[AValidacionesController::class,'actualizar_datos_alumno'])->name('actualizar_datos_alumno');
+Route::post("/Asave_form_validacion",[AValidacionesController::class,'guardar_validacion'])->name('guardar_validacion');
+Route::get("/Amaterias_recuerdo/{clave_1}/{clave_2}",[AValidacionesController::class,'recordar_validacion'])->name('recordar_validacion');
 
 
 //Cuentas
