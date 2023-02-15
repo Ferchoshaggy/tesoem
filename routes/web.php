@@ -122,6 +122,8 @@ Route::get('/search_mate/{id}',[AMateriasController::class,'materia_search'])->n
 Route::post('/delete_materia',[AMateriasController::class,'materia_eliminar'])->name('delete_materia');
 Route::post('/update_materia',[AMateriasController::class,'update_materia'])->name('update_materia');
 Route::post('/asignar_materia',[AMateriasController::class,'materia_asignar'])->name('asignar_materia');
+Route::get('/search_asignado/{id}',[AMateriasController::class,'materias_asignadas'])->name('search_asignado');
+Route::post('/update_asigacion',[AMateriasController::class,'editar_asignacion'])->name('update_asigacion');
 
 //validaciones
 

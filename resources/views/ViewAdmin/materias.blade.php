@@ -151,7 +151,7 @@
            Asignar grupo/horario
           </button>
           <br>
-          <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_asignar">
+          <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_asignar" onclick="editar_asignar();">
            Editar grupo/horario
           </button>
         </div>
@@ -347,8 +347,6 @@
 
 <div id="masasigmate"></div>
 
-
-
         </div>
         <div class="modal-footer">
           <input type="hidden" id="id_asigmate" name="id_asigmate">
@@ -373,17 +371,51 @@
                 </svg>
             </button>
         </div>
+        <form id="form-edit-asigna-mate" action="{{ url('/update_asigacion') }}" method="POST">
+            @csrf
         <div class="secciones_body3">
+
+          <div class="row">
+            <div class="col-md-10">
+            <p style="font-size: 20px">A continuacion editaras la asignacion de los horarios a la materia que seleccionaste.
+             </p>
+            </p>
+            </div>
+            <div class="col-md-2">
+                <center><img src="{{ url('icons/M1.png') }}" alt="" style="width: 70%; height: auto;"></center>
+            </div>
+        </div>
+        <hr style="background-color: white">
+<br>
+
+<div class="row">
+
+<div class="col-md-6">
+<label>Materia</label>
+<input type="text" id="asigmatM2" class="form-control" style="background: gray; border: gray; color: black;font-family: Georgia, serif" disabled>
+</div>
+
+<div class="col-md-3">
+<label>Clave</label>
+<input type="text" id="asigmatC2" class="form-control" disabled style="background: gray; border: gray; color: black;font-family: Georgia, serif">
+</div>
+
+<div class="col-md-3">
+<label>Creditos</label>
+<input type="number" id="asigmatCR2" class="form-control" disabled style="background: gray; border: gray; color: black;font-family: Georgia, serif">
+</div>
+
+</div>
+            <div id="contenedor-campos-dinamicos"></div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
+          <button type="button" class="btn btn-success" id="btneditmatasig"><img src="{{ url('icons/C0.png') }}" style="width: 25px; height: auto;"></button>
         </div>
       </div>
+    </form>
     </div>
   </div>
-
 
 
 </div>
@@ -951,6 +983,121 @@ $("#btnsaveasigmat").click(function(e){
     });
 });
 });
+
+function editar_asignar(){
+    $.ajax({
+  url: "{{url('/search_asignado')}}"+'/'+id_mate,
+  dataType: "json",
+  //context: document.body
+}).done(function(data) {
+  if(data==null){
+
+
+
+  }else{
+    jQuery.noConflict();
+    $('#contenedor-campos-dinamicos').empty();
+    data.forEach(function(horario) {
+
+
+            var plantilla = `
+
+<div class="row" style="margin-top: 20px">
+
+<div class="col-md-3">
+<label>Grupo</label>
+<input type="text" class="form-control" name="grupo[]" value="${horario.grupo}" onkeyup="this.value = this.value.toUpperCase();">
+</div>
+
+<div class="col-md-2">
+<label>Horarios de:</label>
+<input type="time" name="hora_ini[]" class="form-control" value="${horario.hora_inicio}">
+</div>
+
+<div class="col-md-2">
+<label>A:</label>
+<input type="time" name="hora_fin[]" class="form-control" value="${horario.hora_fin}">
+</div>
+
+<div class="col-md-4">
+<label>Dia</label>
+<select name="dia[]" class="form-control">
+    <option value="${horario.dia}">${horario.dia}</option>
+    <option value="lunes">Lunes</option>
+    <option value="martes">Martes</option>
+    <option value="miercoles">Miercoles</option>
+    <option value="jueves">Jueves</option>
+    <option value="viernes">Viernes</option>
+</select>
+</div>
+
+<div class="col-md-1">
+    <label style="visibility: hidden">--</label>
+    <input type="hidden" name="id_row_asig[]" class="form-control" value="${horario.id}">
+</div>
+
+</div>
+            `;
+            $('#contenedor-campos-dinamicos').append(plantilla);
+        });
+
+  }
+});
+
+
+$.ajax({
+  url: "{{url('/search_mate')}}"+'/'+id_mate,
+  dataType: "json",
+  //context: document.body
+}).done(function(materia) {
+  if(materia==null){
+
+document.getElementById('asigmatM2').value=null;
+document.getElementById('asigmatC2').value=null;
+document.getElementById('asigmatCR2').value=null;
+  }else{
+
+document.getElementById('asigmatM2').value=materia.nombre;
+document.getElementById('asigmatC2').value=materia.matricula;
+document.getElementById('asigmatCR2').value=materia.creditos;
+
+  }
+});
+
+}
+
+//ajax para editar materias asignadas
+$(document).ready(function() {
+
+$("#btneditmatasig").click(function(e){
+    e.preventDefault();  //evita recargar la pagina
+
+
+    var dataString =new FormData($("#form-edit-asigna-mate")[0]);
+
+     $.ajax({
+        url:"{{url('/update_asigacion')}}",
+        type:'POST',
+        dataType:'json',
+        data:dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(response){
+            jQuery.noConflict();
+            $('#editar_asignar').modal('hide');
+            tableRE();
+
+        }, error:function (response){
+            jQuery.noConflict();
+            $('#editar_asignar').modal('hide');
+            alert("Ocurrio un Problema y no se edito intentalo de nuevo");
+
+        }
+    });
+});
+});
+
 
 </script>
 

@@ -187,6 +187,37 @@ return response()->json([]);
     }
 }
 
+public function materias_asignadas($id){
+    $materias=DB::table('materias')->where('id',$id)->first();
+    $horarios=DB::table('horarios')->where('id_materia',$materias->id)->get();
+    return response()->json($horarios);
+}
 
+public function editar_asignacion(Request $request){
+    if($request->ajax()){
+
+        for($i=0;$i<count($request['grupo']);$i++){
+
+            try {
+
+                DB::table('horarios')->where('id',$request["id_row_asig"][$i])->update([
+
+                    'grupo'=>$request["grupo"][$i],
+                    'hora_inicio'=>$request["hora_ini"][$i],
+                    'hora_fin'=>$request["hora_fin"][$i],
+                    'dia'=>$request["dia"][$i],
+
+                    ]);
+
+
+            } catch (\Exception $e) {
+    return json_encode([]);
+            }
+
+        }
+        return json_encode([]);
+
+    }
+}
 
 }
