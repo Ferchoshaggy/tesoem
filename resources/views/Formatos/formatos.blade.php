@@ -125,7 +125,7 @@
         <div class="col-md-10" style="text-align: left;">
             Bien hecho, si has llegado hasta aquí quiere decir que has realizado corectamente tu tramite, en este apartado descargaras los documentos necesarios para continuar con tu tramite.
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" style="text-align: right;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
     </div>

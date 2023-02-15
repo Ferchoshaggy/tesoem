@@ -125,7 +125,7 @@
         <div class="col-md-10" style="text-align: left;">
             En este apartado crearas tu horario acorde con las materias que no pudiste convalidar y que te restan por cursar para tu plan de estudios, selecciona las materias con cautela tomando en cuenta tus horarios y las materias sin exceder el limite de creditos que puedes cursar por semestre.
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" style="text-align: right;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
     </div>

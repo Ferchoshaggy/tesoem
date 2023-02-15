@@ -19,9 +19,11 @@ class CreateCalificacionesMateriasTable extends Migration
             $table->unsignedBigInteger('id_proceso_alumno');
             $table->integer("calificacion")->nullable();
             $table->date("fecha");
-            $table->bigInteger("id_materia_convalida")->nullable();
+            $table->unsignedBigInteger("id_materia_convalida")->nullable();
+            $table->integer("porcentaje")->nullable();
             $table->foreign("id_materia")->references("id")->on("materias")->onDelete("cascade");
             $table->foreign("id_proceso_alumno")->references("id")->on("procesos_alumno")->onDelete("cascade");
+            $table->foreign("id_materia_convalida")->references("id")->on("materias_convalidacion")->onDelete("set null");
         });
     }
 
