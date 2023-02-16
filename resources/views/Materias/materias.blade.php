@@ -116,21 +116,21 @@
         <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
-        <div class="col-md-10" style="padding-top: 25px; text-align: left;">
+        <div class="col-md-10" style="padding-top: 25px; text-align: justify;">
             En este apartado seleccionaras las materias que llevaste en tu institucion universitaria previa.
         </div>
         @elseif($proceso->estatus==2)
         <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
-        <div class="col-md-10" style="padding-top: 25px; text-align: left;">
+        <div class="col-md-10" style="padding-top: 25px; text-align: justify;">
             Bien hecho todas tus materias se cargaron correctamente, ahora solo procede a asignar la calificación que optuviste en cada materia en el apartado de abajo.
         </div>
         @elseif($proceso->estatus==4)
         <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
-        <div class="col-md-10" style="padding-top: 25px; text-align: left;">
+        <div class="col-md-10" style="padding-top: 25px; text-align: justify;">
             Todas tus calificaciones fueron guardadas y has concluido el paso 2, espera a que se te notifique tu aprovacion a travez de la campana o via correo para el siguiente paso a realizar.
         </div>
         <div class="col-md-12" style="text-align: right;">
@@ -149,7 +149,7 @@
 @elseif($proceso->estatus==2)
 <form method="POST" action="{{url('/save_calificaciones')}}" enctype="multipart/form-data">
     @csrf
-    <div class="card-body secciones_body" style=" text-align: left;">
+    <div class="card-body secciones_body" style=" text-align: justify;">
         Asigna la calificación correctamente, ejemplo 69.<br><br>
         <div style="margin-bottom: 25px;" id="materias_guardadas">
 
@@ -193,7 +193,7 @@
     </div>
 </form>
 @elseif($proceso->estatus==4)
-<div class="card-body secciones_body" style=" text-align: left;">
+<div class="card-body secciones_body" style=" text-align: justify;">
     Asigna la calificación correctamente, ejemplo 69.<br><br>
     <div style="margin-bottom: 25px;" id="materias_guardadas">
 
@@ -251,7 +251,7 @@
         <form method="POST" action="{{url('/save_materias')}}" enctype="multipart/form-data" id="agregar_materias">
             @csrf
             <div class="modal-body" style="border-bottom: 1px solid #193333;">
-                <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px;">
+                <div class="card-body secciones_body" style=" text-align: justify; margin-bottom: 0px;">
                     Selecciona la institucion y carrera a la que pertenecias y el ultimo semestre que cursaste en esta. si tu institucion no esta registrada presiona 
                     <button type="button" class="btn btn-link" style="padding:0px; font-size: 20px;" data-toggle="modal" data-target="#segundo" onclick="redireccionamiento(1); document.getElementById('agregar_materias').reset(); verificar_existencia_materias();">aqui.</button> 
 
@@ -289,7 +289,7 @@
                         
                     </div>
 
-                    <div style="margin-bottom: 25px; display: none;" id="texto_info">
+                    <div style="margin-bottom: 25px; display: none; text-align: justify;" id="texto_info">
                         Llena el siguiente formulario con lo que se te pide, nombre completo de la materia, clave de la materia y temario de la materia en PDF. el boton con el signo de "+" te permite agregar una materia, agrega solo las que contiene tu semestre, si agregas de mas con el boton del signo de "-" la eliminas.
                     </div>
 
@@ -361,7 +361,7 @@
             @csrf
             <div class="modal-body" style="border-bottom: 1px solid #193333;">
 
-                <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px;">
+                <div class="card-body secciones_body" style=" text-align: justify; margin-bottom: 0px;">
                     Escribe el nombre completo de la institucion y carrera tal cual esta en tus registros.<br><br>
 
                     <div class="col-md-12" style="margin-bottom: 25px;">
@@ -415,7 +415,7 @@
             @csrf
             <div class="modal-body" style="border-bottom: 1px solid #193333;">
 
-                <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px;">
+                <div class="card-body secciones_body" style=" text-align: justify; margin-bottom: 0px;">
                     Selecciona tu institucion y escribe el nombre completo de tu carrera tal cual esta en tus registros.<br><br>
                     <div class="col-md-12" style="margin-bottom: 25px;">
                         <select class="form-control edit_select" name="institucion" id="institucion_3" required onchange="campos_llenos_modal_carrera();">
@@ -522,7 +522,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-bottom: 25px; display: none;" >
+                    <div style="margin-bottom: 25px; display: none; text-align: justify;" >
                         Llena el siguiente formulario con lo que se te pide, nombre completo de la materia, clave de la materia y temario de la materia en PDF. el boton con el signo de "+" te permite agregar una materia, agrega solo las que contiene tu semestre, si agregas de mas con el boton del signo de "-" la eliminas.
                     </div>
 

@@ -122,10 +122,10 @@
 
 <div class="card-body secciones_body">
     <div class="row">
-        <div class="col-md-10" style="text-align: left;">
+        <div class="col-md-10" style="text-align: justify;">
             Bien hecho, si has llegado hasta aquí quiere decir que has realizado corectamente tu tramite, en este apartado descargaras los documentos necesarios para continuar con tu tramite.
         </div>
-        <div class="col-md-2" style="text-align: right;">
+        <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
     </div>
@@ -135,17 +135,17 @@
         <div class="col-md-4" style="margin-bottom: 25px;">
             <label>ANEXO VI</label><br>
             <img id="img1" src="{{url('icons/D1.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(1);">Descargar/Ver</button>
         </div>
         <div class="col-md-4" style="margin-bottom: 25px;">
             <label>ANEXO VII</label><br>
             <img id="img3" src="{{url('icons/D2.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(2);">Descargar/Ver</button>
         </div>
         <div class="col-md-4" style="margin-bottom: 25px;">
-            <label>COMVALIDACION</label><br>
+            <label>CONVALIDACION</label><br>
             <img id="img3" src="{{url('icons/D4.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(3);">Descargar/Ver</button>
         </div>
     </div>
 </div>
@@ -189,10 +189,19 @@
 
 <script type="text/javascript">
 
-    function agregar_url() {
-         var url_server = "{{url('/PDF_servicio')}}"+"/";
-         document.getElementById('visor_pdf').src=url_server+id_servicio;
-         document.getElementById("ir_otro_lado").href=url_server+id_servicio;
+    function agregar_url(tipo) {
+        if(tipo==1){
+            var url_server = "{{url('/ANEXO_VI')}}";
+        }
+        if(tipo==2){
+            var url_server = "{{url('/ANEXO_VII')}}";
+        }
+        if(tipo==3){
+            var url_server = "{{url('/CONVALIDACION')}}";
+        }
+         
+         document.getElementById('visor_pdf').src=url_server;
+         document.getElementById("ir_otro_lado").href=url_server;
     }
 
     //este es para saber que dispositivo se esta usando y mandarlo a otro lado al usuario ya que no se mira bien el pdf
@@ -200,6 +209,7 @@
         document.getElementById("no_se_mira").style.display="block";
     }else{
         console.log("No estás usando un móvil");
+        document.getElementById("no_se_mira").style.display="none";
     }
     
 </script>

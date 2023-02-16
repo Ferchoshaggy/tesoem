@@ -131,7 +131,7 @@
         </div>
     </div>
     @elseif($proceso->estatus==2 || $proceso->estatus==4)
-    Todos los documentos han sido subidos correctamente, espera la comprobacion de los mismos, se le notificara al correo personal que proporcionaste o en la campana de notificaciones para que continues con tu tramite.
+    <div style="text-align: justify;">Todos los documentos han sido subidos correctamente, espera la comprobacion de los mismos, se le notificara al correo personal que proporcionaste o en la campana de notificaciones para que continues con tu tramite.</div>
     <br>
     <div class="col-md-12" style="text-align: right;">
         <img src="{{url('icons/paloma.png')}}" style="width: 9vh; height: auto; margin-right: -25px; margin-bottom: -35px;">
@@ -161,7 +161,7 @@
 
     @elseif($proceso->estatus==1 && $proceso->etapa==1)
 
-    Sube en cada uno el documento que se te solicita, el documento debe ser prefectamente legible y en formato PDF
+    <div style="text-align: justify;">Sube en cada uno el documento que se te solicita, el documento debe ser prefectamente legible y en formato PDF</div>
 
     @endif
     
