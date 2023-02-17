@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'alumno']], function () {
     Route::get('/Documentos', [DocumentsController::class,'view_documents'])->name('view_documents');
     Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
     Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
+    Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 });
 
 //redirect login
@@ -103,8 +104,6 @@ Route::get('/CONVALIDACION', [FormatosController::class,'pdf_convalidacion'])->n
 //horario
 
 Route::get('/materias_c_alumno', [HorarioController::class,'materias_convalidacion_alumno'])->name('materias_convalidacion_alumno');
-
-Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 
 
 //documentos Administrador

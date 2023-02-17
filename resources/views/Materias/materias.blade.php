@@ -109,7 +109,7 @@
         <div class="col-md-12" style="text-align: center;">
             <img src="{{url('icons/M13.png')}}" style="width: 25%; height: auto;"><br><br>
             <div style="font-size: 50px; text-align: center;">
-                Todos tus documentos y datos fueron aprobados para el paso dos.
+                Todas tus materias fueron aprobados para el paso dos.
             </div>
         </div>
         @elseif($proceso->estatus==1)

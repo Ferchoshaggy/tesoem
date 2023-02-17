@@ -344,7 +344,7 @@ return [
             'url'  => '/Horarios',
             'icon'    => 'nav-icon fas fa-regular fa-clock',
             'id' => 'horarios',
-            'can' => 'docente-alumno'
+            'can' => 'alumnos'
         ],
 
         [
