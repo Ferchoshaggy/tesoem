@@ -44,41 +44,41 @@
         </p>
 <div class="row">
 
-<div class="col-md-6">
+<div class="col-xl-6">
 <img src="{{ url('icons/D1.png') }}"  style="width: 15%; height: auto; margin-right: 20px" id="img-ha">
 Historial academico
 </div>
 
-<div class="col-md-2">
+<div class="col-xl-2">
 <button class="btn btn-success btn2" data-toggle="modal" data-target="#HistorialDoc">Ver Documento</button>
 </div>
 
-<div class="col-md-2">
+<div class="col-xl-2">
 <button class="btn btn-success btn2" id="AproHistorial" data-toggle="modal" data-target="#MAprobarHA">Aprobar</button>
 </div>
 
-<div class="col-md-2">
+<div class="col-xl-2">
 <button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDocH" id="btnRechazarH">Rechazar</button>
 </div>
 
 </div>
 <br>
-<div class="row">
+<div class="row" id="COMPago2">
 
-    <div class="col-md-6">
+    <div class="col-xl-6">
     <img src="{{ url('icons/D3.png') }}"  style="width: 15%; height: auto; margin-right: 20px" id="img-cp">
     Comprobante de pago
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xl-2">
     <button class="btn btn-success btn2" data-toggle="modal" data-target="#ComprobanteDoc">Ver Documento</button>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xl-2">
     <button class="btn btn-success btn2" id="AproComprobante" data-toggle="modal" data-target="#MAprobarCP">Aprobar</button>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xl-2">
     <button class="btn btn-success btn2" data-toggle="modal" data-target="#CancelarDocP" id="btnRechazarP">Rechazar</button>
     </div>
 
@@ -350,6 +350,8 @@ function tomar_id($id_tr){
 }).done(function([datosUser,procesos,comprobante,historial]) {
   if([datosUser==null]){
     jQuery.noConflict();
+
+if(procesos.tipo_proceso==1){
     document.getElementById('id_cp').value=comprobante.id;
     document.getElementById('id_cp_pa').value=procesos.id;
 
@@ -395,6 +397,41 @@ if(comprobante.estatus==5 && historial.estatus==5){
 
 if(procesos.estatus==5){
     document.getElementById("aprobarDoc").disabled=true;
+}
+
+
+
+}else{
+    document.getElementById("COMPago2").style.display = "none";
+
+    document.getElementById('id_cp').value=comprobante.id;
+    document.getElementById('id_cp_pa').value=procesos.id;
+
+    document.getElementById('id_ha').value=historial.id;
+    document.getElementById('id_ha_pa').value=procesos.id;
+
+    document.getElementById('id_ha2').value=historial.id;
+    document.getElementById('id_cp2').value=comprobante.id;
+
+    document.getElementById('id_pa_f').value=procesos.id;
+
+    document.getElementById('id_user2').value=datosUser.id;
+    document.getElementById('id_user3').value=datosUser.id;
+
+document.querySelector('#embH').setAttribute('src',"{{ url('/documents_h_academico') }}"+"/"+historial.ruta);
+document.querySelector('#embC').setAttribute('src',"{{ url('/documents_c_pago/') }}"+"/"+comprobante.ruta);
+
+if(historial.estatus==3){
+    document.getElementById("img-ha").src="{{url('icons/D14.png')}}";
+    document.getElementById("AproHistorial").disabled=true;
+    document.getElementById("btnRechazarH").disabled=true;
+}else if(historial.estatus==5){
+    document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
+    document.getElementById("AproHistorial").disabled=true;
+    document.getElementById("btnRechazarH").disabled=true;
+    document.getElementById("aprobarDoc").disabled=false;
+}
+
 }
 
   }else{
@@ -509,11 +546,14 @@ $("#btnAprovarHA").click(function(e){
         cache: false,
         contentType: false,
         processData: false,
-        success:function([comprobante,historial]){
+        success:function([comprobante,historial,procesos]){
             jQuery.noConflict();
+
+if(procesos.tipo_proceso==1){
             document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
             document.getElementById("AproHistorial").disabled=true;
             document.getElementById("btnRechazarH").disabled=true;
+
             if(comprobante.estatus==5 && historial.estatus==5){
     document.getElementById("aprobarDoc").disabled=false;
 }else{
@@ -522,10 +562,18 @@ $("#btnAprovarHA").click(function(e){
             $('#MAprobarHA').modal('hide');
             tableRE();
             $("#form-HA-aprobar")[0].reset();
-
+}else{
+            document.getElementById("img-ha").src="{{url('icons/D5.png')}}";
+            document.getElementById("AproHistorial").disabled=true;
+            document.getElementById("btnRechazarH").disabled=true;
+            document.getElementById("aprobarDoc").disabled=false;
+            $('#MAprobarHA').modal('hide');
+            tableRE();
+            $("#form-HA-aprobar")[0].reset();
+}
 
         },
-        error:function ([comprobante,historial]){
+        error:function ([comprobante,historial,procesos]){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
         }
 

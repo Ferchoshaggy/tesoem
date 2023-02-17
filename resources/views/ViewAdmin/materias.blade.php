@@ -147,6 +147,7 @@
             Eliminar
           </button>
           <br>
+<!--
         <button class="btn" style="color:white" data-toggle="modal" data-target="#aginar_materia" onclick="materia_asignar();">
            Asignar grupo/horario
           </button>
@@ -154,7 +155,9 @@
           <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_asignar" onclick="editar_asignar();">
            Editar grupo/horario
           </button>
+-->
         </div>
+
 
 <!-- Modal Editar materia-->
 <div class="modal fade" id="editar_materia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -716,10 +719,6 @@ $("#btnsavemat").click(function(e){
 });
 });
 
-//jquery para desvanecer el mensage
-$(".alert").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert").slideUp(500);
-});
 
 //funcion para validar primeros datos
 function valMate(){
@@ -875,7 +874,9 @@ $("#btneditmat2").click(function(e){
 });
 });
 
-    //Campos dinamicos de asignacion materias
+
+/*
+    Campos dinamicos de asignacion materias
     $(function () {
     var j = 0;
     $('#masmateriasasig').click(function (e) {
@@ -950,7 +951,7 @@ document.getElementById('id_asigmate').value=materia.id;
 });
 }
 
-//ajax para asignar materias
+ajax para asignar materias
 $(document).ready(function() {
 
 $("#btnsaveasigmat").click(function(e){
@@ -1066,7 +1067,7 @@ document.getElementById('asigmatCR2').value=materia.creditos;
 
 }
 
-//ajax para editar materias asignadas
+ajax para editar materias asignadas
 $(document).ready(function() {
 
 $("#btneditmatasig").click(function(e){
@@ -1098,6 +1099,7 @@ $("#btneditmatasig").click(function(e){
 });
 });
 
+*/
 
 </script>
 

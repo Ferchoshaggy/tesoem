@@ -17,9 +17,6 @@
         <td style="text-align: center;">{{ $usuario->matricula }}</td>
         <td style="text-align: center;">{{ $carrera->nombre }}</td>
         <td style="text-align: center;">{{ $usuario->name }}</td>
-        @if($proceso->estatus==1)
-        <td style="text-align: center;"><label style="background-color: #33FFF9; border-radius: 5px; padding: 5px">Inicio</label></td>
-        @endif
         @if($proceso->estatus==2)
         <td style="text-align: center;"><label style="background-color: #EEEB21; border-radius: 5px; padding: 5px">Subida de Documentos</label></td>
         @endif
@@ -28,9 +25,6 @@
         @endif
         @if($proceso->estatus==4)
         <td style="text-align: center;"><label style="background-color: #FA8C1E; border-radius: 5px; padding: 5px">Resubido</label></td>
-        @endif
-        @if($proceso->estatus==5)
-        <td style="text-align: center;"><label style="background-color: #75FD10; border-radius: 5px; padding: 5px">Aceptado</label></td>
         @endif
       </tr>
       @endif
