@@ -22,7 +22,7 @@ return view('viewAdmin.documents');
         $carreras=DB::table('carreras')->where('id',Auth::user()->carrera_tesoem)->first();
         $usuarios=DB::table('users')->where('carrera_tesoem',$carreras->id)->where('tipo_user',3)->Paginate(10);
         $carrerass=DB::table('carreras')->where('id',Auth::user()->carrera_tesoem)->get();
-        $procesos=DB::table('procesos_alumno')->where('etapa',1)->where('estatus',2)->orWhere('estatus',3)->orWhere('estatus',4)->get();
+        $procesos=DB::table('procesos_alumno')->where('etapa',1)->get();
 
         return view('viewAdmin.documentsJax',compact("carrerass","usuarios","procesos"));
             }

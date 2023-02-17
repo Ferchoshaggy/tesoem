@@ -13,6 +13,7 @@
 @foreach ($procesos as $proceso)
 @if ($usuario->carrera_tesoem==$carrera->id)
 @if($proceso->id_user==$usuario->id)
+@if($proceso->estatus==2 || $proceso->estatus==3 || $proceso->estatus==4)
       <tr onclick="tomar_id({{ $usuario->id }})" data-toggle="modal" data-target="#aprobarDocumento">
         <td style="text-align: center;">{{ $usuario->matricula }}</td>
         <td style="text-align: center;">{{ $carrera->nombre }}</td>
@@ -27,6 +28,7 @@
         <td style="text-align: center;"><label style="background-color: #FA8C1E; border-radius: 5px; padding: 5px">Resubido</label></td>
         @endif
       </tr>
+      @endif
       @endif
       @endif
 @endforeach
