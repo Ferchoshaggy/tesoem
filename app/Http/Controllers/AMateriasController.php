@@ -161,7 +161,7 @@ $carreras=DB::table('carreras')->where("id",Auth::user()->carrera_tesoem)->first
 
         //guardamos la nueva
         $archivo = $time.''.rand(11111,99999).'horario_'.$carreras->nombre.".".$request["horario"]->getClientOriginalExtension();
-        $destinationPath = public_path().'/horarios';
+        $destinationPath = public_path().'/horarios_c_docente';
         $file_save = $request['horario'];
         $file_save->move($destinationPath,$archivo);
     }else{
@@ -193,12 +193,12 @@ public function editar_horario(Request $request){
 
         //eliminar el horario existente
         if($horario_delete->horario!=null){
-            $rute_horario=public_path().'\horarios\\'.$horario_delete->horario;
+            $rute_horario=public_path().'\horarios_c_docente\\'.$horario_delete->horario;
             File::delete( $rute_horario);
         }
         //guardamos el nuevo horario
         $horario = $time.''.rand(11111,99999).'horario_'.$carreras->nombre.".".$request['horario']->getClientOriginalExtension();
-        $destinationPath = public_path().'/horarios';
+        $destinationPath = public_path().'/horarios_c_docente';
         $file_save = $request->file('horario');
         $file_save->move($destinationPath,$horario);
 
