@@ -122,20 +122,20 @@
 
 <div class="card-body secciones_body">
     <div class="row">
-        <div class="col-md-10" style="text-align: left;">
+        <div class="col-md-10" style="text-align: justify;">
             En este apartado crearas tu horario acorde con las materias que no pudiste convalidar y que te restan por cursar para tu plan de estudios, selecciona las materias con cautela tomando en cuenta tus horarios y las materias sin exceder el limite de creditos que puedes cursar por semestre.
         </div>
-        <div class="col-md-2" style="text-align: right;">
+        <div class="col-md-2" style="text-align: center;">
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
     </div>
 </div>
 <div class="card-body secciones_body">
     <div class="row">
-        <div class="col-md-6" style="text-align: left;">
+        <div class="col-md-6" style="text-align: left; margin-bottom: 25px;">
             <button class="btn" style="background-color: #F076FF; color: #fff;">Generar Horario</button>
         </div>
-        <div class="col-md-6" style="text-align: right;">
+        <div class="col-md-6" style="text-align: right; margin-bottom: 25px;">
             <input type="text" name="creditos_totales" id="creditos_totales" disabled>
         </div>
     </div>

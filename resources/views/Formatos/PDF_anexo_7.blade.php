@@ -52,7 +52,7 @@
 <header>
     
 </header>
-<p style=" width: 100%; text-align: center; font-size: 11px; font-weight: bold;">ANEXO VI. ANÁLISIS ACADÉMICO DE CONVALIDACIÓN DE ESTUDIOS</p>
+<p style=" width: 100%; text-align: center; font-size: 11px; font-weight: bold;">ANEXO VII. DICTAMEN TÉCNICO DE CONVALIDACIÓN DE ESTUDIOS</p>
     <p style=" margin-top: 15px;  width: 100%; text-align: center; font-size: 11px; font-weight: bold;">Tecnológico de Estudios Superiores del Oriente del Estado de México</p>
     <p style=" margin-top: 15px; width: 100%; text-align: center; font-size: 11px; font-weight: bold;">Análisis académico de convalidación de estudios</p>
     <p style=" margin-top: 30px; width: 85%; text-align: right; font-size: 12px; ">
@@ -88,16 +88,14 @@
             <thead>
                 <tr>
                     <th style="width: 3%; border: black 1px solid; padding: 3px;">No.</th>
-                    <th style="width: 26.5%; border: black 1px solid; padding: 3px; ">Asignatura cursada</th>
-                    <th style="width: 11%; border: black 1px solid; padding: 3px; ">Clave de Asignacio</th>
-                    <th style="width: 11%; border: black 1px solid; padding: 3px; ">Calificación</th>
-                    <th style="width: 26.5%; border: black 1px solid; padding: 3px; ">Asignatura a covalidar</th>
-                    <th style="width: 11%; border: black 1px solid; padding: 3px; ">Clave de asignacion a convalidar</th>
-                    <th style="width: 11%; border: black 1px solid; padding: 3px; ">porcentaje</th>
+                    <th style="width: 35%; border: black 1px solid; padding: 3px; ">Asignatura cursada</th>
+                    <th style="width: 13.5%; border: black 1px solid; padding: 3px; ">Calificación</th>
+                    <th style="width: 35%; border: black 1px solid; padding: 3px; ">Asignatura a covalidar</th>
+                    <th style="width: 13.5%; border: black 1px solid; padding: 3px; ">Creditos</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $contador=1; $encontro=false; $existe_semestre=false;?>
+                <?php $contador=1; $encontro=false; $existe_semestre=false; $sumatoria=0;?>
                 @for($i=1; $i<=$numero_semestres; $i++)
                 <?php $existe_semestre=false; ?>
                 @foreach($materias as $materia)
@@ -109,11 +107,9 @@
                 @if($existe_semestre)
                 <tr style="border: black 1px solid;">
                     <td style="border: black 1px solid; padding: 4px;"></td>
-                    <td style="border: black 1px solid; padding: 4px; font-weight: bold;">@if($i==1)Primero @endif @if($i==2)Segundo @endif @if($i==3)Tercero @endif @if($i==4)Cuarto @endif @if($i==5)Quinto @endif @if($i==6)Sexto @endif @if($i==7)Séptimo @endif @if($i==8)Octavo @endif @if($i==9)Noveno @endif</td>
+                    <td style="border: black 1px solid; padding: 4px;"></td>
                     <td style="border: black 1px solid;padding: 4px;"></td>
-                    <td style="border: black 1px solid;padding: 4px;"></td>
-                    <td style="border: black 1px solid;padding: 4px;"></td>
-                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid;padding: 4px; font-weight: bold;">@if($i==1)Primero @endif @if($i==2)Segundo @endif @if($i==3)Tercero @endif @if($i==4)Cuarto @endif @if($i==5)Quinto @endif @if($i==6)Sexto @endif @if($i==7)Séptimo @endif @if($i==8)Octavo @endif @if($i==9)Noveno @endif</td>
                     <td style="border: black 1px solid;padding: 4px;"></td>
                 </tr>
                 @endif
@@ -125,7 +121,6 @@
                     @if($materia_calificacion->id_materia_convalida==$materia->id)
                     <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$contador}}</td>
                     <td style="border: black 1px solid; padding: 4px;">{{$materia_calificacion->nombre}}</td>
-                    <td style="border: black 1px solid; padding: 4px;">{{$materia_calificacion->matricula}}</td>
                     <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$materia_calificacion->calificacion}}</td>
                     <?php $encontro=true; ?>
                     @break
@@ -135,17 +130,20 @@
                     <td style="border: black 1px solid;padding: 4px;">{{$contador}}</td>
                     <td style="border: black 1px solid; padding: 4px;"></td>
                     <td style="border: black 1px solid; padding: 4px;"></td>
-                    <td style="border: black 1px solid;padding: 4px;"></td>
                     @endif
                     <td style="border: black 1px solid;padding: 4px;">{{$materia->nombre}}</td>
-                    <td style="border: black 1px solid;padding: 4px;">{{$materia->matricula}}</td>
-                    <td style="border: black 1px solid;padding: 4px; text-align: center;">@if($encontro) {{$materia_calificacion->porcentaje}} @else 0 @endif</td>
+                    <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$materia->creditos}}</td>
+                    <?php $sumatoria+=$materia->creditos; ?>
                 </tr>
                 <?php $contador++; ?>
                 @endif
                 @endforeach
                 @endfor
-                
+                <tr>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid; padding: 4px; text-align: right;" colspan="3">Total de créditos convalidados:</td>
+                    <td style="border: black 1px solid; padding: 4px; text-align: center;">{{$sumatoria}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

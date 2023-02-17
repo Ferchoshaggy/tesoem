@@ -641,8 +641,21 @@
         if (document.getElementById("clave_carrera_old").value==document.getElementById("clave_carrera").value){
 
             for (var i = 0; i < $("select[id='materia_new[]']").length; i++) {
+                /*
                 $("select[id='materia_new[]']")[i].value=$("input[id='id_materia_id[]']")[i].value;
                 $("select[id='matricula_c_new[]']")[i].value=$("input[id='id_materia_id[]']")[i].value;
+                */
+                //como se va a seleccionar por texto, entonces se hace de esta froma ya que la matricula, no esta en el value pero no funciona por que estamos usando un arreglo
+                //$("select[id='matricula_c_new[] option:contains("+$("input[id='clave_old[]']")[i].value+")")[i].attr('selected', true);
+                //$("select[id='materia_new[]']")[i].value=$("select[id='matricula_c_new[]']")[i].value;
+                //esta es una forma mas tardada.
+                for (var j = 0; j < materias_admin_c.length; j++) {
+                    if ($("input[id='clave_old[]']")[i].value==materias_admin_c[j].matricula){
+                        $("select[id='materia_new[]']")[i].value=materias_admin_c[j].id;
+                        $("select[id='matricula_c_new[]']")[i].value=materias_admin_c[j].id;
+                        break;
+                    }
+                }
                 if($("input[id='clave_old[]']")[i].value==$("select[id='matricula_c_new[]'] option:selected")[i].text){
                     $("input[id='valor[]']")[i].value=100;
                     $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";

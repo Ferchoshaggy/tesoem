@@ -100,6 +100,8 @@ Route::post('/save_calificaciones', [MateriasController::class,'guardar_califica
 //formatos
 
 Route::get('/ANEXO_VI', [FormatosController::class,'pdf_anexo_6'])->name('pdf_anexo_6');
+Route::get('/ANEXO_VII', [FormatosController::class,'pdf_anexo_7'])->name('pdf_anexo_7');
+Route::get('/CONVALIDACION', [FormatosController::class,'pdf_convalidacion'])->name('pdf_convalidacion');
 
 //horario
 

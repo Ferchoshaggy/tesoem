@@ -7,7 +7,7 @@ use DB;
 class UrlLibresController extends Controller
 {
     public function carreras_tesoem(){
-        $carreras=DB::table('carreras')->select("*")->get();
+        $carreras=DB::table('carreras')->where("id_institucion",1)->get();
         return json_encode($carreras);
     }
 }

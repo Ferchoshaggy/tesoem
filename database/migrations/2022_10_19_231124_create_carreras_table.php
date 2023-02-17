@@ -20,6 +20,7 @@ class CreateCarrerasTable extends Migration
             $table->string("nombre");
             $table->date("fecha");
             $table->string("clave");
+            $table->string("horario")->nullable();
             $table->foreign("id_institucion")->references("id")->on("instituciones")->onDelete("cascade");
             $table->foreign("id_user")->references("id")->on("users")->onDelete("set null");
         });
