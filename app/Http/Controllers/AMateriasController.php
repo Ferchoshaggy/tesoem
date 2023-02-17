@@ -15,7 +15,8 @@ class AMateriasController extends Controller
     }
 
     public function view_materias(){
-        return view('viewAdmin.materias');
+        $horarios=DB::table('archivo_horarios')->where("carrera_tesoem",Auth::user()->carrera_tesoem)->first();
+        return view('viewAdmin.materias',compact("horarios"));
             }
 
     public function view_materiasJax(){
@@ -144,10 +145,75 @@ DB::table('materias')->where('id',$request["id_updatemat"])->update([
 ]);
 
 
-return response()->json([]);
+
     }
 }
 
+public function guardar_horario(Request $request){
 
+
+$carreras=DB::table('carreras')->where("id",Auth::user()->carrera_tesoem)->first();
+
+        date_default_timezone_set('America/Mexico_City');
+        $time = date("d-m-Y")."-".time();
+
+    if($request['horario']!=null){
+
+        //guardamos la nueva
+        $archivo = $time.''.rand(11111,99999).'horario_'.$carreras->nombre.".".$request["horario"]->getClientOriginalExtension();
+        $destinationPath = public_path().'/horarios';
+        $file_save = $request['horario'];
+        $file_save->move($destinationPath,$archivo);
+    }else{
+        $archivo=null;
+    }
+
+DB::table('archivo_horarios')->insert([
+
+'usuario_h'=>Auth::user()->name,
+'carrera_tesoem'=>Auth::user()->carrera_tesoem,
+'horario'=>$archivo,
+'fecha'=>date("Y-m-d"),
+
+]);
+
+return redirect()->back()->with(['message' => 'Horario Guardado con exito', 'color' => 'success','tipo' => 'agregado']);
+
+}
+
+public function editar_horario(Request $request){
+
+    $horario_delete=DB::table('archivo_horarios')->where('id',$request["id_horarioE"])->first();
+    $carreras=DB::table('carreras')->where("id",Auth::user()->carrera_tesoem)->first();
+
+    date_default_timezone_set('America/Mexico_City');
+    $time = date("d-m-Y")."-".time();
+
+    if($request['horario']!=null){
+
+        //eliminar el horario existente
+        if($horario_delete->horario!=null){
+            $rute_horario=public_path().'\horarios\\'.$horario_delete->horario;
+            File::delete( $rute_horario);
+        }
+        //guardamos el nuevo horario
+        $horario = $time.''.rand(11111,99999).'horario_'.$carreras->nombre.".".$request['horario']->getClientOriginalExtension();
+        $destinationPath = public_path().'/horarios';
+        $file_save = $request->file('horario');
+        $file_save->move($destinationPath,$horario);
+
+    }else{
+        $horario=$horario_delete->horario;
+    }
+
+    DB::table('archivo_horarios')->where('id',$request["id_horarioE"])->update([
+
+'usuario_h'=>Auth::user()->name,
+'horario'=>$horario,
+'fecha'=>date("Y-m-d"),
+
+    ]);
+    return redirect()->back()->with(['message' => 'Horario Editado con exito', 'color' => 'success','tipo' => 'agregado']);
+}
 
 }

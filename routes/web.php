@@ -122,6 +122,10 @@ Route::get('/search_mate/{id}',[AMateriasController::class,'materia_search'])->n
 Route::post('/delete_materia',[AMateriasController::class,'materia_eliminar'])->name('delete_materia');
 Route::post('/update_materia',[AMateriasController::class,'update_materia'])->name('update_materia');
 
+//catalogo de materia horario
+Route::post('/save_horario',[AMateriasController::class,'guardar_horario'])->name('save_horario');
+Route::post('/update_horario',[AMateriasController::class,'editar_horario'])->name('update_horario');
+
 //validaciones
 
 Route::get('/AValidaciones',[AValidacionesController::class,'view_validacion'])->name('validacion_view');
