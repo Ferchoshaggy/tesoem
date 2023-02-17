@@ -64,10 +64,7 @@ Route::group(['middleware' => ['auth', 'alumno']], function () {
     Route::get('/dashboard', [DocumentsController::class,'view_documents'])->name('view_documents');
     Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
     Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
-    Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 });
-
-
 
 //redirect login
 Route::get('/redirects',[UserConfigController::class,'index'])->name('index_vista');
@@ -104,7 +101,7 @@ Route::get('/ANEXO_VII', [FormatosController::class,'pdf_anexo_7'])->name('pdf_a
 Route::get('/CONVALIDACION', [FormatosController::class,'pdf_convalidacion'])->name('pdf_convalidacion');
 
 //horario
-
+Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 
 //documentos Administrador
 
@@ -124,9 +121,6 @@ Route::post('/save_catmaterias',[AMateriasController::class,'catmaterias_save'])
 Route::get('/search_mate/{id}',[AMateriasController::class,'materia_search'])->name('search_mate');
 Route::post('/delete_materia',[AMateriasController::class,'materia_eliminar'])->name('delete_materia');
 Route::post('/update_materia',[AMateriasController::class,'update_materia'])->name('update_materia');
-Route::post('/asignar_materia',[AMateriasController::class,'materia_asignar'])->name('asignar_materia');
-Route::get('/search_asignado/{id}',[AMateriasController::class,'materias_asignadas'])->name('search_asignado');
-Route::post('/update_asigacion',[AMateriasController::class,'editar_asignacion'])->name('update_asigacion');
 
 //validaciones
 
@@ -136,7 +130,6 @@ Route::get("/AMaterias_admin",[AValidacionesController::class,'consuta_materias_
 Route::post("/Asave_form_datos_alumno_up",[AValidacionesController::class,'actualizar_datos_alumno'])->name('actualizar_datos_alumno');
 Route::post("/Asave_form_validacion",[AValidacionesController::class,'guardar_validacion'])->name('guardar_validacion');
 Route::get("/Amaterias_recuerdo/{clave_1}/{clave_2}",[AValidacionesController::class,'recordar_validacion'])->name('recordar_validacion');
-
 
 //Cuentas
 Route::get('/ACuentasJax/{page?}',[ACuentasController::class,'view_cuentasJax'])->name('cuentas_viewJax');
