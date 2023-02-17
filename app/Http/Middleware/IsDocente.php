@@ -22,7 +22,7 @@ class IsDocente
             if(Auth::user()->tipo_user===1){
                 return redirect('/ACuentas')->with('error','No eres Docente para acceder a esta pagina');
             }else if(Auth::user()->tipo_user===3){
-                return redirect('/dashboard')->with('error','No eres Docente para acceder a esta pagina');
+                return redirect('/Documentos')->with('error','No eres Docente para acceder a esta pagina');
             }
 
     }

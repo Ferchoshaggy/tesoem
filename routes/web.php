@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth', 'docente']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'alumno']], function () {
-    Route::get('/dashboard', [DocumentsController::class,'view_documents'])->name('view_documents');
+    Route::get('/Documentos', [DocumentsController::class,'view_documents'])->name('view_documents');
     Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
     Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
     Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
@@ -104,7 +104,7 @@ Route::get('/ANEXO_VII', [FormatosController::class,'pdf_anexo_7'])->name('pdf_a
 Route::get('/CONVALIDACION', [FormatosController::class,'pdf_convalidacion'])->name('pdf_convalidacion');
 
 //horario
-
+Route::get('/materias_c_alumno', [HorarioController::class,'materias_convalidacion_alumno'])->name('materias_convalidacion_alumno');
 
 //documentos Administrador
 

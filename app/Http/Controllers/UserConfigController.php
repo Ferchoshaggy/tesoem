@@ -21,7 +21,7 @@ class UserConfigController extends Controller
         }else if(in_array(2, $checkrole)) {
             return redirect('/ADocumentos');
         }else if(in_array(3, $checkrole)){
-            return redirect('/dashboard');
+            return redirect('/Documentos');
         }
     }
 

@@ -135,17 +135,17 @@
         <div class="col-md-4" style="margin-bottom: 25px;">
             <label>ANEXO VI</label><br>
             <img id="img1" src="{{url('icons/D1.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(1);">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(1);" style="font-size: 1.3rem; font-weight: bold;">Descargar/Ver</button>
         </div>
         <div class="col-md-4" style="margin-bottom: 25px;">
             <label>ANEXO VII</label><br>
             <img id="img3" src="{{url('icons/D2.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(2);">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(2);" style="font-size: 1.3rem; font-weight: bold;">Descargar/Ver</button>
         </div>
         <div class="col-md-4" style="margin-bottom: 25px;">
             <label>CONVALIDACION</label><br>
             <img id="img3" src="{{url('icons/D4.png')}}" style="width: 25%; height: auto;"><br><br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(3);">Descargar/Ver</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#pdf" onclick="agregar_url(3);" style="font-size: 1.3rem; font-weight: bold;">Descargar/Ver</button>
         </div>
     </div>
 </div>

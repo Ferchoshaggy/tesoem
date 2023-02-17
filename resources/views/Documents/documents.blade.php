@@ -27,6 +27,8 @@
       display: inline-block;
       cursor: pointer;
       width: 50%;
+      font-size: 1.3rem; 
+      font-weight: bold;
     }
     html{
         background-color: #193333;

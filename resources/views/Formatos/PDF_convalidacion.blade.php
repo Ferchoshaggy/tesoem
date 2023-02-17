@@ -99,7 +99,7 @@
                     <td style="border: black 1px solid; padding: 3px; ">{{$materia->nombre}}</td>
                     <td style="border: black 1px solid; padding: 3px; text-align: center;">{{$materia->matricula}}</td>
                     <td style="border: black 1px solid; padding: 3px; text-align: center;">
-                        @if($materia->validacion=="si" && $materia->calificacion>=80)
+                        @if($materia->validacion=="si" && $materia->calificacion>=70)
                         CONVALIDADA
                         @else
                         NO CONVALIDADA

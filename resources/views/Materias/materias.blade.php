@@ -144,7 +144,7 @@
 @if($proceso->estatus==1)
 <div class="card-body secciones_body" style=" text-align: left;">
     Seleccione correctamente tu institucion, carrera y ultimo semestre que cursaste.<br><br>
-    <button class="btn btn-success" style="font-weight: bold; font-size: 20px;" data-toggle="modal" data-target="#iniciar" id="iniciar_materias">Iniciar</button>
+    <button class="btn btn-success" style="font-size: 1.3rem; font-weight: bold;" data-toggle="modal" data-target="#iniciar" id="iniciar_materias">Iniciar</button>
 </div>
 @elseif($proceso->estatus==2)
 <form method="POST" action="{{url('/save_calificaciones')}}" enctype="multipart/form-data">
@@ -274,7 +274,7 @@
                         <div class="col-md-3" style="margin-bottom: 25px">
                             <select class="form-control edit_select" name="semestre" id="semestre_1" onchange=" verificar_existencia_materias();">
                                 <option value="" selected disabled>Ultimo semestre</option>
-                                @for($i=1;$i<9;$i++)
+                                @for($i=1;$i<=9;$i++)
                                 <option value="{{$i}}">{{$i}}° Semestre</option>
                                 @endfor
                             </select>

@@ -19,7 +19,7 @@ class IsAdmin
         if(Auth::user() && Auth::user()->tipo_user===1 or Auth::user()->tipo_user===2){
             return $next($request);
         }else{
-        return redirect('/dashboard')->with('error','No eres apto para acceder a esta pagina');
+        return redirect('/Documentos')->with('error','No eres apto para acceder a esta pagina');
 
     }
     }

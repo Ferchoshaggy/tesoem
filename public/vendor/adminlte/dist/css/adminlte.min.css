@@ -55,3 +55,50 @@ body{
     background-color: #193333 !important;
 }
 
+html::-webkit-scrollbar {
+      width: 12px !important;               /* width of the entire scrollbar */
+    }
+
+html::-webkit-scrollbar-track {
+  background: transparent !important;        /* color of the tracking area */
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #fff !important;    /* color of the scroll thumb */
+  border-radius: 20px !important;       /* roundness of the scroll thumb */
+  /*border: 3px solid black; !important;*/  /* creates padding around scroll thumb */
+}
+
+/* este es para los div dinamicos*/
+
+.multiple::-webkit-scrollbar {
+      width: 8px !important;               /* width of the entire scrollbar */
+    }
+
+.multiple::-webkit-scrollbar-track {
+  background: transparent !important;        /* color of the tracking area */
+}
+
+.multiple::-webkit-scrollbar-thumb {
+  background-color: #fff !important;    /* color of the scroll thumb */
+  border-radius: 20px !important;       /* roundness of the scroll thumb */
+  /*border: 3px solid black; !important;*/  /* creates padding around scroll thumb */
+}
+
+
+
+/* es para el modal */
+.modal-open .modal::-webkit-scrollbar {
+      width: 12px !important;               /* width of the entire scrollbar */
+    }
+
+.modal-open .modal::-webkit-scrollbar-track {
+  background: transparent !important;        /* color of the tracking area */
+}
+
+.modal-open .modal::-webkit-scrollbar-thumb {
+  background-color: #fff !important;    /* color of the scroll thumb */
+  border-radius: 20px !important;       /* roundness of the scroll thumb */
+  /*border: 3px solid black; !important;*/  /* creates padding around scroll thumb */
+}
+

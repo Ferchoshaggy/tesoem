@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'Home',
+    'dashboard_url' => '',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -318,7 +318,7 @@ return [
         */
         [
             'text' => 'Documentos',
-            'url'  => '/dashboard',
+            'url'  => '/Documentos',
             'icon'    => 'nav-icon fas fa-fw fa-thin fa-cloud',
             'can' => 'alumnos',
         ],

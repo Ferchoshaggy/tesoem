@@ -40,7 +40,7 @@ class FormatosController extends Controller
             }
         }
         
-        $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",80)->get();
+        $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
         $pdf = PDF::loadView('Formatos.PDF_anexo_6',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion"))->setPaper(array(0,0,612.00,792.00));
         return $pdf->stream("ANEXO_VI_".Auth::user()->name.".pdf");
@@ -67,7 +67,7 @@ class FormatosController extends Controller
             }
         }
         
-        $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",80)->get();
+        $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
         $pdf = PDF::loadView('Formatos.PDF_anexo_7',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion"))->setPaper(array(0,0,612.00,792.00));
         return $pdf->stream("ANEXO_VII_".Auth::user()->name.".pdf");

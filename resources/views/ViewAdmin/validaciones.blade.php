@@ -656,6 +656,8 @@
                         break;
                     }
                 }
+                //este es para que se active el boton de ver el pdf del lado del tesoem
+                buscar_temario($("select[id='materia_new[]']")[i]);
                 if($("input[id='clave_old[]']")[i].value==$("select[id='matricula_c_new[]'] option:selected")[i].text){
                     $("input[id='valor[]']")[i].value=100;
                     $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
@@ -691,6 +693,8 @@
                             $("select[id='materia_new[]']")[i].value=materias_recuerdo[j].id_materia_new;
                             $("select[id='matricula_c_new[]']")[i].value=materias_recuerdo[j].id_materia_new;
                             $("input[id='valor[]']")[i].value=materias_recuerdo[j].porcentaje_r;
+                            //este es para que se active el boton de ver el pdf del lado del tesoem
+                            buscar_temario($("select[id='materia_new[]']")[i]);
 
                             if($("input[id='valor[]']")[i].value>=80 && $("input[id='calificacion_old[]']")[i].value>=70){
                                 $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
@@ -789,7 +793,7 @@
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
                                                 '<input type="text" name="calificacion_old[]" class="form-control input_edit" id="calificacion_old[]" value="'+materias_cursadas[0][j].calificacion+'" inputmode="numeric" onchange=" cambio_color(this);" data-fila="'+j+'" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false; " onpaste="return false" style="background-color: '+color+';" min="0" title="CALIFICACION">'+
                                             '</div>'+
-                                            '<div class="col-xl-2" style="margin-bottom: 10px; text-align: ;">'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px; font-size: 1.3rem; font-weight: bold;">'+
                                                 '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor" title="VER TEMARIO">VER</button>'+
                                                 '<input type="hidden" id="id_registro_materia[]" name="id_registro_materia[]" value="'+materias_cursadas[0][j].id+'"></input>'+
                                                 '<input type="hidden" id="id_materia_id[]" name="id_materia_id[]" value="'+materias_cursadas[0][j].id_materia+'"></input>'+
@@ -821,7 +825,7 @@
                                             '<div class="col-xl-2" style="margin-bottom: 10px;">'+
                                                 '<input type="text" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%" onchange="varificar_porcentaje(this);" title="% DE SIMILITUD" data-fila="'+j+'" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false; " onpaste="return false" inputmode="numeric">'+
                                             '</div>'+
-                                            '<div class="col-xl-2" style="margin-bottom: 10px;">'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px; font-size: 1.3rem; font-weight: bold;">'+
                                                 '<button type="button" id="pdf_temario_'+j+'" class="btn btn-primary" onclick="pasar_url_pdf_2('+j+');" data-toggle="modal" data-target="#pdf_visor" disabled title="VER TEMARIO">VER</button>'+
                                                 '<input type="hidden" id="temario_new_'+j+'" name="temario_new_'+j+'"></input>'+
                                             '</div>'+
