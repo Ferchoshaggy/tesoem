@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'Home',
+    'dashboard_url' => '',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -318,7 +318,7 @@ return [
         */
         [
             'text' => 'Documentos',
-            'url'  => '/dashboard',
+            'url'  => '/Documentos',
             'icon'    => 'nav-icon fas fa-fw fa-thin fa-cloud',
             'can' => 'alumnos',
         ],
@@ -327,7 +327,7 @@ return [
             'text' => 'Materias',
             'url'  => '/Materias',
             'icon'    => 'nav-icon fas fa-fw fa-book',
-            'can' => 'alumnos',
+            'can' => 'alumnos_m',
             'id' => 'materias',
         ],
 
@@ -335,7 +335,7 @@ return [
             'text' => 'Formatos',
             'url'  => '/Formatos',
             'icon'    => 'nav-icon fas fa-list',
-            'can' => 'alumnos',
+            'can' => 'alumnos_f_h',
             'id' => 'formatos',
         ],
 
@@ -344,7 +344,7 @@ return [
             'url'  => '/Horarios',
             'icon'    => 'nav-icon fas fa-regular fa-clock',
             'id' => 'horarios',
-            'can' => 'docente-alumno'
+            'can' => 'alumnos_f_h'
         ],
 
         [

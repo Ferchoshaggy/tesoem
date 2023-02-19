@@ -149,14 +149,6 @@
         </div>
         @endif
 
-        @if($comprobante->estatus==3)
-        <div class="col-md-12" style="text-align: left;">
-            <label>Comprobante de pago:</label><br>
-            {{$comprobante->descripcion}}
-        </div>
-        
-        @endif
-
         <div class="col-md-12" style="text-align: right;">
             <img src="{{url('icons/tache.png')}}" style="width: 9vh; height: auto; margin-right: -25px; margin-bottom: -35px;">
         </div>
@@ -170,7 +162,7 @@
 </div>
 @if($proceso->etapa==1)
 <div class="card-body secciones_body">
-    @if($h_academico != null && $comprobante != null)
+    @if($h_academico != null)
 
     <form method="POST" action="{{url('/update_documents')}}" enctype="multipart/form-data">
         @csrf
@@ -178,48 +170,25 @@
         <div class="row">
 
             @if($h_academico->estatus==3)
-            <div class="col-md-6" style="margin-bottom: 25px;">
+            <div class="col-md-12" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <img id="img1" src="{{url('icons/D14.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up_edit(this,3)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success">Resubir</label>
             </div>
             @elseif($h_academico->estatus==5)
-            <div class="col-md-6" style="margin-bottom: 25px;">
+            <div class="col-md-12" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up_edit(this,5)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success" style="display: none;">Editar</label>
                 <img id="img1" src="{{url('icons/D5.png')}}" style="width: 25%; height: auto;"><br><br>
             </div>
             @elseif($h_academico->estatus==2 || $h_academico->estatus==4)
-            <div class="col-md-6" style="margin-bottom: 25px;">
+            <div class="col-md-12" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <img id="img1" src="{{url('icons/D5.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up_edit(this,6)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success">Editar</label>
-            </div>
-            @endif
-
-            @if($comprobante->estatus==3)
-            <div class="col-md-6" style="margin-bottom: 25px;">
-                <label>Comprobante de pago</label><br>
-                <img id="img3" src="{{url('icons/D12.png')}}" style="width: 25%; height: auto;"><br><br>
-                <input id="archivo3" type="file" name="c_pago" class="archivo" onchange="document_up_edit(this,3)" accept=".pdf">
-                <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success">Resubir</label>
-            </div>
-            @elseif($comprobante->estatus==5)
-             <div class="col-md-6" style="margin-bottom: 25px;">
-                <label>Comprobante de pago</label><br>
-                <input id="archivo3" type="file" class="archivo" onchange="document_up_edit(this,5)" accept=".pdf">
-                <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success" style="display: none;">Resubir</label>
-                <img id="img3" src="{{url('icons/D8.png')}}" style="width: 25%; height: auto;"><br><br>
-            </div>
-            @elseif($comprobante->estatus==2 || $comprobante->estatus==4)
-            <div class="col-md-6" style="margin-bottom: 25px;">
-                <label>Comprobante de pago</label><br>
-                <img id="img3" src="{{url('icons/D8.png')}}" style="width: 25%; height: auto;"><br><br>
-                <input id="archivo3" type="file" name="c_pago" class="archivo" onchange="document_up_edit(this,6)" accept=".pdf">
-                <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success">Editar</label>
             </div>
             @endif
             
@@ -239,26 +208,20 @@
     
     @else
     <!-- este es para cuendo apenas los subira-->
-    <form method="POST" action="{{url('/save_documents')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{url('/save_documents_b')}}" enctype="multipart/form-data">
         @csrf
 
         <div class="row">
-            <div class="col-md-6" style="margin-bottom: 25px;">
+            <div class="col-md-12" style="margin-bottom: 25px;">
                 <label>Historial academico</label><br>
                 <img id="img1" src="{{url('icons/D1.png')}}" style="width: 25%; height: auto;"><br><br>
                 <input id="archivo1" type="file" name="h_academico" class="archivo" onchange="document_up(this)" accept=".pdf">
                 <label id="archivo1_button" for="archivo1" class="boton_file btn btn-success">Subir</label>
             </div>
-            <div class="col-md-6" style="margin-bottom: 25px;">
-                <label>Comprobante de pago</label><br>
-                <img id="img3" src="{{url('icons/D3.png')}}" style="width: 25%; height: auto;"><br><br>
-                <input id="archivo3" type="file" name="c_pago" class="archivo" onchange="document_up(this)" accept=".pdf">
-                <label id="archivo3_button" for="archivo3" class="boton_file btn btn-success">Subir</label>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-10" style="text-align: left; padding: 20px">
-                Al subir los 2 archivos no olvides presionar el botón guardar para que se envie tu progreso
+                Al subir el archivo no olvides presionar el botón guardar para que se envie tu progreso
             </div>
             <div class="col-md-2" style="text-align: right;">
                 <br><br>
@@ -315,23 +278,6 @@
                 file.value=null;
             }
             
-        }else if(file.id=="archivo3"){
-            if (file.files[0]!=null){
-                if(file.value.split('.').pop()=="pdf"){
-                    document.getElementById("img3").src="{{url('icons/D8.png')}}";
-                    document.getElementById("archivo3_button").innerHTML="Cambiar";
-                }else{
-                    document.getElementById("img3").src="{{url('icons/D3.png')}}";
-                    document.getElementById("archivo3_button").innerHTML="subir";
-                    alert("EL ARCHIVO DEBE SER PDF");
-                    file.value=null;
-                }
-            }else{
-                document.getElementById("img3").src="{{url('icons/D3.png')}}";
-                document.getElementById("archivo3_button").innerHTML="subir";
-                file.value=null;
-            }
-            
         }
         documenten_exit(file);
         
@@ -369,38 +315,9 @@
                 file.value=null;
             }
             
-        }else if(file.id=="archivo3"){
-            if (file.files[0]!=null){
-                if(file.value.split('.').pop()=="pdf"){
-                    document.getElementById("img3").src="{{url('icons/D8.png')}}";
-                    document.getElementById("archivo3_button").innerHTML="Cambiar";
-                }else{
-                    if (estatus==3){
-                        document.getElementById("img3").src="{{url('icons/D12.png')}}";
-                        document.getElementById("archivo3_button").innerHTML="Resubir";
-                    }
-                    if (estatus==6){
-                        document.getElementById("img3").src="{{url('icons/D8.png')}}";
-                        document.getElementById("archivo3_button").innerHTML="Editar";
-                    }
-                    alert("EL ARCHIVO DEBE SER PDF");
-                    file.value=null;
-                }
-            }else{
-                if (estatus==3){
-                    document.getElementById("img3").src="{{url('icons/D12.png')}}";
-                    document.getElementById("archivo3_button").innerHTML="Resubir";
-                }
-                if (estatus==6){
-                    document.getElementById("img3").src="{{url('icons/D8.png')}}";
-                    document.getElementById("archivo3_button").innerHTML="Editar";
-                }
-                file.value=null;
-            }
-            
         }
         //alert($('#archivo1').get(0).files[0]);
-        if ($('#archivo1').get(0).files[0]==null && $('#archivo3').get(0).files[0]==null){
+        if ($('#archivo1').get(0).files[0]==null){
 
             document.getElementById("button_envio").disabled=true;
         }else{
@@ -411,7 +328,7 @@
     }
 
     function documenten_exit(file){
-        if(document.getElementById("img3").src=="{{url('icons/D8.png')}}" && document.getElementById("img1").src=="{{url('icons/D5.png')}}"){
+        if(document.getElementById("img1").src=="{{url('icons/D5.png')}}"){
             document.getElementById("button_envio").disabled=false;
         }else{
             document.getElementById("button_envio").disabled=true;

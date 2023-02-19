@@ -21,7 +21,7 @@ class UserConfigController extends Controller
         }else if(in_array(2, $checkrole)) {
             return redirect('/ADocumentos');
         }else if(in_array(3, $checkrole)){
-            return redirect('/dashboard');
+            return redirect('/Documentos');
         }
     }
 
@@ -78,8 +78,6 @@ class UserConfigController extends Controller
 
             DB::table("users")->where("id",Auth::user()->id)->update([
                 "name"=>$request['nombre'],
-                "ape_pat"=>$request['ape_pat'],
-                "ape_mat"=>$request['ape_mat'],
                 "edad"=>$request["edad"],
                 "direccion"=>$request['direccion'],
                 "email"=>$request['correo'],

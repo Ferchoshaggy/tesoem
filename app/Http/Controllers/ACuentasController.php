@@ -100,6 +100,46 @@ public function user_modal($id){
     return json_encode($datosUser);
 }
 
+public function reinicio_alumno(Request $request){
+    date_default_timezone_set('America/Mexico_City');
+    if($request->ajax()){
+        $datos_alumno=DB::table("users")->where("id",$request["id_alumno_reinicio"])->first();
+        $proceso_pasado=$datos_alumno->id_proceso_activo;
+        $datos_carrera=DB::table("carreras")->where("id",$datos_alumno->carrera_tesoem)->first();
+        DB::table("procesos_alumno")->insert([
+            "id_user" => $request["id_alumno_reinicio"],
+            "id_institucion_old" => $datos_carrera->id_institucion,
+            "id_carrera_old" => $datos_carrera->id,
+            "fecha" => date("Y-m-d"),
+            "estatus" => 1,
+            "etapa" => 1,
+            "tipo_proceso" => 2,
+        ]);
+        //odtenemos el id de lo que se acaba de insertar
+        $id = DB::getPdo()->lastInsertId();
+
+        DB::table("users")->where("id",$request["id_alumno_reinicio"])->update([
+            "id_proceso_activo" => $id,
+        ]);
+
+        //esto es para pasar las materias del horario a sus materias a cursar "este semestre"
+        $datos_alumno_new=DB::table("users")->where("id",$request["id_alumno_reinicio"])->first();
+        $materias_horario=DB::table("horario_alumnos")->join('materias_convalidacion', 'materias_convalidacion.id', '=', 'horario_alumnos.id_materia_convalidacion')->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("horario_alumnos.grupo","materias_convalidacion.id_materia","materias.id")->where("horario_alumnos.id_proceso_alumno",$proceso_pasado)->get();
+
+        foreach ($materias_horario as $key => $m_h){
+            DB::table("calificaciones_materias")->insert([
+                "id_materia" => $m_h->id,
+                "id_proceso_alumno" => $datos_alumno_new->id_proceso_activo,
+                "fecha" => date("Y-m-d")
+            ]);
+        }
+        return response()->json([]);
+    }else{
+        return response()->json([]);
+    }
+
+}
+
 
 
 }

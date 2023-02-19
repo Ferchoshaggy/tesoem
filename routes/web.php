@@ -61,9 +61,10 @@ Route::group(['middleware' => ['auth', 'docente']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'alumno']], function () {
-    Route::get('/dashboard', [DocumentsController::class,'view_documents'])->name('view_documents');
+    Route::get('/Documentos', [DocumentsController::class,'view_documents'])->name('view_documents');
     Route::get('/Materias', [MateriasController::class,'view_materias'])->name('view_materias');
     Route::get('/Formatos', [FormatosController::class,'view_formatos'])->name('view_formatos');
+    Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 });
 
 //redirect login
@@ -82,7 +83,9 @@ Route::post('/Actualizar_user', [UserConfigController::class,'user_actualizar'])
 //documents
 
 Route::post('/save_documents', [DocumentsController::class,'save_documents'])->name('save_documents');
+Route::post('/save_documents_b', [DocumentsController::class,'save_documents_b'])->name('save_documents_b');
 Route::post('/update_documents', [DocumentsController::class,'update_documents'])->name('update_documents');
+
 
 //materias
 
@@ -93,6 +96,7 @@ Route::get('/consulta_carreras/{id}', [MateriasController::class,'consulta_carre
 Route::get('/consulta_existencia_materias/{id_institucion}/{id_carrera}/{numero_semestre}', [MateriasController::class,'consulta_existencia_materias'])->name('consulta_existencia_materias');
 Route::post('/save_materias', [MateriasController::class,'guardar_materias'])->name('guardar_materias');
 Route::post('/save_calificaciones', [MateriasController::class,'guardar_calificaciones'])->name('guardar_calificaciones');
+Route::post('/save_calificaciones_b', [MateriasController::class,'guardar_calificaciones_b'])->name('guardar_calificaciones_b');
 
 //formatos
 
@@ -101,8 +105,10 @@ Route::get('/ANEXO_VII', [FormatosController::class,'pdf_anexo_7'])->name('pdf_a
 Route::get('/CONVALIDACION', [FormatosController::class,'pdf_convalidacion'])->name('pdf_convalidacion');
 
 //horario
-Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
-
+Route::get('/materias_c_alumno', [HorarioController::class,'materias_convalidacion_alumno'])->name('materias_convalidacion_alumno');
+Route::post('/save_form_horario', [HorarioController::class,'guardar_horario'])->name('guardar_horario');
+Route::get('/EQV', [HorarioController::class,'pdf_eqv'])->name('pdf_eqv');
+Route::get('/materias_horario', [HorarioController::class,'materias_horario'])->name('materias_horario');
 //documentos Administrador
 
 Route::get('/ADocumentosJax/{page?}',[ADocumentsController::class,'view_documenJax'])->name('Documents_viewJax');
@@ -141,3 +147,4 @@ Route::get('/search_user/{id}',[ACuentasController::class,'user_modal'])->name('
 Route::post('/cambios_user',[ACuentasController::class,'editar_user'])->name('cambios_user');
 Route::post('/delete_user',[ACuentasController::class,'eliminar_user'])->name('delete_user');
 Route::post('/nuevo_user',[ACuentasController::class,'save_user'])->name('nuevo_user');
+Route::post('/reinicio_alumno',[ACuentasController::class,'reinicio_alumno'])->name('reinicio_alumno');

@@ -16,9 +16,16 @@ class MateriasController extends Controller
 
     public function view_materias(){
 
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if ($etapa==null) {
+            return redirect("/Documentos");
+        }
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
+
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         $instituciones=DB::table("instituciones")->select("*")->get();
-
         if($proceso->semestre!=null && $proceso->id_institucion_old!=null && $proceso->id_carrera_old!=null){
             $materias=DB::table("materias")->where("id_institucion",$proceso->id_institucion_old)->where("id_carrera",$proceso->id_carrera_old)->where("semestre","<=",$proceso->semestre)->get();
             $materias_cursadas=DB::table("calificaciones_materias")->where("id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
@@ -26,13 +33,27 @@ class MateriasController extends Controller
             $materias=null;
             $materias_cursadas=null;
         }
-
-        return view("Materias.materias",compact("instituciones","proceso","materias","materias_cursadas"));
+        if ($proceso->tipo_proceso==1) {
+            return view("Materias.materias",compact("instituciones","proceso","materias","materias_cursadas"));
+        }else{
+            $materias=DB::table("calificaciones_materias")->join('materias', 'calificaciones_materias.id_materia', '=', 'materias.id')->select("calificaciones_materias.id","calificaciones_materias.calificacion","materias.semestre","materias.nombre","materias.matricula")->where("calificaciones_materias.id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
+            $numero_semestres=0;
+            foreach($materias as $materia){
+                if($materia->semestre>$numero_semestres){
+                    $numero_semestres=$materia->semestre;
+                }
+            }
+            return view("Materias.materias_b",compact("instituciones","proceso","materias","materias_cursadas","numero_semestres"));
+        }
+        
     }
 
     //metodo de ajax para guardar sin recargar
     public function guardar_institucion(Request $request){
-
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
         date_default_timezone_set('America/Mexico_City');
 
         if($request->ajax()){
@@ -67,6 +88,11 @@ class MateriasController extends Controller
 
     public function guardar_carrera(Request $request){
 
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
+
         date_default_timezone_set('America/Mexico_City');
 
         if($request->ajax()){
@@ -90,18 +116,28 @@ class MateriasController extends Controller
     }
 
     public function consulta_instituciones(){
-
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
         $instituciones=DB::table("instituciones")->select("*")->get();
         return json_encode($instituciones);
     }
 
     public function consulta_carreras($id){
-
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect()->back();
+        }
         $carreras=DB::table("carreras")->where("id_institucion",$id)->get();
         return json_encode($carreras);
     }
 
     public function consulta_existencia_materias($id_institucion,$id_carrera,$numero_semestre){
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect()->back();
+        }
 
         $resultados=DB::table("materias")->where("id_carrera",$id_carrera)->where("id_institucion",$id_institucion)->where('semestre', '<=', $numero_semestre)->get();
 
@@ -109,6 +145,11 @@ class MateriasController extends Controller
     }
 
     public function guardar_materias(Request $request){
+
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
         date_default_timezone_set('America/Mexico_City');
 
         if($request["cantidad_semestres_registrados"]=="materias_completas"){
@@ -191,6 +232,10 @@ class MateriasController extends Controller
     }
 
     public function guardar_calificaciones(Request $request){
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
         date_default_timezone_set('America/Mexico_City');
         //recorremos el arreglo para empezar a guardar los datos
         //echo Auth::user()->id_proceso_activo;
@@ -204,6 +249,35 @@ class MateriasController extends Controller
                     "id_proceso_alumno" => Auth::user()->id_proceso_activo,
                     "calificacion" => $request["calificaciones"][$i],
                     "fecha" => date("Y-m-d")
+                ]);
+
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['message' => "Algo salio mal con la base de datos, intente de nuevo", 'color' => 'warning','tipo' => 'error']);
+            } 
+        }
+        //al terminar entonces editamos el status.
+        DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->update([
+            "estatus" => 4,
+        ]);
+
+        return redirect()->back()->with(['message' => "Calificaciones registradas corectamente, Ya solo espera que sean aprobadas", 'color' => 'success','tipo' => 'agregado']);
+    }
+
+    public function guardar_calificaciones_b(Request $request){
+        $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
+            return redirect("/User_config");
+        }
+        date_default_timezone_set('America/Mexico_City');
+        //recorremos el arreglo para empezar a guardar los datos
+        //echo Auth::user()->id_proceso_activo;
+        
+        for ($i= 0; $i < count($request["id_materia_guardada"]); $i++) {
+            
+            try {
+
+                DB::table("calificaciones_materias")->where("id",$request["id_materia_guardada"][$i])->update([
+                    "calificacion" => $request["calificaciones"][$i],
                 ]);
 
             } catch (\Exception $e) {
