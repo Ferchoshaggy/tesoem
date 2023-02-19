@@ -215,15 +215,15 @@
               </svg>
         </button>
 
-        <button class="btn" style="color:white" data-toggle="modal" data-target="#editar_materia" onclick="materia_edit();">
+        <button class="btn marca" style="color:white" data-toggle="modal" data-target="#editar_materia" onclick="materia_edit();">
             Editar
           </button>
           <br>
-        <button class="btn" style="color:white" data-toggle="modal" data-target="#eliminar_materia" onclick="materia_delete();">
+        <button class="btn marca" style="color:white" data-toggle="modal" data-target="#eliminar_materia" onclick="materia_delete();">
             Eliminar
           </button>
           <br>
-        </div>
+    </div>
 
 
 <!-- Modal Editar materia-->
@@ -413,6 +413,14 @@
     .paginate_button{
     position:sticky;
 }
+    .marca{
+        transition: 1s;
+        cursor: pointer;
+    }
+    .marca:hover{
+        background: #797d8b80;
+        transition: 1s;
+    }
 
 </style>
 @stop

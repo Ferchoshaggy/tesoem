@@ -289,6 +289,14 @@ Esta accion implica que estara aprobando el tramite lo cual dara al alumno de ma
   position: inherit;
   top: 25%;
 }
+    .marca{
+        transition: 1s;
+        cursor: pointer;
+    }
+    .marca:hover{
+        background: #797d8b80;
+        transition: 1s;
+    }
 
 </style>
 

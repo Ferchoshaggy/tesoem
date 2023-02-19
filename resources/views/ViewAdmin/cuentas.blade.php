@@ -253,6 +253,91 @@
 
 </div>
 
+<!-- reiniciar -->
+<div class="modal fade" id="Reiniciar_alumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Reiniciar Proceso</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <div class="secciones_body" style="padding: 25px;">
+                <label style="font-size: 25px;  width: 100%;">¿Estas seguro de reiniciar el proceso?</label>
+                <p  style="font-size: 15px;">Esto implica que el alumno tendra que hacer todos los pasos nuevamente, pero ya con las materias del TESOEM</p><br>
+                <label id="nombre_label" style="font-size: 25px;"></label><br>
+                <label id="matricula_label" style="font-size: 25px;"></label><br>
+                <form method="POST" action="" id="from_alumno_reinicio">
+                    @csrf
+                    <input type="hidden" name="id_alumno_reinicio" id="id_alumno_reinicio">
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal"  data-toggle="modal" data-target="#exito_guardado" onclick="envio_from_reinicio();">Reiniciar</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="check_exito" data-toggle="modal" data-target="#exito_guardado">
+<!-- agregado con exito modal de espera de carga-->
+<div class="modal fade" id="exito_guardado" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff; overflow-y: auto; background-color: #111111bd;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Enviando petición</h5>
+            
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333;">
+
+            <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px; text-align: center;">
+
+                <div class="col-md-12" id="texto_exito" style="display: none;">
+                    Los datos fueron actualizados.<br><br> 
+                </div>
+                <div class="col-md-12" id="texto_exito_2" style="display: none;">
+                     El Alumno ya fue Reiniciado.<br><br>
+                </div>
+                <div class="col-md-12" id="carga_espera">
+                    <img src="{{url('img/cargando_12.gif')}}" style="width: 100%; height: auto; border-radius: 10%; "><br>
+                    Espere un momento...
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>  
+        </div>
+    </div>
+  </div>
+</div>
+
+<!--menu de opciones de la tabla-->
+<div id="menu_opciones" class="visible_off " style=" padding: 15px; background-color: #193333;">
+
+    <button type="button" class="close" style="margin-right: -5px; margin-top: -15px; margin-bottom: 10px" onclick="cerrar_menu();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+    </button>
+
+    <button class="btn marca" style="color:white" data-toggle="modal" data-target="#ConfigUser" onclick="materia_edit();">
+        Editar
+      </button>
+      <br>
+      <button class="btn marca" style="color:white" data-toggle="modal" data-target="#Reiniciar_alumno" onclick="reinicio_alumno();">
+        Reiniciar
+      </button>
+      <br>
+</div>
+
 @stop
 
 @section('css')
@@ -337,6 +422,29 @@
       background: #111111;
 
     }
+
+    .visible_on{
+        display: block;
+        position: fixed;
+        background: white;
+        border-radius: 15px;
+        width: auto;
+    }
+    .visible_off{
+        display: none;
+    }
+    .paginate_button{
+    position:sticky;
+}
+
+    .marca{
+        transition: 1s;
+        cursor: pointer;
+    }
+    .marca:hover{
+        background: #797d8b80;
+        transition: 1s;
+    }
 </style>
 @stop
 
@@ -384,9 +492,19 @@ $('#tabla-reload').empty().html(carreras,usuarios);
 
 //FUNCION PARA BUSCAR DATOS DEL USUARIO A EDITAR
 var id_user=null;
-
+var nombre_alumno=null;
+var matricula_alumno=null;
 function tomar_id($id_tr){
     id_user=$id_tr;
+    if({{Auth::user()->tipo_user}}==2){
+        var coordenadas_y=event.clientY; //odtenemos el valor de la posicion del boton
+        var coordenadas_x=event.clientX; //odtenemos el valor de la posicion del boton
+        menu_opciones.style.top=coordenadas_y-15+"px";
+        menu_opciones.style.left=coordenadas_x-15+"px";
+        menu_opciones.classList.add("visible_on");
+        menu_opciones.classList.remove("visible_off");
+    }
+    
 
     $.ajax({
     url: "{{url('/search_user')}}"+'/'+id_user,
@@ -404,12 +522,60 @@ function tomar_id($id_tr){
     document.getElementById("matricula").value=datosUser.matricula;
     document.getElementById("nombre").value=datosUser.name;
     document.getElementById("correo").value=datosUser.email;
-    document.getElementById("fotoP").src="/fotos_users/"+datosUser.foto;
+    document.getElementById("fotoP").src="{{url('/fotos_users')}}"+"/"+datosUser.foto;
     document.getElementById("id_user").value=datosUser.id;
     document.getElementById("id_userD").value=datosUser.id;
+    nombre_alumno=datosUser.name;
+    matricula_alumno=datosUser.matricula;
   }
 });
 }
+
+    menu_opciones.addEventListener("mouseleave",function(){
+          menu_opciones.classList.remove("visible_on");
+          menu_opciones.classList.add("visible_off");
+    });
+    function cerrar_menu(){
+        menu_opciones.classList.remove("visible_on");
+        menu_opciones.classList.add("visible_off");
+    }
+
+    function reinicio_alumno() {
+        document.getElementById("nombre_label").innerHTML="Alumno: "+nombre_alumno;
+        document.getElementById("matricula_label").innerHTML="Matricula: "+matricula_alumno;
+        document.getElementById("id_alumno_reinicio").value=id_user;
+    }
+
+    function envio_from_reinicio(){
+        document.getElementById("texto_exito").style.display="none";
+        document.getElementById("texto_exito_2").style.display="none";
+        document.getElementById("check_off").style.display="none";
+        document.getElementById("carga_espera").style.display="block";
+
+        var dataString =new FormData($("#from_alumno_reinicio")[0]);
+        $.ajax({
+          url:"{{url('/reinicio_alumno')}}",
+            type:'POST',
+            dataType:'json',
+            data:dataString,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(Response){
+                jQuery.noConflict();
+                tableRE();
+                document.getElementById("texto_exito_2").style.display="block";
+                document.getElementById("check_off").style.display="block";
+                document.getElementById("carga_espera").style.display="none";
+            },
+            error:function (Response){
+                alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+                document.getElementById("check_off").style.display="block";
+            }
+
+        });
+
+    }
 
 
 //ajax editar usuarios

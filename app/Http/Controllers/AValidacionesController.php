@@ -15,7 +15,7 @@ class AValidacionesController extends Controller
 
     public function view_validacion(){
 
-        $alumnos=DB::table("users")->join('procesos_alumno', 'users.id_proceso_activo', '=', 'procesos_alumno.id')->join('instituciones', 'procesos_alumno.id_institucion_old', '=', 'instituciones.id')->select('users.*','procesos_alumno.etapa','procesos_alumno.estatus', 'instituciones.nombre')->get();
+        $alumnos=DB::table("users")->join('procesos_alumno', 'users.id_proceso_activo', '=', 'procesos_alumno.id')->join('instituciones', 'procesos_alumno.id_institucion_old', '=', 'instituciones.id')->select('users.*','procesos_alumno.etapa','procesos_alumno.estatus', 'instituciones.nombre')->where("procesos_alumno.etapa",2)->where("procesos_alumno.estatus",4)->get();
         $carrera=DB::table("carreras")->where("id",Auth::user()->carrera_tesoem)->first();
         $materias_new=DB::table("materias")->where("id_carrera", Auth::user()->carrera_tesoem)->get();
         $instituciones=DB::table("instituciones")->select("*")->get();
@@ -24,15 +24,13 @@ class AValidacionesController extends Controller
     }
 
     public function materias_cursadas($id){
+        $datos_alumno=DB::table("users")->where("id",$id)->first();
+        $proceso=DB::table("procesos_alumno")->where("id",$datos_alumno->id_proceso_activo)->first();
 
-        $proceso=DB::table("procesos_alumno")->where("id_user",$id)->first();
+        
+        $materias_cursadas[0]=DB::table("calificaciones_materias")->join('materias', 'calificaciones_materias.id_materia', '=', 'materias.id')->where("calificaciones_materias.id_proceso_alumno",$proceso->id)->select('calificaciones_materias.*','materias.nombre','materias.matricula', 'materias.temario','materias.semestre')->get();
 
-        if ($proceso->tipo_proceso==1) {
-            $materias_cursadas[0]=DB::table("calificaciones_materias")->join('materias', 'calificaciones_materias.id_materia', '=', 'materias.id')->where("calificaciones_materias.id_proceso_alumno",$proceso->id)->select('calificaciones_materias.*','materias.nombre','materias.matricula', 'materias.temario','materias.semestre',)->get();
-        }else{
-            $materias_cursadas[0]=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->where("id_user",$id)->select('materias_convalidacion.*','materias.nombre','materias.matricula', 'materias.temario','materias.semestre',)->get();
-        }
-        $materias_cursadas[1]=DB::table("procesos_alumno")->where("id_user",$id)->first();
+        $materias_cursadas[1]=DB::table("procesos_alumno")->where("id",$proceso->id)->first();
         $materias_cursadas[2]=DB::table("carreras")->where("id",$proceso->id_carrera_old)->first();
         $materias_cursadas[3]=DB::table("historial_academico")->where("id_proceso_alumno",$proceso->id)->first();
 
@@ -88,10 +86,9 @@ class AValidacionesController extends Controller
     public function guardar_validacion(Request $request){
         if($request->ajax()){
             date_default_timezone_set('America/Mexico_City');
-            DB::table("materias_convalidacion")->where("id_user",$request["id_alumno"])->delete();
 
             if($request["tipo_proceso"]==1){
-
+                DB::table("materias_convalidacion")->where("id_user",$request["id_alumno"])->delete();
                 $materias_new=DB::table("materias")->where("id_carrera",Auth::user()->carrera_tesoem)->get();
                 try{
                     foreach($materias_new as $materia_new) {
@@ -173,39 +170,44 @@ class AValidacionesController extends Controller
                 }
             }else{
 
-                for ($i= 0; $i < count($request["materia_new"]); $i++){
+                for($i= 0; $i < count($request["id_registro_materia"]); $i++){
 
-                    if($request["clave_old"][$i]==$request["matricula_c_new"][$i]){
+                    if($request["valor"][$i]>=80) {
                         $procentaje=100;
                         $validacion="si";
                         $calificacion=$request["calificacion_old"][$i];
-
-                    }else if($request["valor"][$i]>=80 && $request["calificacion_old"][$i]>70) {
-                        $procentaje=$request["valor"][$i];
-                        $validacion="si";
-                        $calificacion=$request["calificacion_old"][$i];
-                        
-                    }else if($request["valor"][$i]>=80 && $request["calificacion_old"][$i]<70) {
-                        $procentaje=$request["valor"][$i];
-                        $validacion="si";
-                        $calificacion=0;
                         
                     }else if($request["valor"][$i]<80){
-                        $procentaje=$request["valor"][$i];
+                        $procentaje=100;
                         $validacion="no";
-                        $calificacion=0;
+                        $calificacion=$request["calificacion_old"][$i];
                     }
                     try{
-
-                        DB::table("materias_convalidacion")->where("id",$request["id_registro_materia"][$i])->update([
+                        DB::table("materias_convalidacion")->where("id_materia",$request["id_materia_id"][$i])->where("id_user",$request["id_alumno"])->update([
                             "calificacion" => $calificacion,
                             "porcentaje" => $procentaje,
-                            "validacion" => $validacion,
+                            "validacion" => $validacion
+                        ]);      
+
+                    }catch(\Exception $e){
+                        $exito[0]="no";
+                        $exito[1]="al agregar la calificacion";
+                        $exito[2]=count($request["materia_new"]);
+                        return json_encode($exito);
+                    }
+
+                    $materia_camvalidacion=DB::table("materias_convalidacion")->where("id_materia",$request["id_materia_id"][$i])->where("id_user",$request["id_alumno"])->first();
+                    
+                    try{
+                        DB::table("calificaciones_materias")->where("id",$request["id_registro_materia"][$i])->update([
+                            "porcentaje" => $procentaje,
+                            "id_materia_convalida" => $materia_camvalidacion->id
                         ]);
 
                     }catch(\Exception $e){
                         $exito[0]="no";
-                        $exito[1]="en tipo_proceso 2";
+                        $exito[1]="editar las calificaciones_materias";
+                        $exito[2]=count($request["materia_new"]);
                         return json_encode($exito);
                     }
                     
@@ -224,7 +226,7 @@ class AValidacionesController extends Controller
 
                 if($recordar_registros==0){
                     for($i= 0; $i < count($request["materia_new"]); $i++){
-                        if($request["materia_new"][$i]!=-1){
+                        //if($request["materia_new"][$i]!=-1){
                             DB::table("recordar_validaciones")->insert([
                                 "union_claves" => $union_claves,
                                 "id_materia_old" => $request["id_materia_id"][$i],
@@ -232,11 +234,11 @@ class AValidacionesController extends Controller
                                 "porcentaje_r" => $request["valor"][$i],
                                 "fecha" => date("Y-m-d")
                             ]);
-                        }
+                        //}
                     }
                 }else{
                     for($i= 0; $i < count($request["materia_new"]); $i++){
-                        if($request["materia_new"][$i]!=-1){
+                        //if($request["materia_new"][$i]!=-1){
 
                             $validacion_r=0;
                             $validacion_r=DB::table("recordar_validaciones")->where("union_claves",$union_claves)->where("id_materia_old",$request["id_materia_id"][$i])->where("id_materia_new",$request["materia_new"][$i])->count();
@@ -258,7 +260,7 @@ class AValidacionesController extends Controller
                                 ]);
                             }
 
-                        }
+                        //}
                         
                     }
 

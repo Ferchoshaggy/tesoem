@@ -9,7 +9,11 @@
     </thead>
     <tbody>
 @foreach ($usuarios as $usuario)
-      <tr onclick="tomar_id({{ $usuario->id }})" data-toggle="modal" data-target="#ConfigUser">
+      @if(Auth::user()->tipo_user==2)
+      <tr onclick="tomar_id({{ $usuario->id }})" class="marca">
+      @else
+      <tr onclick="tomar_id({{ $usuario->id }})" class="marca" data-toggle="modal" data-target="#ConfigUser">
+      @endif
         <td style="text-align: center;">{{ $usuario->matricula }}</td>
         <td style="text-align: center;">{{ $usuario->name }}</td>
         <td style="text-align: center;">{{ $usuario->email }}</td>

@@ -327,7 +327,7 @@ return [
             'text' => 'Materias',
             'url'  => '/Materias',
             'icon'    => 'nav-icon fas fa-fw fa-book',
-            'can' => 'alumnos',
+            'can' => 'alumnos_m',
             'id' => 'materias',
         ],
 
@@ -335,7 +335,7 @@ return [
             'text' => 'Formatos',
             'url'  => '/Formatos',
             'icon'    => 'nav-icon fas fa-list',
-            'can' => 'alumnos',
+            'can' => 'alumnos_f_h',
             'id' => 'formatos',
         ],
 
@@ -344,7 +344,7 @@ return [
             'url'  => '/Horarios',
             'icon'    => 'nav-icon fas fa-regular fa-clock',
             'id' => 'horarios',
-            'can' => 'alumnos'
+            'can' => 'alumnos_f_h'
         ],
 
         [

@@ -16,6 +16,11 @@ class DocumentsController extends Controller
     }
 
     public function view_documents(){
+
+        if(Auth::user()->tipo_user!=3){
+            return redirect("/User_config");
+        }
+        date_default_timezone_set('America/Mexico_City');
         $otra_etapa=false;
         $h_academico=null;
         $comprobante=null;
@@ -55,11 +60,19 @@ class DocumentsController extends Controller
 
         
         //$certificado=DB::table("certificado_medico")->where("id_user",Auth::user()->id)->first();
-        return view("Documents.documents",compact("h_academico","comprobante","proceso","otra_etapa"));
+        if ($proceso->tipo_proceso==1) {
+            return view("Documents.documents",compact("h_academico","comprobante","proceso","otra_etapa"));
+        }else{
+            return view("Documents.documents_B",compact("h_academico","comprobante","proceso","otra_etapa"));
+        }
+        
     }
 
     public function save_documents(Request $request){
 
+        if(Auth::user()->tipo_user!=3){
+            return redirect("/User_config");
+        }
         date_default_timezone_set('America/Mexico_City');
 
         $time = date("d-m-Y")."-".time();
@@ -132,7 +145,73 @@ class DocumentsController extends Controller
         }
     }
 
+    public function save_documents_b(Request $request){
+
+        if(Auth::user()->tipo_user!=3){
+            return redirect("/User_config");
+        }
+
+        date_default_timezone_set('America/Mexico_City');
+
+        $time = date("d-m-Y")."-".time();
+
+        //$exten=$request['h_academico']->getClientOriginalExtension();
+
+        echo "<br>".$request['h_academico']->getClientOriginalExtension();
+
+        if ($request['h_academico']->getClientOriginalExtension()=="pdf") {
+
+            if($request['h_academico']!=null){
+
+                /*eliminar la foto si es que existe
+                if($foto_delete->foto!=null){
+                    $rute_fotos=public_path().'\fotos_users\\'.$foto_delete->foto;
+                    File::delete($rute_fotos);
+                }*/
+                //guardamos la nueva
+                $h_academico = rand(11111,99999).'historial_academico'.Auth::user()->matricula.".pdf"; 
+                $destinationPath = public_path().'/documents_h_academico';
+                $file_save = $request->file('h_academico');
+                $file_save->move($destinationPath,$h_academico);
+
+            }else{
+                //te falta archivos
+                return redirect()->back()->with(['message' => 'Faltan archivos', 'color' => 'dark','tipo' => 'falta']);
+            }
+            
+        }else{
+            //no es .pdf
+            return redirect()->back()->with(['message' => 'No son PDF, <bt>Verifica la integridad de los archivos', 'color' => 'primary','tipo' => 'pdf_null']);
+        }
+
+        try {
+
+            DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->update([
+                "estatus" => 2,
+            ]);
+
+            $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+
+            DB::table("historial_academico")->insert([
+                "id_proceso_alumno" => $proceso->id,
+                "ruta" => $h_academico,
+                "estatus" => 2,
+                "fecha" => date("Y-m-d"),
+            ]);
+
+            return redirect()->back()->with(['message' => "Archivo guardado con exito", 'color' => 'success','tipo' => 'agregado']);
+
+            //echo "seguardo";
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['message' => "Algo salio mal con la base de datos, intente de nuevo", 'color' => 'warning','tipo' => 'error']);
+        }
+    }
+
     public function update_documents(Request $request){
+
+        if(Auth::user()->tipo_user!=3){
+            return redirect("/User_config");
+        }
 
         date_default_timezone_set('America/Mexico_City');
         $ruta_h_academico=null;

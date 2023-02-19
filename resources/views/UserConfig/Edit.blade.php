@@ -140,17 +140,9 @@
       <div class="col-md-6" style="margin-bottom: 25px;">
         <div class="row">
           
-          <div class="col-md-4" style="margin-bottom: 25px;">
-            
-            <input type="text" name="nombre" class="form-control input_edit" placeholder="NOMBRE USUARIO" required value="{{$dato->name}}" onkeyup="this.value = this.value.toUpperCase();">
-          </div>
-          <div class="col-md-4" style="margin-bottom: 25px;">
-            
-            <input type="text" name="ape_pat" class="form-control input_edit" placeholder="APELLIDO PATERNO" required value="{{$dato->ape_pat}}" onkeyup="this.value = this.value.toUpperCase();">
-          </div>
-          <div class="col-md-4" style="margin-bottom: 25px;">
-            
-            <input type="text" name="ape_mat" class="form-control input_edit" placeholder="APELLIDO MATERNO" required value="{{$dato->ape_mat}}" onkeyup="this.value = this.value.toUpperCase();">
+          <div class="col-md-12" style="margin-bottom: 25px;">
+            <label>Nombre completo</label>
+            <input type="text" name="nombre" class="form-control input_edit" placeholder="NOMBRE COMPLETO" required value="{{$dato->name}}" onkeyup="this.value = this.value.toUpperCase();">
           </div>
 
         </div>
@@ -158,11 +150,11 @@
         <div class="row">
           
           <div class="col-md-4" style="margin-bottom: 25px;">
-            
-            <input type="number" name="edad" class="form-control input_edit" placeholder="Edad minima de 10" min="10" required value="{{$dato->edad}}">
+            <label>Edad</label>
+            <input type="number" name="edad" class="form-control input_edit" placeholder="EDAD" min="10" required value="{{$dato->edad}}">
           </div>
           <div class="col-md-8" style="margin-bottom: 25px;">
-            
+            <label>Direccion</label>
             <input type="text" name="direccion" class="form-control input_edit" placeholder="DIRECCIÓN SEA LO MAS SIMPLE POR FAVOR" required value="{{$dato->direccion}}">
           </div>
           
@@ -172,13 +164,14 @@
         <div class="row">
           
           <div class="col-md-6" style="margin-bottom: 25px;">
-            
+            <label>Correo</label>
             <input type="text" name="correo" class="form-control input_edit" placeholder="CORREO" required value="{{$dato->email}}">
           </div>
           <div class="col-md-6" style="margin-bottom: 25px;">
-            
+            <label>Contraseña</label>
             <div class="input-group mb-3">
-              <input type="password" name="contrasena" class="form-control input_edit" placeholder="Contraseña nueva" aria-label="AGREGA SI DESEAS CAMBIAR" aria-describedby="button-addon2" id="contra" minlength="8" value="">
+
+              <input type="password" name="contrasena" class="form-control input_edit" placeholder="Contraseña nueva"title="AGREGA SI DESEAS CAMBIAR" aria-describedby="button-addon2" id="contra" minlength="8" value="">
 
               <button class="btn btn-light" type="button" id="button-addon2" onclick="ver_contrasena();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">

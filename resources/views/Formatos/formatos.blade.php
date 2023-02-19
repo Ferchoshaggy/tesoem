@@ -126,7 +126,7 @@
             Bien hecho, si has llegado hasta aquí quiere decir que has realizado corectamente tu tramite, en este apartado descargaras los documentos necesarios para continuar con tu tramite.
         </div>
         <div class="col-md-2" style="text-align: center;">
-            <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
+            <img src="{{url('icons/pdf.png')}}" style="width: 75%; height: auto;">
         </div>
     </div>
 </div>

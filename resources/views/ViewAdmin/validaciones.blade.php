@@ -67,8 +67,11 @@
         <div class="modal-body" style="border-bottom: 1px solid #193333;">
             <div class="row">
                 <div class="col-md-10" style="text-align: left;">
-                    <p>
+                    <p id="text_1" style="display: none;">
                      Atencion, acontinuación realizaras el proceso para validar las materias del alumno seleccionado y verificar si la materia es transferible de un plan de estudios a otro, de lado izquierdo podrás ver las materias cargadas por el alumno y del lado derecho podrás colocar la materia que necesites segun el plan de estudios del TESOEM, agrega las que necesites y evalua su similitud y si es apta o no para ser validada.
+                    </p>
+                    <p id="text_2" style="display: none;">
+                     Bienvenido, en esta ocacion solo confirmaras que las calificaciones del alumno correspondan a las de su historial académico con el fin de hacer una correcta validación de materias ya que al ser una validación de materias del TESOEM con TESOEM solo tendrás que corroborar esa parte.
                     </p>
                 </div>
                 <div class="col-md-2" style="text-align: center;">
@@ -132,7 +135,7 @@
                                  
                             </div>
                             <div class="col-xl-3" style="margin-bottom: 5px;">
-                                <button type="button" class="btn" style="background-color: #FF66FF; color: #fff;" onclick="recordar_materias();" data-toggle="modal" data-target="#exito_guardado">Recordar</button>
+                                <button type="button" class="btn" style="background-color: #FF66FF; color: #fff; display: none;" onclick="recordar_materias();" data-toggle="modal" data-target="#exito_guardado" id="botton_recordar_mat">Recordar</button>
                             </div>
                         </div>
 
@@ -147,7 +150,7 @@
             </form>
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="cerrar_validar">Cancelar</button>
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#seguro">Terminar</button>
         </div>
     </div>
@@ -331,6 +334,20 @@
         transition: 1s;
     }
 
+    .form-control_2{
+        display: block;
+        width: 100%;
+        height: calc(2.25rem + 2px);
+        padding: .375rem .75rem;
+        line-height: 1.5;
+        color: #495057;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        box-shadow: inset 0 0 0 transparent;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
 </style>
 
 @stop
@@ -419,6 +436,7 @@
                 document.getElementById("texto_exito").style.display="block";
                 document.getElementById("check_off").style.display="block";
                 document.getElementById("carga_espera").style.display="none";
+                document.getElementById("cerrar_validar").click();
             }else{
                 alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando "+exito[1]);
                 document.getElementById("check_off").style.display="block";
@@ -567,6 +585,29 @@
         }
     }
 
+    function cambio_color_matricula(calificacion){
+        for (var i = 0; i < $("input[id='matricula_c_new[]']").length; i++) {
+            if($("input[id='matricula_c_new[]']")[i].dataset.fila==calificacion.dataset.fila){
+                if(calificacion.value<70){
+                    $("input[id='matricula_c_new[]']")[i].style.backgroundColor="#FFF886";
+                }else{
+                    $("input[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
+                }
+                break;
+            }
+        }
+    }
+
+    function buscar_temario_2(materia_select){
+        for (var i = 0; i < materias_admin_c.length; i++) {
+            if (materia_select.value==materias_admin_c[i].id){
+                document.getElementById("temario_new_"+materia_select.dataset.fila).value=materias_admin_c[i].temario;
+                document.getElementById("pdf_temario_"+materia_select.dataset.fila).disabled=false;
+                break;
+            }
+        }
+    }
+
     function cambio_select(select) {
         detectar_mismo_segundo(select);
         /*
@@ -618,6 +659,7 @@
             for (var i = 0; i < $("select[id='materia_new[]']").length; i++) {
                 if($("select[id='materia_new[]']")[i].value==select.value && $("select[id='materia_new[]']")[i].dataset.fila!=select.dataset.fila){
                     select.value="";
+                    document.getElementById("pdf_temario_"+select.dataset.fila).disabled=true;
                     break;
                 }
             }
@@ -630,6 +672,7 @@
             for (var i = 0; i < $("select[id='matricula_c_new[]']").length; i++) {
                 if($("select[id='matricula_c_new[]']")[i].value==select.value && $("select[id='matricula_c_new[]']")[i].dataset.fila!=select.dataset.fila){
                     select.value="";
+                    document.getElementById("pdf_temario_"+select.dataset.fila).disabled=true;
                     break;
                 }
             }
@@ -686,7 +729,7 @@
         }).done(function(materias_recuerdo){
             //console.log(materias_recuerdo.length);
             if(materias_recuerdo.length!=0){
-                
+                console.log(materias_recuerdo);
                 for (var i = 0; i < $("select[id='materia_new[]']").length; i++) {
                     for (var j = 0; j < materias_recuerdo.length; j++) {
                         if(materias_recuerdo[j].id_materia_old==$("input[id='id_materia_id[]']")[i].value){
@@ -694,7 +737,7 @@
                             $("select[id='matricula_c_new[]']")[i].value=materias_recuerdo[j].id_materia_new;
                             $("input[id='valor[]']")[i].value=materias_recuerdo[j].porcentaje_r;
                             //este es para que se active el boton de ver el pdf del lado del tesoem
-                            buscar_temario($("select[id='materia_new[]']")[i]);
+                            buscar_temario_2($("select[id='materia_new[]']")[i]);
 
                             if($("input[id='valor[]']")[i].value>=80 && $("input[id='calificacion_old[]']")[i].value>=70){
                                 $("select[id='matricula_c_new[]']")[i].style.backgroundColor="#B1F9D8";
@@ -749,7 +792,9 @@
                 $("#div_principal_1").empty();
                 $("#div_principal_2").empty();
                 if (materias_cursadas[1].tipo_proceso==1){
-
+                    document.getElementById("text_1").style.display="block";
+                    document.getElementById("text_2").style.display="none";
+                    document.getElementById("botton_recordar_mat").style.display="block";
                     for (var i = 1; i <= materias_cursadas[1].semestre; i++) {
 
                         $("#div_principal_1").append(
@@ -845,6 +890,113 @@
                         }
 
                     }
+
+
+                }else{
+                    document.getElementById("text_1").style.display="none";
+                    document.getElementById("text_2").style.display="block";
+                    document.getElementById("botton_recordar_mat").style.display="none";
+                    var semestre_max=0;
+                    for (var j = 0; j < materias_cursadas[0].length; j++){
+                        if(materias_cursadas[0][j].semestre>semestre_max){
+                            semestre_max=materias_cursadas[0][j].semestre;
+                        }
+                    }
+
+                    for (var i = 1; i <= semestre_max; i++) {
+                        //verificamos si existe algun registro en dicho semestre
+                        for (var j = 0; j < materias_cursadas[0].length; j++){
+                            if(materias_cursadas[0][j].semestre==i){
+
+                                $("#div_principal_1").append(
+                                    '<div class="col-xl-12" id="'+i+'_s_old" style="background-color: #387171; border-radius: 10px;     margin-bottom: 10px;">'+
+                                            '<div class="col-xl-12" style="margin-bottom: 25px; font-size: 24px; font-weight: bold;">'+
+                                                +i+'° Semestre'+
+                                            '</div>'+
+                                        '</div>'
+                                );
+
+                                $("#div_principal_2").append(
+                                    '<div class="col-xl-12" id="'+i+'_s_new" style="background-color: #387171; border-radius: 10px;     margin-bottom: 10px;">'+
+                                            '<div class="col-xl-12" style="margin-bottom: 25px; font-size: 24px; font-weight: bold;">'+
+                                                '<br>'+
+                                            '</div>'+
+                                        '</div>'
+                                );
+                                break;
+                            }
+                        }
+
+                        for (var j = 0; j <= materias_cursadas[0].length; j++){
+
+                            try{
+
+                                if(materias_cursadas[0][j].semestre==i){
+
+                                    if(materias_cursadas[0][j].calificacion<=69){
+                                        var color="#FF7663";
+                                        var color_2="#FFF886";
+
+                                    }else{
+                                        var color="#B1F9D8";
+                                        var color_2="#B1F9D8";
+                                        
+                                    }
+
+                                    $("#"+i+"_s_old").append(
+                                        '<div class="row" style="text-align: center;">'+
+                                            '<div class="col-xl-5" style="margin-bottom: 10px;">'+
+                                                '<input type="text" name="materia_old[]" class="form-control input_edit" id="materia_old[]" value="'+materias_cursadas[0][j].nombre+'"  onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" data-fila="'+j+'" title="MATERIA" readonly>'+
+                                            '</div>'+
+                                            '<div class="col-xl-3" style="margin-bottom: 10px;">'+
+                                                '<input type="text" name="clave_old[]" class="form-control input_edit" id="clave_old[]" value="'+materias_cursadas[0][j].matricula+'" onkeyup="this.value = this.value.toUpperCase(); " onchange="this.value = this.value.toUpperCase(); " data-fila="'+j+'" title="CALVE DE LA MATERIA" readonly>'+
+                                            '</div>'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px;">'+
+                                                '<input type="text" name="calificacion_old[]" class="form-control input_edit" id="calificacion_old[]" value="'+materias_cursadas[0][j].calificacion+'" inputmode="numeric" onchange=" cambio_color(this); cambio_color_matricula(this)" data-fila="'+j+'" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false; " onpaste="return false" style="background-color: '+color+';" min="0" title="CALIFICACION">'+
+                                            '</div>'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px; font-size: 1.3rem; font-weight: bold;">'+
+                                                '<button type="button" id="pdf_temario_old" class="btn btn-primary " onclick="pasar_url_pdf(\''+materias_cursadas[0][j].temario+'\');" data-toggle="modal" data-target="#pdf_visor" title="VER TEMARIO">VER</button>'+
+                                                '<input type="hidden" id="id_registro_materia[]" name="id_registro_materia[]" value="'+materias_cursadas[0][j].id+'"></input>'+
+                                                '<input type="hidden" id="id_materia_id[]" name="id_materia_id[]" value="'+materias_cursadas[0][j].id_materia+'"></input>'+
+                                            '</div>'+
+                                        '</div>'
+                                    );
+
+
+                                    $("#"+i+"_s_new").append(
+                                        '<div class="row" style="text-align: center;">'+
+                                            '<div class="col-xl-4" style="margin-bottom: 10px;">'+
+                                                '<input class="form-control input_edit" id="materia_new[]" name="materia_new[]" data-fila="'+j+'" onchange="buscar_temario(this);" title="MATERIA" readonly value="'+materias_cursadas[0][j].nombre+'">'+
+                                                '</input>'+
+                                            '</div>'+
+                                            '<div class="col-xl-4" style="margin-bottom: 10px;">'+
+                                                '<input class="form-control_2 input_edit" id="matricula_c_new[]" name="matricula_c_new[]" data-fila="'+j+'" title="CALVE DE LA MATERIA" readonly value="'+materias_cursadas[0][j].matricula+'" style="background-color: '+color_2+';">'+
+                                                '</input>'+
+                                            '</div>'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px;">'+
+                                                '<input type="text" name="valor[]" class="form-control input_edit" id="valor[]" placeholder="%" title="% DE SIMILITUD" data-fila="'+j+'" onpaste="return false" inputmode="numeric" readonly value="100">'+
+                                            '</div>'+
+                                            '<div class="col-xl-2" style="margin-bottom: 10px; font-size: 1.3rem; font-weight: bold;">'+
+                                                '<button type="button" id="pdf_temario_'+j+'" class="btn btn-primary" onclick="pasar_url_pdf_2('+j+');" data-toggle="modal" data-target="#pdf_visor" title="VER TEMARIO">VER</button>'+
+                                                '<input type="hidden" id="temario_new_'+j+'" name="temario_new_'+j+'" value="'+materias_cursadas[0][j].temario+'"></input>'+
+                                            '</div>'+
+                                        '</div>'
+                                    );
+
+
+                                }
+
+                            }catch(TypeError){
+
+                                console.log("no existe "+i);
+
+                            }
+
+                            
+                        }
+
+                    }
+
 
 
                 }

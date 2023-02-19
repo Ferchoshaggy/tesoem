@@ -78,8 +78,6 @@ class UserConfigController extends Controller
 
             DB::table("users")->where("id",Auth::user()->id)->update([
                 "name"=>$request['nombre'],
-                "ape_pat"=>$request['ape_pat'],
-                "ape_mat"=>$request['ape_mat'],
                 "edad"=>$request["edad"],
                 "direccion"=>$request['direccion'],
                 "email"=>$request['correo'],

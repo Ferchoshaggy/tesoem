@@ -98,6 +98,8 @@
             </thead>
             <tbody>
                 <?php $contador=1; $encontro=false; $existe_semestre=false;?>
+                @if($proceso->tipo_proceso==1)
+
                 @for($i=1; $i<=$numero_semestres; $i++)
                 <?php $existe_semestre=false; ?>
                 @foreach($materias as $materia)
@@ -145,7 +147,49 @@
                 @endif
                 @endforeach
                 @endfor
-                
+
+                @else
+
+                @for($i=1; $i<=$numero_semestres; $i++)
+                <?php $existe_semestre=false; ?>
+                @foreach($materias as $materia)
+                @if($materia->semestre==$i)
+                <?php $existe_semestre=true; ?>
+                @break
+                @endif
+                @endforeach
+                @if($existe_semestre)
+                <tr style="border: black 1px solid;">
+                    <td style="border: black 1px solid; padding: 4px;"></td>
+                    <td style="border: black 1px solid; padding: 4px; font-weight: bold;">@if($i==1)Primero @endif @if($i==2)Segundo @endif @if($i==3)Tercero @endif @if($i==4)Cuarto @endif @if($i==5)Quinto @endif @if($i==6)Sexto @endif @if($i==7)Séptimo @endif @if($i==8)Octavo @endif @if($i==9)Noveno @endif</td>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                    <td style="border: black 1px solid;padding: 4px;"></td>
+                </tr>
+                @endif
+                @foreach($materias as $materia)
+                @if($materia->semestre==$i)
+                <tr style="border: black 1px solid;">
+                    <?php $encontro=false; ?>
+                    
+                    <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$contador}}</td>
+                    <td style="border: black 1px solid; padding: 4px;">{{$materia->nombre}}</td>
+                    <td style="border: black 1px solid; padding: 4px;">{{$materia->matricula}}</td>
+                    <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$materia->porcentaje}}</td>
+                    <?php $encontro=true; ?>
+
+                    <td style="border: black 1px solid;padding: 4px;">{{$materia->nombre}}</td>
+                    <td style="border: black 1px solid;padding: 4px;">{{$materia->matricula}}</td>
+                    <td style="border: black 1px solid;padding: 4px; text-align: center;">{{$materia->porcentaje}}</td>
+                </tr>
+                <?php $contador++; ?>
+                @endif
+                @endforeach
+                @endfor
+
+                @endif
             </tbody>
         </table>
     </div>
@@ -154,7 +198,6 @@
     <p style=" margin-top: 80px; width: 100%; text-align: center; font-size: 13px; font-weight: bold;"><u>Cirilo Martinez Liga</u></p>
     <p style=" margin-top: 20px; text-align: center; font-size: 13.5px; padding-left: 50px; padding-right: 50px; font-family: sans-serif;">Nombre y firma del (de la) Jefe(a) de la División de Estudios Profesionales o su equivalente en los Institutos Tecnológicos Descentralizados</p>
 </body>
-
 </html>
 
 
