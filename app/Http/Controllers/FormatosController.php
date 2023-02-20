@@ -18,7 +18,7 @@ class FormatosController extends Controller
     public function view_formatos(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         return view("Formatos.formatos",compact("proceso"));
@@ -27,7 +27,7 @@ class FormatosController extends Controller
     public function pdf_anexo_6(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect()->back();
+            return redirect("/redirects");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -81,7 +81,7 @@ class FormatosController extends Controller
     public function pdf_anexo_7(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect()->back();
+            return redirect("/redirects");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -137,7 +137,7 @@ class FormatosController extends Controller
     public function pdf_convalidacion(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect()->back();
+            return redirect("/redirects");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
