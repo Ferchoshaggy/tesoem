@@ -28,26 +28,10 @@
 
 <div class="card-body secciones_body2" style=" text-align: left;">
     <div class="table-responsive">
-        <table class="table" style="width: 100%">
-            <thead>
-              <tr>
-                <th style="text-align: center;">Matricula</th>
-                <th style="text-align: center;">Nombre</th>
-                <th style="text-align: center;">Ins. Previa</th>
-                <th style="text-align: center;">Estatus</th>
-              </tr>
-            </thead>
-            <tbody>
-            @foreach($alumnos as $alumno)
-              <tr onclick="tomar_id({{$alumno->id}})" data-toggle="modal" data-target="#validar_modal" class="marca" style="cursor: pointer;">
-                <td style="text-align: center;">{{$alumno->matricula}}</td>
-                <td style="text-align: center;">{{$alumno->name}}</td>
-                <td style="text-align: center;">{{$alumno->nombre}}</td>
-                <td style="text-align: center;"><p style="color: #fff;background-color: #007bff; border-radius: 5px; padding: 5px;">pendiente</p></td>
-              </tr>
-             @endforeach
-            </tbody>
-          </table>
+
+<div id="table-validaciones"></div>
+
+
     </div>
 </div>
 
@@ -97,7 +81,7 @@
                                             <input type="text" name="clave_carrera_old" id="clave_carrera_old" class="form-control input_edit" >
                                         </div>
                                     </div>
-                                     
+
                                 </div>
                                 <div class=" col-xl-2" style="margin-bottom: 5px;">
                                     <button type="button" class="btn btn-primary" id="button_corregir"  data-toggle="modal" data-target="#exito_guardado" onclick="envio_form_actualizacion_datos();">Corregir</button>
@@ -109,12 +93,12 @@
 
                             <!-- div que contiene todos los semetres de las materias old-->
                             <div class="secciones_body col-xl-12" id="div_principal_1" style="padding: 10px; margin-top: 25px;">
-                                
+
                             </div>
                             <input type="hidden" name="tipo_proceso" id="tipo_proceso">
                     </div>
-                        
-                    
+
+
 
                     <div class="col-xl-6" >
 
@@ -132,7 +116,7 @@
                                         <input type="text" name="clave_carrera" id="clave_carrera" class="form-control input_edit" readonly value="{{$carrera->clave}}">
                                     </div>
                                 </div>
-                                 
+
                             </div>
                             <div class="col-xl-3" style="margin-bottom: 5px;">
                                 <button type="button" class="btn" style="background-color: #FF66FF; color: #fff; display: none;" onclick="recordar_materias();" data-toggle="modal" data-target="#exito_guardado" id="botton_recordar_mat">Recordar</button>
@@ -141,7 +125,7 @@
 
                         <!-- div que contiene todos los semetres de las materias teso-->
                         <div class="secciones_body col-xl-12" id="div_principal_2" style="padding: 10px; margin-top: 25px;">
-                            
+
                         </div>
                     </div>
 
@@ -220,17 +204,17 @@
     <div class="modal-content" style="background-color: #193333;">
         <div class="modal-header" style="border-bottom: 1px solid #193333;">
             <h5 class="modal-title" id="exampleModalLabel">Registro exitoso</h5>
-            
+
         </div>
         <div class="modal-body" style="border-bottom: 1px solid #193333;">
 
             <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px; text-align: center;">
 
                 <div class="col-md-12" id="texto_exito" style="display: none;">
-                    El registro fue exitoso, ya puedes continuar con mas procesos.<br><br> 
+                    El registro fue exitoso, ya puedes continuar con mas procesos.<br><br>
                 </div>
                 <div class="col-md-12" id="texto_exito_2" style="display: none;">
-                     
+
                 </div>
                 <div class="col-md-12" id="carga_espera">
                     <img src="{{url('img/cargando_12.gif')}}" style="width: 100%; height: auto; border-radius: 10%; "><br>
@@ -239,7 +223,7 @@
             </div>
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>  
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>
         </div>
     </div>
   </div>
@@ -250,7 +234,7 @@
     <div class="modal-content" style="background-color: #193333;">
         <div class="modal-header" style="border-bottom: 1px solid #193333;">
             <h5 class="modal-title" id="exampleModalLabel">Registro exitoso</h5>
-            
+
         </div>
         <div class="modal-body" style="border-bottom: 1px solid #193333;">
 
@@ -260,7 +244,7 @@
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="campos_empy();">Aceptar</button>  
+            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="campos_empy();">Aceptar</button>
         </div>
     </div>
   </div>
@@ -363,6 +347,42 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 
+
+    //FUNCION PARA MOSTRAR LA TABLA AL ENTRAR A DOCUMENTOS
+    $(document).ready(function() {
+    tableRE();
+});
+
+//FUNCION PARA LA PAGINACION
+$(document).on("click",".pagination li a",function(e){
+e.preventDefault();
+var url=$(this).attr("href");
+
+$.ajax({
+type:'get',
+url:url,
+success: function(alumnos,carrera,materias_new){
+$('#table-validaciones').empty().html(alumnos,carrera,materias_new);
+}
+});
+
+});
+
+//FUNCION PARA RECARGAR TABLA
+var tableRE = function(){
+    $.ajax({
+type:'get',
+url:"{{ url('/AValidacionesJax') }}",
+success: function(alumnos,carrera,materias_new){
+$('#table-validaciones').empty().html(alumnos,carrera,materias_new);
+}
+ });
+}
+
+
+
+
+
     var materias_admin_c=null;
 
     $(document).ready(function() {
@@ -437,6 +457,7 @@
                 document.getElementById("check_off").style.display="block";
                 document.getElementById("carga_espera").style.display="none";
                 document.getElementById("cerrar_validar").click();
+                tableRE();
             }else{
                 alert("algo salio mal, te sugiro que vuelvas en unos minutos, el servidor esta fallando "+exito[1]);
                 document.getElementById("check_off").style.display="block";
@@ -486,7 +507,7 @@
         var url="{{url('/temarios')}}"+"/"+document.getElementById("temario_new_"+fila).value;
         document.getElementById("embad").src=url;
         document.getElementById("ver").href=url;
-     } 
+     }
 
     function activar_check(lavel) {
 
@@ -613,7 +634,7 @@
         /*
         for (var i = 0; i < $("select[id='materia_new[]']").length; i++) {
             if($("select[id='materia_new[]']")[i].dataset.fila==select.dataset.fila){
-                
+
                 break;
             }
         }
@@ -664,7 +685,7 @@
                 }
             }
         }
-        
+
     }
 
     function detectar_mismo_segundo(select){
@@ -677,7 +698,7 @@
                 }
             }
         }
-        
+
     }
 
     function carreras_iguales(){
@@ -824,7 +845,7 @@
 
                                     }else{
                                         var color="#B1F9D8";
-                                        
+
                                     }
 
                                     $("#"+i+"_s_old").append(
@@ -886,7 +907,7 @@
 
                             }
 
-                            
+
                         }
 
                     }
@@ -940,7 +961,7 @@
                                     }else{
                                         var color="#B1F9D8";
                                         var color_2="#B1F9D8";
-                                        
+
                                     }
 
                                     $("#"+i+"_s_old").append(
@@ -992,7 +1013,7 @@
 
                             }
 
-                            
+
                         }
 
                     }

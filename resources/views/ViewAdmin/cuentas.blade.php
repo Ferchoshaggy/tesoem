@@ -293,14 +293,14 @@
     <div class="modal-content" style="background-color: #193333;">
         <div class="modal-header" style="border-bottom: 1px solid #193333;">
             <h5 class="modal-title" id="exampleModalLabel">Enviando petición</h5>
-            
+
         </div>
         <div class="modal-body" style="border-bottom: 1px solid #193333;">
 
             <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px; text-align: center;">
 
                 <div class="col-md-12" id="texto_exito" style="display: none;">
-                    Los datos fueron actualizados.<br><br> 
+                    Los datos fueron actualizados.<br><br>
                 </div>
                 <div class="col-md-12" id="texto_exito_2" style="display: none;">
                      El Alumno ya fue Reiniciado.<br><br>
@@ -312,7 +312,7 @@
             </div>
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>  
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>
         </div>
     </div>
   </div>
@@ -504,7 +504,7 @@ function tomar_id($id_tr){
         menu_opciones.classList.add("visible_on");
         menu_opciones.classList.remove("visible_off");
     }
-    
+
 
     $.ajax({
     url: "{{url('/search_user')}}"+'/'+id_user,
@@ -515,14 +515,19 @@ function tomar_id($id_tr){
     document.getElementById("matricula").value=null;
     document.getElementById("nombre").value=null;
     document.getElementById("correo").value=null;
-    document.getElementById("fotoP").src=null;
+    document.getElementById("fotoP").src="";
     document.getElementById("id_user").value=null;
     document.getElementById("id_userD").value=null;
   }else{
     document.getElementById("matricula").value=datosUser.matricula;
     document.getElementById("nombre").value=datosUser.name;
     document.getElementById("correo").value=datosUser.email;
-    document.getElementById("fotoP").src="{{url('/fotos_users')}}"+"/"+datosUser.foto;
+    if(datosUser.foto!=null){
+        document.getElementById("fotoP").src="{{url('/fotos_users')}}"+"/"+datosUser.foto;
+    }else{
+        document.getElementById("fotoP").src="";
+    }
+
     document.getElementById("id_user").value=datosUser.id;
     document.getElementById("id_userD").value=datosUser.id;
     nombre_alumno=datosUser.name;
@@ -600,6 +605,8 @@ $("#btnSaveUs").click(function(e){
             jQuery.noConflict();
             $('#ConfigUser').modal('hide');
             tableRE();
+            $("#form-user")[0].reset();
+            document.getElementById("cont").style.display="none";
         },
         error:function (Response){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
@@ -665,6 +672,7 @@ $("#btnSaveUsuario").click(function(e){
             tableRE();
             $('#AvisoAgregado').modal( 'show');
             $("#form-user-agregar")[0].reset();
+            document.getElementById("cont").style.display="none";
 
         }, error:function (response){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");

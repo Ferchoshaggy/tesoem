@@ -412,14 +412,13 @@ if(procesos.estatus==5){
 }else{
     document.getElementById("COMPago2").style.display = "none";
 
-    document.getElementById('id_cp').value=comprobante.id;
     document.getElementById('id_cp_pa').value=procesos.id;
 
     document.getElementById('id_ha').value=historial.id;
     document.getElementById('id_ha_pa').value=procesos.id;
 
     document.getElementById('id_ha2').value=historial.id;
-    document.getElementById('id_cp2').value=comprobante.id;
+
 
     document.getElementById('id_pa_f').value=procesos.id;
 
@@ -427,7 +426,7 @@ if(procesos.estatus==5){
     document.getElementById('id_user3').value=datosUser.id;
 
 document.querySelector('#embH').setAttribute('src',"{{ url('/documents_h_academico') }}"+"/"+historial.ruta);
-document.querySelector('#embC').setAttribute('src',"{{ url('/documents_c_pago/') }}"+"/"+comprobante.ruta);
+
 
 if(historial.estatus==3){
     document.getElementById("img-ha").src="{{url('icons/D14.png')}}";

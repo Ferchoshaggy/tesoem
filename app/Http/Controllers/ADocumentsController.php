@@ -31,7 +31,7 @@ return view('viewAdmin.documents');
 public function doc_modal($id){
 
     $datosUser=DB::table("users")->where("id",$id)->first();
-    $procesos=DB::table('procesos_alumno')->where("id_user",$datosUser->id)->first();
+    $procesos=DB::table('procesos_alumno')->where("id",$datosUser->id_proceso_activo)->first();
     $comprobante=DB::table('comprobante_pago')->where("id_proceso_alumno",$procesos->id)->first();
     $historial=DB::table('historial_academico')->where("id_proceso_alumno",$procesos->id)->first();
 

@@ -140,6 +140,7 @@ Route::get("/AMaterias_admin",[AValidacionesController::class,'consuta_materias_
 Route::post("/Asave_form_datos_alumno_up",[AValidacionesController::class,'actualizar_datos_alumno'])->name('actualizar_datos_alumno');
 Route::post("/Asave_form_validacion",[AValidacionesController::class,'guardar_validacion'])->name('guardar_validacion');
 Route::get("/Amaterias_recuerdo/{clave_1}/{clave_2}",[AValidacionesController::class,'recordar_validacion'])->name('recordar_validacion');
+Route::get("/AValidacionesJax/{page?}",[AValidacionesController::class,'view_validacionJax'])->name('AValidacionesJax');
 
 //Cuentas
 Route::get('/ACuentasJax/{page?}',[ACuentasController::class,'view_cuentasJax'])->name('cuentas_viewJax');

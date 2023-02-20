@@ -23,11 +23,14 @@ class ACuentasController extends Controller
     if(Auth::user()->tipo_user==1){
         $usuarios=DB::table('users')->where('tipo_user',2)->orWhere('tipo_user',3)->Paginate(10);
         $carreras=DB::table('carreras')->select('*')->Paginate(10);
+        $procesos=DB::table('procesos_alumno')->select("*")->get();
+
     }else{
         $carreras=DB::table('carreras')->where('id',Auth::user()->carrera_tesoem)->first();
         $usuarios=DB::table('users')->where('carrera_tesoem',$carreras->id)->where('tipo_user',3)->Paginate(10);
+        $procesos=DB::table('procesos_alumno')->select("*")->get();
     }
-    return view('viewAdmin.cuentasJax',compact("carreras","usuarios"));
+    return view('viewAdmin.cuentasJax',compact("carreras","usuarios","procesos"));
   }
 
 public function editar_user(Request $request){
