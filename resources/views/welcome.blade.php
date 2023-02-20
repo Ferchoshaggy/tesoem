@@ -93,7 +93,7 @@ object-fit: cover;
             @if (Route::has('login'))
                 <div class="">
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="ms-4 btn btn-outline-light but">Entrar</a>
+                    <a href="{{ url('/redirects') }}" class="ms-4 btn btn-outline-light but">Entrar</a>
                     @else
                     <a href="{{url('/ayuda')}}" class="but2"> Centro de Ayuda</a>
                         <a href="{{ route('login') }}" class="ms-4 btn btn-outline-light but">Iniciar Sesión</a>

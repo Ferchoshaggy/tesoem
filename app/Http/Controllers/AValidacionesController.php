@@ -13,21 +13,30 @@ class AValidacionesController extends Controller
         $this->middleware('auth');
     }
 
-    public function view_validacion(){
+    public function view_validacionJax(){
 
-        $alumnos=DB::table("users")->join('procesos_alumno', 'users.id_proceso_activo', '=', 'procesos_alumno.id')->join('instituciones', 'procesos_alumno.id_institucion_old', '=', 'instituciones.id')->select('users.*','procesos_alumno.etapa','procesos_alumno.estatus', 'instituciones.nombre')->where("procesos_alumno.etapa",2)->where("procesos_alumno.estatus",4)->get();
+        $alumnos=DB::table("users")->join('procesos_alumno', 'users.id_proceso_activo', '=', 'procesos_alumno.id')->join('instituciones', 'procesos_alumno.id_institucion_old', '=', 'instituciones.id')->select('users.*','procesos_alumno.etapa','procesos_alumno.estatus', 'instituciones.nombre')->where("procesos_alumno.etapa",2)->where("procesos_alumno.estatus",4)->paginate(10);
         $carrera=DB::table("carreras")->where("id",Auth::user()->carrera_tesoem)->first();
         $materias_new=DB::table("materias")->where("id_carrera", Auth::user()->carrera_tesoem)->get();
         $instituciones=DB::table("instituciones")->select("*")->get();
 
-        return view('viewAdmin.validaciones',compact("alumnos","carrera","materias_new"));
+        return view('viewAdmin.validacionesJax',compact("alumnos","carrera","materias_new"));
     }
+
+public function view_validacion(){
+    $carrera=DB::table("carreras")->where("id",Auth::user()->carrera_tesoem)->first();
+    $materias_new=DB::table("materias")->where("id_carrera", Auth::user()->carrera_tesoem)->get();
+
+    return view('viewAdmin.validaciones',compact("carrera","materias_new"));
+}
+
+
 
     public function materias_cursadas($id){
         $datos_alumno=DB::table("users")->where("id",$id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",$datos_alumno->id_proceso_activo)->first();
 
-        
+
         $materias_cursadas[0]=DB::table("calificaciones_materias")->join('materias', 'calificaciones_materias.id_materia', '=', 'materias.id')->where("calificaciones_materias.id_proceso_alumno",$proceso->id)->select('calificaciones_materias.*','materias.nombre','materias.matricula', 'materias.temario','materias.semestre')->get();
 
         $materias_cursadas[1]=DB::table("procesos_alumno")->where("id",$proceso->id)->first();
@@ -73,7 +82,7 @@ class AValidacionesController extends Controller
                     $exito="no";
                     return json_encode($exito);
                 }
-                
+
             }
             $exito="si";
             return json_encode($exito);
@@ -105,7 +114,7 @@ class AValidacionesController extends Controller
                     $exito[2]=$request["materia_new"][1];
                     return json_encode($exito);
                 }
-                
+
 
                 for($i= 0; $i < count($request["materia_new"]); $i++){
 
@@ -118,12 +127,12 @@ class AValidacionesController extends Controller
                         $procentaje=$request["valor"][$i];
                         $validacion="si";
                         $calificacion=$request["calificacion_old"][$i];
-                        
+
                     }else if($request["valor"][$i]>=80 && $request["calificacion_old"][$i]<70) {
                         $procentaje=$request["valor"][$i];
                         $validacion="si";
                         $calificacion=0;
-                        
+
                     }else if($request["valor"][$i]<80){
                         $procentaje=$request["valor"][$i];
                         $validacion="no";
@@ -139,7 +148,7 @@ class AValidacionesController extends Controller
                             ]);
 
                         }
-                        
+
 
                     }catch(\Exception $e){
                         $exito[0]="no";
@@ -166,7 +175,7 @@ class AValidacionesController extends Controller
                         $exito[2]=count($request["materia_new"]);
                         return json_encode($exito);
                     }
-                    
+
                 }
             }else{
 
@@ -176,7 +185,7 @@ class AValidacionesController extends Controller
                         $procentaje=100;
                         $validacion="si";
                         $calificacion=$request["calificacion_old"][$i];
-                        
+
                     }else if($request["valor"][$i]<80){
                         $procentaje=100;
                         $validacion="no";
@@ -187,7 +196,7 @@ class AValidacionesController extends Controller
                             "calificacion" => $calificacion,
                             "porcentaje" => $procentaje,
                             "validacion" => $validacion
-                        ]);      
+                        ]);
 
                     }catch(\Exception $e){
                         $exito[0]="no";
@@ -197,7 +206,7 @@ class AValidacionesController extends Controller
                     }
 
                     $materia_camvalidacion=DB::table("materias_convalidacion")->where("id_materia",$request["id_materia_id"][$i])->where("id_user",$request["id_alumno"])->first();
-                    
+
                     try{
                         DB::table("calificaciones_materias")->where("id",$request["id_registro_materia"][$i])->update([
                             "porcentaje" => $procentaje,
@@ -210,7 +219,7 @@ class AValidacionesController extends Controller
                         $exito[2]=count($request["materia_new"]);
                         return json_encode($exito);
                     }
-                    
+
                 }
 
             }
@@ -261,11 +270,11 @@ class AValidacionesController extends Controller
                             }
 
                         //}
-                        
+
                     }
 
                 }
-                
+
             }
             $exito[0]="si";
             return json_encode($exito);
@@ -281,4 +290,5 @@ class AValidacionesController extends Controller
         $materias_recuerdo=DB::table("recordar_validaciones")->where("union_claves",$union)->get();
         return json_encode($materias_recuerdo);
     }
+
 }
