@@ -18,7 +18,7 @@ class DocumentsController extends Controller
     public function view_documents(){
 
         if(Auth::user()->tipo_user!=3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
         $otra_etapa=false;
@@ -71,7 +71,7 @@ class DocumentsController extends Controller
     public function save_documents(Request $request){
 
         if(Auth::user()->tipo_user!=3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
 
@@ -148,7 +148,7 @@ class DocumentsController extends Controller
     public function save_documents_b(Request $request){
 
         if(Auth::user()->tipo_user!=3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
 
         date_default_timezone_set('America/Mexico_City');
@@ -210,7 +210,7 @@ class DocumentsController extends Controller
     public function update_documents(Request $request){
 
         if(Auth::user()->tipo_user!=3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
 
         date_default_timezone_set('America/Mexico_City');

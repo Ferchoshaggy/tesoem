@@ -99,7 +99,8 @@ return response()->json([]);
 //buscar por json el usuario
 
 public function user_modal($id){
-    $datosUser=DB::table("users")->where("id",$id)->first();
+    $datosUser[0]=DB::table("users")->where("id",$id)->first();
+    $datosUser[1]=DB::table("procesos_alumno")->where("id",$datosUser[0]->id_proceso_activo)->first();
     return json_encode($datosUser);
 }
 

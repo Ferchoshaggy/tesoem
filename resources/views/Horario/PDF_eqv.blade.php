@@ -63,7 +63,7 @@
 <body>
     <?php date_default_timezone_set('America/Mexico_City'); ?>
     <header>
-    <p style=" width: 100%; text-align: center; font-size: 10px; font-weight: bold; color: #9B9B9B;">"2022. Año del Qincentenario de la Fundación de Toluca de Lerdo, Capital del Estado de México."</p>
+    <p style=" width: 100%; text-align: center; font-size: 10px; font-weight: bold; color: #9B9B9B;">"{{$datos_pdf->texto_superior}}"</p>
     </header>
 
     <p style=" margin-top: -20px; text-align: right; font-size: 11px;">
@@ -77,10 +77,10 @@
     </p>
 
     <p style=" margin-top: 25px; text-align: left; font-size: 14px; font-weight: bold;">
-        LIC. IVONNE ADRIANA CARLILLO FLORES
+        {{$datos_pdf->j_control_escolar}}
     </p>
     <p style=" margin-top: 3px; text-align: left; font-size: 14px; font-weight: bold;">
-        JEFA DEL DEPARTAMENTO DE CONTROL ESCOLAR
+        @if($datos_pdf->sexo_j_control_escolar==1) JEFA @else JEFE @endif DEL DEPARTAMENTO DE CONTROL ESCOLAR
     </p>
     <p style=" margin-top: 3px; text-align: left; font-size: 14px; font-weight: bold;">
         P R E S E N T E
@@ -158,8 +158,8 @@
                     <label style="color: red; font-size: 9px;">NOMBRE COMPLETO Y FIRMA DEL ESTUDIANTE QUE SOLICITA</label>
                 </td>
                 <td style="width: 50%; border-right: 1px solid #BBCC90; border-bottom: 1px solid #BBCC90; padding: 5px; font-size: 12px; font-weight: bold; background-color: #fdeada; text-align: center;"><br><br><br>
-                    <u>Cirilo Martinez Liga</u><br>
-                    <label style="color: red; font-size: 9px;">NOMBRE COMPLETO Y FIRMA DEL JEFE DE DIVISIÓN QUE AUTORIZA LA SOLICITUD</label>
+                    <u>{{$datos_pdf->j_division}}</u><br>
+                    <label style="color: red; font-size: 9px;">NOMBRE COMPLETO Y FIRMA DEL @if($datos_pdf->sexo_j_division==1) JEFA @else JEFE @endif DE DIVISIÓN QUE AUTORIZA LA SOLICITUD</label>
                 </td>
             </tr>
         </tbody>
