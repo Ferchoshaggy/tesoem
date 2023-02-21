@@ -38,18 +38,19 @@ class DatabaseSeeder extends Seeder
             'clave' => "jdjkd2333",
         ]);
 
-        for($i=1;$i<6;$i++){
-
-                DB::table('materias')->insert([
-                    "id_institucion" => 1,
-                    "id_carrera" => 1,
-                    "semestre" => $i,
-                    "nombre" => "materia".$i,
-                    "matricula" => "mat".$i,
-                    "temario" => "url",
-                    "fecha" => date("Y-m-d"),
-                ]);
-        }
+        DB::table("datos_pdf")->insert([
+            "id_carrera" => 1,
+            "j_division" => "ING. CIRILO MARTINEZ LIGA",
+            "sexo_j_division" => 2,
+            "p_academia" => "JOSÉ PABLO IBARRA",
+            "sexo_p_academia" => 2,
+            "s_academia" => "ALMA ALEJANDRA AGILAR RODRÍGUEZ",
+            "sexo_s_academia" => 1,
+            "j_control_escolar" => "LIC. IVONNE ADRIANA CARLILLO FLORES",
+            "sexo_j_control_escolar" => 1,
+            "texto_superior" => "2023. AÑO DEL QUINCENTENARIO DE LA FUNDACIÓN DE TOLUCA DE LERDO, CAPITAL DEL ESTADO DE MÉXICO",
+            "fecha" => date("Y-m-d")
+        ]);
 
         DB::table('users')->insert([
             'name'  => 'ProgramadorSupremo',

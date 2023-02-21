@@ -9,32 +9,6 @@
 
 @section('content')
 
-<style type="text/css">
-    .secciones_body{
-        background-color: #234747;
-        border-radius: 10px; 
-        margin-bottom: 35px; 
-        color: #fff; 
-        text-align: center; 
-        font-size: 20px;
-    }
-    /*este es para el diseño del archivo */
-    .archivo{
-      display: none;
-    }
-
-    .boton_file{
-      display: inline-block;
-      cursor: pointer;
-      width: 50%;
-      font-size: 1.3rem; 
-      font-weight: bold;
-    }
-    html{
-        background-color: #193333;
-    }
-</style>
-
 <div>
     <h3 style="color: white; margin-bottom: 45px;">Subir documentos</h3>
 </div>
@@ -287,6 +261,32 @@
 @stop
 
 @section('css')
+
+<style type="text/css">
+    .secciones_body{
+        background-color: #234747;
+        border-radius: 10px; 
+        margin-bottom: 35px; 
+        color: #fff; 
+        text-align: center; 
+        font-size: 20px;
+    }
+    /*este es para el diseño del archivo */
+    .archivo{
+      display: none;
+    }
+
+    .boton_file{
+      display: inline-block;
+      cursor: pointer;
+      width: 50%;
+      font-size: 1.3rem; 
+      font-weight: bold;
+    }
+    html{
+        background-color: #193333;
+    }
+</style>
 
 @stop
 

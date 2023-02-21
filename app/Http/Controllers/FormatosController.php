@@ -20,6 +20,10 @@ class FormatosController extends Controller
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
             return redirect("/redirects");
         }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
+        }
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         return view("Formatos.formatos",compact("proceso"));
     }
@@ -28,6 +32,10 @@ class FormatosController extends Controller
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
             return redirect("/redirects");
+        }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -52,7 +60,7 @@ class FormatosController extends Controller
             
             $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
-            $pdf = PDF::loadView('Formatos.PDF_anexo_6',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion"))->setPaper(array(0,0,612.00,792.00));
+            $pdf = PDF::loadView('Formatos.PDF_anexo_6',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
             return $pdf->stream("ANEXO_VI_".Auth::user()->name.".pdf");
 
         }else{
@@ -69,7 +77,7 @@ class FormatosController extends Controller
             
             $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
-            $pdf = PDF::loadView('Formatos.PDF_anexo_6',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias"))->setPaper(array(0,0,612.00,792.00));
+            $pdf = PDF::loadView('Formatos.PDF_anexo_6',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
             return $pdf->stream("ANEXO_VI_".Auth::user()->name.".pdf");
         }
         
@@ -82,6 +90,10 @@ class FormatosController extends Controller
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
             return redirect("/redirects");
+        }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -106,7 +118,7 @@ class FormatosController extends Controller
             
             $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
-            $pdf = PDF::loadView('Formatos.PDF_anexo_7',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion"))->setPaper(array(0,0,612.00,792.00));
+            $pdf = PDF::loadView('Formatos.PDF_anexo_7',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","materias_calificacion","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
             return $pdf->stream("ANEXO_VII_".Auth::user()->name.".pdf");
 
 
@@ -124,7 +136,7 @@ class FormatosController extends Controller
             
             $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->where("materias.semestre","<=",$numero_semestres)->where("materias_convalidacion.validacion","si")->where("materias_convalidacion.calificacion",">=",70)->get();
 
-            $pdf = PDF::loadView('Formatos.PDF_anexo_7',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias"))->setPaper(array(0,0,612.00,792.00));
+            $pdf = PDF::loadView('Formatos.PDF_anexo_7',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","numero_semestres","materias","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
             return $pdf->stream("ANEXO_VII_".Auth::user()->name.".pdf");
 
 
@@ -138,6 +150,10 @@ class FormatosController extends Controller
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
             return redirect("/redirects");
+        }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
         }
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -155,7 +171,7 @@ class FormatosController extends Controller
             }
         }
 
-        $pdf = PDF::loadView('Formatos.PDF_convalidacion',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","materias","numero_semestres"))->setPaper(array(0,0,612.00,792.00));
+        $pdf = PDF::loadView('Formatos.PDF_convalidacion',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","materias","numero_semestres","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
         return $pdf->stream("CONVALIDACION_".Auth::user()->name.".pdf");
         
     }

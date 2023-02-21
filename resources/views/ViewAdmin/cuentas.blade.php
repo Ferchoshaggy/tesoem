@@ -65,17 +65,17 @@
 
 <div class="col-md-4">
 <label for="">Matricula</label>
-<input type="number" class="form-control" id="matricula" name="matricula">
+<input type="number" class="form-control input_edit" id="matricula" name="matricula" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();">
 </div>
 
 <div class="col-md-4">
 <label for="">Nombre</label>
-<input type="text" class="form-control" id="nombre" name="nombre">
+<input type="text" class="form-control input_edit" id="nombre" name="nombre" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();">
 </div>
 
 <div class="col-md-4">
     <label for="">Correo</label>
-    <input type="email" class="form-control" id="correo" name="correo">
+    <input type="email" class="form-control input_edit" id="correo" name="correo" >
     </div>
 
 </div>
@@ -84,12 +84,12 @@
 
     <div class="col-md-4">
     <label for="">Cambiar Contraseña</label>
-    <input type="password" class="form-control" id="contraseña" name="contraseña" onkeyup="passVerficar()">
+    <input type="password" class="form-control input_edit" id="contraseña" name="contraseña" onkeyup="passVerficar()">
     </div>
 
     <div class="col-md-4">
     <label for="">Confirmar contraseña</label>
-    <input type="password" class="form-control" id="contraseña2" name="contraseña2" onkeyup="passVerficar()">
+    <input type="password" class="form-control input_edit" id="contraseña2" name="contraseña2" onkeyup="passVerficar()">
     </div>
 
     </div>
@@ -192,17 +192,17 @@
 
 <div class="col-md-4">
 <label for="">Matricula</label>
-<input type="number" class="form-control" id="Matricula" name="matricula" onkeyup="validarForm();">
+<input type="number" class="form-control input_edit" id="Matricula" name="matricula" onkeyup="this.value = this.value.toUpperCase(); validarForm();" onchange="this.value = this.value.toUpperCase();">
 </div>
 
 <div class="col-md-4">
 <label for="">Nombre</label>
-<input type="text" class="form-control" id="Nombre" name="nombre" onkeyup="validarForm();">
+<input type="text" class="form-control input_edit" id="Nombre" name="nombre" onkeyup="this.value = this.value.toUpperCase(); validarForm();" onchange="this.value = this.value.toUpperCase();">
 </div>
 
 <div class="col-md-4">
     <label for="">Correo</label>
-    <input type="email" class="form-control" id="Correo" name="correo" onkeyup="validarForm();">
+    <input type="email" class="form-control input_edit" id="Correo" name="correo" onkeyup="validarForm();">
     </div>
 
 </div>
@@ -210,7 +210,7 @@
 <div class="row">
     <div class="col-md-4">
         <label for="">Carrera</label>
-        <select name="carrera_tesoem" class="form-control"  id="select_carrera" onkeyup="validarForm();">
+        <select name="carrera_tesoem" class="form-control input_edit edit_select"  id="select_carrera" onkeyup="validarForm();">
             <option value="" selected disabled>Seleccione Carrera</option>
 
         </select>
@@ -218,12 +218,12 @@
 
     <div class="col-md-4">
     <label for="">Contraseña</label>
-    <input type="password" class="form-control" id="Contraseña" name="contraseña" onkeyup="validarForm();">
+    <input type="password" class="form-control input_edit" id="Contraseña" name="contraseña" onkeyup="validarForm();">
     </div>
 
     <div class="col-md-4">
     <label for="">Confirmar contraseña</label>
-    <input type="password" class="form-control" id="Contraseña2" name="contraseña2" onkeyup="validarForm();">
+    <input type="password" class="form-control input_edit" id="Contraseña2" name="contraseña2" onkeyup="validarForm();">
     </div>
 
     </div>
@@ -268,10 +268,17 @@
         </div>
         <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
             <div class="secciones_body" style="padding: 25px;">
-                <label style="font-size: 25px;  width: 100%;">¿Estas seguro de reiniciar el proceso?</label>
-                <p  style="font-size: 15px;">Esto implica que el alumno tendra que hacer todos los pasos nuevamente, pero ya con las materias del TESOEM</p><br>
+                <div id="mensaje_1">
+                    <label style="font-size: 25px;  width: 100%;">¿Estas seguro de reiniciar el proceso?</label>
+                    <p  style="font-size: 15px;">Esto implica que el alumno tendra que hacer todos los pasos nuevamente, pero ya con las materias del TESOEM</p><br>
+                </div>
+                <div id="mensaje_2">
+                    <label style="font-size: 25px;  width: 100%;">!Upps¡ Creo que no se va a poder</label>
+                    <p  style="font-size: 15px;">No puedes reiniciar el alumno si todavia no crea su horario</p><br>
+                </div>
                 <label id="nombre_label" style="font-size: 25px;"></label><br>
                 <label id="matricula_label" style="font-size: 25px;"></label><br>
+                <label id="etapa_label" style="font-size: 25px;"></label><br>
                 <form method="POST" action="" id="from_alumno_reinicio">
                     @csrf
                     <input type="hidden" name="id_alumno_reinicio" id="id_alumno_reinicio">
@@ -280,7 +287,7 @@
         </div>
         <div class="modal-footer" style="border-top: 1px solid #193333;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal"  data-toggle="modal" data-target="#exito_guardado" onclick="envio_from_reinicio();">Reiniciar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal"  data-toggle="modal" data-target="#exito_guardado" onclick="envio_from_reinicio();" id="reinicio_but_1">Reiniciar</button>
         </div>
     </div>
   </div>
@@ -445,6 +452,19 @@
         background: #797d8b80;
         transition: 1s;
     }
+    .input_edit{
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .edit_select{
+        color: #fff;
+        background-color: #28a745;
+        border: 1px solid #28a745;
+        font-weight: bold;
+        font-size: 1.3rem;
+        padding-left: 10px;
+        padding-top: 4px;
+    }
 </style>
 @stop
 
@@ -494,6 +514,7 @@ $('#tabla-reload').empty().html(carreras,usuarios);
 var id_user=null;
 var nombre_alumno=null;
 var matricula_alumno=null;
+var etapa_alumno=null;
 function tomar_id($id_tr){
     id_user=$id_tr;
     if({{Auth::user()->tipo_user}}==2){
@@ -519,19 +540,22 @@ function tomar_id($id_tr){
     document.getElementById("id_user").value=null;
     document.getElementById("id_userD").value=null;
   }else{
-    document.getElementById("matricula").value=datosUser.matricula;
-    document.getElementById("nombre").value=datosUser.name;
-    document.getElementById("correo").value=datosUser.email;
-    if(datosUser.foto!=null){
-        document.getElementById("fotoP").src="{{url('/fotos_users')}}"+"/"+datosUser.foto;
+    document.getElementById("matricula").value=datosUser[0].matricula;
+    document.getElementById("nombre").value=datosUser[0].name;
+    document.getElementById("correo").value=datosUser[0].email;
+    if(datosUser[0].foto!=null){
+        document.getElementById("fotoP").src="{{url('/fotos_users')}}"+"/"+datosUser[0].foto;
     }else{
         document.getElementById("fotoP").src="";
     }
 
-    document.getElementById("id_user").value=datosUser.id;
-    document.getElementById("id_userD").value=datosUser.id;
-    nombre_alumno=datosUser.name;
-    matricula_alumno=datosUser.matricula;
+    document.getElementById("id_user").value=datosUser[0].id;
+    document.getElementById("id_userD").value=datosUser[0].id;
+    nombre_alumno=datosUser[0].name;
+    matricula_alumno=datosUser[0].matricula;
+    if(datosUser[1]!=null){
+        etapa_alumno=datosUser[1].etapa;
+    }
   }
 });
 }
@@ -546,9 +570,33 @@ function tomar_id($id_tr){
     }
 
     function reinicio_alumno() {
+        if(etapa_alumno<4){
+            document.getElementById("mensaje_2").style.display="block";
+            document.getElementById("mensaje_1").style.display="none";
+            document.getElementById("reinicio_but_1").style.display="none";
+        }else{
+            document.getElementById("mensaje_2").style.display="none";
+            document.getElementById("mensaje_1").style.display="block";
+            document.getElementById("reinicio_but_1").style.display="block";
+        }
+
         document.getElementById("nombre_label").innerHTML="Alumno: "+nombre_alumno;
         document.getElementById("matricula_label").innerHTML="Matricula: "+matricula_alumno;
+        if (etapa_alumno==1){
+            document.getElementById("etapa_label").innerHTML="paso: 1 Documentos";
+        }
+        if (etapa_alumno==2){
+            document.getElementById("etapa_label").innerHTML="paso: 2 Materias";
+        }
+        if (etapa_alumno==3){
+            document.getElementById("etapa_label").innerHTML="paso: 3 Formatos";
+        }
+        if (etapa_alumno==4){
+            document.getElementById("etapa_label").innerHTML="paso: 4 Horario";
+        }
+        
         document.getElementById("id_alumno_reinicio").value=id_user;
+        
     }
 
     function envio_from_reinicio(){
@@ -556,29 +604,32 @@ function tomar_id($id_tr){
         document.getElementById("texto_exito_2").style.display="none";
         document.getElementById("check_off").style.display="none";
         document.getElementById("carga_espera").style.display="block";
+        if (etapa_alumno>=4){
+            var dataString =new FormData($("#from_alumno_reinicio")[0]);
+            $.ajax({
+              url:"{{url('/reinicio_alumno')}}",
+                type:'POST',
+                dataType:'json',
+                data:dataString,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(Response){
+                    jQuery.noConflict();
+                    tableRE();
+                    document.getElementById("texto_exito_2").style.display="block";
+                    document.getElementById("check_off").style.display="block";
+                    document.getElementById("carga_espera").style.display="none";
+                },
+                error:function (Response){
+                    alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+                    document.getElementById("check_off").style.display="block";
+                }
 
-        var dataString =new FormData($("#from_alumno_reinicio")[0]);
-        $.ajax({
-          url:"{{url('/reinicio_alumno')}}",
-            type:'POST',
-            dataType:'json',
-            data:dataString,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success:function(Response){
-                jQuery.noConflict();
-                tableRE();
-                document.getElementById("texto_exito_2").style.display="block";
-                document.getElementById("check_off").style.display="block";
-                document.getElementById("carga_espera").style.display="none";
-            },
-            error:function (Response){
-                alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
-                document.getElementById("check_off").style.display="block";
-            }
-
-        });
+            });
+        }else{
+            document.getElementById("check_off").style.display="block";
+        }
 
     }
 

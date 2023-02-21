@@ -195,8 +195,8 @@
     </div>
     <p style=" margin-top: 20px; text-align: justify; font-size: 11px; padding-left: 50px; padding-right: 50px;">Nota: Este documento sólo contiene las asignaturas aceptadas en la convalidación. En el caso que, para convalidar una asignatura, se consideran dos o más asignaturas de procedencia, se asignará como calificación el promedio de las mismas.</p>
     <p style=" margin-top: 35px; width: 100%; text-align: center; font-size: 11px; font-weight: bold;">Documento autorizado por</p>
-    <p style=" margin-top: 80px; width: 100%; text-align: center; font-size: 13px; font-weight: bold;"><u>Cirilo Martinez Liga</u></p>
-    <p style=" margin-top: 20px; text-align: center; font-size: 13.5px; padding-left: 50px; padding-right: 50px; font-family: sans-serif;">Nombre y firma del (de la) Jefe(a) de la División de Estudios Profesionales o su equivalente en los Institutos Tecnológicos Descentralizados</p>
+    <p style=" margin-top: 80px; width: 100%; text-align: center; font-size: 13px; font-weight: bold;"><u>{{$datos_pdf->j_division}}</u></p>
+    <p style=" margin-top: 20px; text-align: center; font-size: 13.5px; padding-left: 50px; padding-right: 50px; font-family: sans-serif;">Nombre y firma @if($datos_pdf->sexo_j_division==1) de la Jefa @else del Jefe @endif de la División de Estudios Profesionales o su equivalente en los Institutos Tecnológicos Descentralizados</p>
 </body>
 </html>
 
