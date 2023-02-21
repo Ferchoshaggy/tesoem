@@ -21,7 +21,7 @@ class MateriasController extends Controller
             return redirect("/Documentos");
         }
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
 
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
@@ -52,7 +52,7 @@ class MateriasController extends Controller
     public function guardar_institucion(Request $request){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
 
@@ -90,7 +90,7 @@ class MateriasController extends Controller
 
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
 
         date_default_timezone_set('America/Mexico_City');
@@ -118,7 +118,7 @@ class MateriasController extends Controller
     public function consulta_instituciones(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         $instituciones=DB::table("instituciones")->select("*")->get();
         return json_encode($instituciones);
@@ -148,7 +148,7 @@ class MateriasController extends Controller
 
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
 
@@ -234,7 +234,7 @@ class MateriasController extends Controller
     public function guardar_calificaciones(Request $request){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
         //recorremos el arreglo para empezar a guardar los datos
@@ -266,7 +266,7 @@ class MateriasController extends Controller
     public function guardar_calificaciones_b(Request $request){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
         //recorremos el arreglo para empezar a guardar los datos

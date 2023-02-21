@@ -132,6 +132,7 @@ Route::post('/update_materia',[AMateriasController::class,'update_materia'])->na
 //catalogo de materia horario
 Route::post('/save_horario',[AMateriasController::class,'guardar_horario'])->name('save_horario');
 Route::post('/update_horario',[AMateriasController::class,'editar_horario'])->name('update_horario');
+Route::post('/agregar_datos_pdf',[AMateriasController::class,'guardar_datos_pdf'])->name('guardar_datos_pdf');
 
 //validaciones
 

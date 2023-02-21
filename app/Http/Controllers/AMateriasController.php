@@ -15,8 +15,9 @@ class AMateriasController extends Controller
     }
 
     public function view_materias(){
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
         $horarios=DB::table('archivo_horarios')->where("carrera_tesoem",Auth::user()->carrera_tesoem)->first();
-        return view('viewAdmin.materias',compact("horarios"));
+        return view('viewAdmin.materias',compact("horarios","datos_pdf"));
             }
 
     public function view_materiasJax(){
@@ -214,6 +215,45 @@ public function editar_horario(Request $request){
 
     ]);
     return redirect()->back()->with(['message' => 'Horario Editado con exito', 'color' => 'success','tipo' => 'agregado']);
+}
+
+public function guardar_datos_pdf(Request $request){
+    date_default_timezone_set('America/Mexico_City');
+    $verificando=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+
+    if($verificando==null){
+        DB::table("datos_pdf")->insert([
+            "id_user" => Auth::user()->id,
+            "id_carrera" => Auth::user()->carrera_tesoem,
+            "j_division" => $request["j_division"],
+            "sexo_j_division" => $request["sexo_j_division"],
+            "p_academia" => $request["p_academia"],
+            "sexo_p_academia" => $request["sexo_p_academia"],
+            "s_academia" => $request["s_academia"],
+            "sexo_s_academia" => $request["sexo_s_academia"],
+            "j_control_escolar" => $request["j_control_escolar"],
+            "sexo_j_control_escolar" => $request["sexo_j_control_escolar"],
+            "texto_superior" => $request["texto_superior"],
+            "fecha" => date("Y-m-d")
+        ]);
+        return redirect()->back()->with(['message' => 'Datos de los formatos se agregaron con exito', 'color' => 'success','tipo' => 'agregado']);
+    }else{
+        DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->update([
+            "id_user" => Auth::user()->id,
+            "id_carrera" => Auth::user()->carrera_tesoem,
+            "j_division" => $request["j_division"],
+            "sexo_j_division" => $request["sexo_j_division"],
+            "p_academia" => $request["p_academia"],
+            "sexo_p_academia" => $request["sexo_p_academia"],
+            "s_academia" => $request["s_academia"],
+            "sexo_s_academia" => $request["sexo_s_academia"],
+            "j_control_escolar" => $request["j_control_escolar"],
+            "sexo_j_control_escolar" => $request["sexo_j_control_escolar"],
+            "texto_superior" => $request["texto_superior"],
+            "fecha" => date("Y-m-d")
+        ]);
+        return redirect()->back()->with(['message' => 'Datos de los formatos se actualizaron con exito', 'color' => 'warning','tipo' => 'actualizar']);
+    }
 }
 
 }

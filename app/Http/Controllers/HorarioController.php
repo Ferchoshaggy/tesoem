@@ -18,11 +18,18 @@ class HorarioController extends Controller
     public function view_horario(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect("/User_config");
+            return redirect("/redirects");
+        }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
         }
         $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->get();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         $horarios_pdf=DB::table("archivo_horarios")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->first();
+        if ($horarios_pdf==null) {
+            return view("vacio");
+        }
         return view("Horario.horario",compact("proceso","materias","horarios_pdf"));
     }
 
@@ -34,7 +41,7 @@ class HorarioController extends Controller
     public function guardar_horario(Request $request){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         date_default_timezone_set('America/Mexico_City');
         if($request->ajax()){
@@ -74,8 +81,17 @@ class HorarioController extends Controller
     public function pdf_eqv(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
+        $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
+        if ($datos_pdf==null) {
+            return view("vacio");
+        }
+        // indicamos que ya creo su horario
+        DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->update([
+            "etapa" => 4,
+            "estatus" => 2
+        ]);
         $datos_alumno=DB::table("users")->where("id",Auth::user()->id)->first();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         $datos_institucion=DB::table("instituciones")->where("id",$proceso->id_institucion_old)->first();
@@ -85,7 +101,7 @@ class HorarioController extends Controller
 
         $materias=DB::table("horario_alumnos")->join('materias_convalidacion', 'materias_convalidacion.id', '=', 'horario_alumnos.id_materia_convalidacion')->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("horario_alumnos.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos","materias_convalidacion.id_materia")->where("horario_alumnos.id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
 
-        $pdf = PDF::loadView('Horario.PDF_eqv',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","materias"))->setPaper(array(0,0,612.00,792.00));
+        $pdf = PDF::loadView('Horario.PDF_eqv',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","materias","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
         return $pdf->stream("EQV".Auth::user()->name.".pdf");
         
     }
@@ -93,7 +109,7 @@ class HorarioController extends Controller
     public function materias_horario(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
-            return redirect("/User_config");
+            return redirect("/redirects");
         }
         $materias_horario=DB::table("horario_alumnos")->join('materias_convalidacion', 'materias_convalidacion.id', '=', 'horario_alumnos.id_materia_convalidacion')->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("horario_alumnos.*","materias.temario","materias.nombre","materias.matricula","materias.creditos","materias_convalidacion.id_materia")->where("horario_alumnos.id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
 

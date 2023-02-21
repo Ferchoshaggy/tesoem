@@ -54,14 +54,14 @@
 <body>
 <?php date_default_timezone_set('America/Mexico_City'); ?>
 <header>
-    <p style=" width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: #9B9B9B;">"2022. Año del Qincentenario de la Fundación de Toluca de Lerdo, Capital del Estado de México."</p>
+    <p style=" width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: #9B9B9B;">"{{$datos_pdf->texto_superior}}"</p>
 </header>
 
     <p style=" margin-top: -10px; text-align: right; font-size: 12px;">
         La paz Estado de México a <?php echo date("d"); ?> de <?php if(date("m")==1){echo "enero";}  if(date("m")==2){echo "febrero";} if(date("m")==3){echo "marzo";} if(date("m")==4){echo "abril";} if(date("m")==5){echo "mayo";} if(date("m")==6){echo "junio";} if(date("m")==7){echo "julio";} if(date("m")==8){echo "agosto";} if(date("m")==9){echo "septiembre";} if(date("m")==10){echo "octubre";} if(date("m")==11){echo "noviembre";} if(date("m")==12){echo "diciembre";}?> del <?php echo date("Y"); ?>
     </p>
-    <p style=" margin-top: 20px;  width: 100%; text-align: left; font-size: 12px; padding-left: 25px;">Ing. Cirilo Martínez Liga</p>
-    <p style=" margin-top: 5px;  width: 100%; text-align: left; font-size: 12px; padding-left: 25px; font-weight: bold;">Jefe de División de ISC.</p>
+    <p style=" margin-top: 20px;  width: 100%; text-align: left; font-size: 12px; padding-left: 25px;">{{$datos_pdf->j_division}}</p>
+    <p style=" margin-top: 5px;  width: 100%; text-align: left; font-size: 12px; padding-left: 25px; font-weight: bold;">@if($datos_pdf->sexo_j_division==1) Jefa @else Jefe @endif de División de ISC.</p>
     <p style=" margin-top: 5px;  width: 100%; text-align: left; font-size: 12px; padding-left: 25px; font-weight: bold;">P r e s e n t e.</p>
     <p style=" margin-top: 15px;   text-align: justify; font-size: 12px; padding-left: 25px; ">En conformidad a lo previamente descrito del C. <label style="font-weight: bold;">{{$datos_alumno->name}}</label>, se dictamina lo siguiente: </p>
     <p style=" margin-top: 15px;   text-align: justify; font-size: 12px; padding-left: 25px; ">Se hace el listado de las asignaturas a cursar conforme a la retícula <label style="font-weight: bold;">{{$datos_carrera_new->clave}}</label> de {{$datos_carrera_new->nombre}}.</p>
@@ -120,15 +120,15 @@
                 <tr>
                     <th style="width: 25%; border: black 1px solid; padding: 20px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 70px;">
                     ___________________________________
-                    José Pablo Ibarra
-                    Presidente de Academia de ISC.
+                    {{$datos_pdf->p_academia}}
+                    @if($datos_pdf->sexo_p_academia==1) Presidenta @else Presidente @endif de Academia de ISC.
 
                     </th>
                     <th style="border: black 1px solid; padding: 5px; font-size: 10px; text-align: center;"></th>
                     <th style="width: 25%; border: black 1px solid; padding: 20px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 70px;">
                     ___________________________________
-                    Alma Alejandra Aguilar Rodríguez
-                    Secretaria de Academia de ISC.
+                    {{$datos_pdf->s_academia}}
+                    @if($datos_pdf->sexo_s_academia==1) Secretaria @else Secretario @endif de Academia de ISC.
 
                     </th>
                 </tr>

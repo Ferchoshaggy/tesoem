@@ -31,6 +31,22 @@
     </div>
 @endif
 
+@if(Session::get('tipo')== "actualizar")
+    <div class="alert alert-{{ Session::get('color') }}" role="alert" style="font-weight: bold; margin-bottom: 45px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+          <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+        </svg> &nbsp;&nbsp;&nbsp;
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
+                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </button>
+        {{ Session::get('message') }}
+
+    </div>
+@endif
+
 <div class="card-body secciones_body">
     <div class="row">
         <div class="col-md-10">
@@ -43,9 +59,17 @@
 </div>
 </div>
 
-<div class="row justify-content-md-center" style="margin-bottom: 15px">
-<div class="col-xl-12">
-<button class="btn btn-success form-control" data-toggle="modal" data-target="#modal_horario">Cargar Horario</button>
+<div class="card-body secciones_body" style="margin-bottom: 15px">
+<div class="row">
+    <div class="col-md-3" style="text-align: left; margin-bottom: 25px;">
+    <button class="btn btn-success" style="width: 100%;" data-toggle="modal" data-target="#modal_horario">Cargar Horario</button>
+    </div>
+    <div class="col-md-6">
+        
+    </div>
+    <div class="col-md-3" style="text-align: right;">
+    <button class="btn btn-info" style="width: 100%;"  data-toggle="modal" data-target="#modal_datos_pdf">Datos de los FORMATOS</button>
+    </div>
 </div>
 </div>
 
@@ -54,6 +78,128 @@
 <div id="table-materias"></div>
 
 </div>
+
+
+<!-- datos de los PDF -->
+<div class="modal fade" id="modal_datos_pdf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff; background-color: #111111bd;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Datos Generales de los formatos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <form method="POST" action="{{ url('/agregar_datos_pdf') }}">
+            @csrf
+            <div class="modal-body" style="border-bottom: 1px solid #193333;">
+                <div class="card-body secciones_body">
+                    <div class="row">
+                        <div class="col-xl-12" style="margin-bottom: 25px;">
+                            <label>Leyenda Superior</label>
+                            <input type="text" name="texto_superior" required class="form-control input_edit" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->texto_superior}} @endif">
+                        </div>
+                        <div class="col-xl-6" style="margin-bottom: 25px;">
+                            <label>Jefe del departamento de control escolar </label>
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_control_escolar" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
+                              <select class=" edit_select" name="sexo_j_control_escolar" required >
+                                  <option value="" disabled selected>Sexo</option>
+                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf->sexo_j_control_escolar==1)
+                                  <option value="1" selected>Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2" selected>Hombre</option>
+                                  @endif
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @endif
+                                  
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6" style="margin-bottom: 25px;">
+                            <label>Jefe de División</label>
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_division" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
+                              <select class=" edit_select" name="sexo_j_division" required>
+                                  <option value="" disabled selected>Sexo</option>
+                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf->sexo_j_division==1)
+                                  <option value="1" selected>Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2" selected>Hombre</option>
+                                  @endif
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @endif
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6" style="margin-bottom: 25px;">
+                            <label>Presidente de Academia</label>
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="p_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->p_academia}} @endif">
+                              <select class=" edit_select" name="sexo_p_academia" required>
+                                  <option value="" disabled selected>Sexo</option>
+                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf->sexo_p_academia==1)
+                                  <option value="1" selected>Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2" selected>Hombre</option>
+                                  @endif
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @endif
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6" style="margin-bottom: 25px;">
+                            <label>Secretario de Academia</label>
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="s_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->s_academia}} @endif">
+                              <select class=" edit_select" name="sexo_s_academia" required>
+                                  <option value="" disabled selected>Sexo</option>
+                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf->sexo_s_academia==1)
+                                  <option value="1" selected>Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2" selected>Hombre</option>
+                                  @endif
+                                  @else
+                                  <option value="1">Mujer</option>
+                                  <option value="2">Hombre</option>
+                                  @endif
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #193333;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary">Aceptar</button>
+            </div>
+
+        </form>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal subir horario-->
 <div class="modal fade" id="modal_horario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -413,6 +559,26 @@
     .paginate_button{
     position:sticky;
 }
+    .edit_select{
+        font-weight: bold;
+        font-size: 1.3rem;
+        padding-left: 10px;
+        padding-top: 4px;
+    }
+    .input_edit {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #ababab !important;
+    }
+
+    @media (min-width: 1200px) {
+        .modal-xl {
+            max-width: 1700px !important;
+        }
+    }
+
     .marca{
         transition: 1s;
         cursor: pointer;
