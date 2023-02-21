@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 }else{
                     return false;
                 }
-                
+
             }
             return false;
         });
@@ -79,6 +79,13 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('docente-alumno', function ($user) {
             if ($user->tipo_user === 3 or $user->tipo_user === 2) {
+                return true;
+            }
+            return false;
+        });
+
+        Gate::define('administrador', function ($user) {
+            if ($user->tipo_user === 1) {
                 return true;
             }
             return false;

@@ -371,6 +371,18 @@ return [
             'icon' => 'nav-icon fas fa-users',
             'can' => 'administrador-docente',
         ],
+        [
+            'text' => 'Catalogo de Instituciones',
+            'route'=> 'view_cat_instituciones',
+            'icon' => 'nav-icon fas fa-school',
+            'can' => 'administrador',
+        ],
+        [
+            'text' => 'Catalogo de carreras',
+            'route'=> 'view_cat_carreras',
+            'icon' => 'nav-icon fas fa-graduation-cap',
+            'can' => 'administrador',
+        ],
     ],
 
     /*

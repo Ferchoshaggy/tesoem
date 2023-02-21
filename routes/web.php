@@ -15,6 +15,7 @@ use App\Http\Controllers\UrlLibresController;
 use App\Http\Controllers\FormatosController;
 use App\Http\Controllers\HorarioController;
 
+use App\Http\Controllers\CatalogosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -149,3 +150,12 @@ Route::post('/cambios_user',[ACuentasController::class,'editar_user'])->name('ca
 Route::post('/delete_user',[ACuentasController::class,'eliminar_user'])->name('delete_user');
 Route::post('/nuevo_user',[ACuentasController::class,'save_user'])->name('nuevo_user');
 Route::post('/reinicio_alumno',[ACuentasController::class,'reinicio_alumno'])->name('reinicio_alumno');
+
+//catalogo de instituciones
+Route::get('/view_cat_instituciones',[CatalogosController::class,'view_cat_instituciones'])->name('view_cat_instituciones');
+Route::get('/view_cat_institucionesJax/{page?}',[CatalogosController::class,'view_cat_institucionesJax'])->name('view_cat_institucionesJax');
+Route::post('/save_instituciones',[CatalogosController::class,'save_instituciones'])->name('save_instituciones');
+
+//catalogo de materias
+Route::get('/view_cat_carreras',[CatalogosController::class,'view_cat_carreras'])->name('view_cat_carreras');
+Route::get('/view_cat_carrerasJax/{page?}',[CatalogosController::class,'view_cat_carrerasJax'])->name('view_cat_carrerasJax');
