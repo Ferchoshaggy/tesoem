@@ -87,7 +87,11 @@
     </p>
 
     <p style=" margin-top: 25px; text-align: justify; font-size: 12px; ">
+        @if($proceso->tipo_proceso==1)
         En seguimiento al proceso de <label style="color: red;">CONVALIDACIÓN</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula {{$datos_alumno->matricula}} de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, si el estudiante cumple con los requisitos previos de los documentos originales de la convalidación, sugerimos se le permita la inscripción a las siguientes asignaturas:
+        @else
+        En seguimiento al proceso de <label style="color: red;">REFRENDO</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula {{$datos_alumno->matricula}} de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, le permita la inscripción a las siguientes asignaturas:
+        @endif
     </p>
 
     <table style=" border-collapse:collapse; width: 100%; margin-top: 20px; ">

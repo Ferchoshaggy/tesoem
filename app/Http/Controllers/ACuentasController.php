@@ -20,6 +20,9 @@ class ACuentasController extends Controller
 
 
   public function view_cuentasJax(){
+    if(Auth::user()->tipo_user==3){
+        return redirect("/redirects");
+    }
     if(Auth::user()->tipo_user==1){
         $usuarios=DB::table('users')->where('tipo_user',2)->orWhere('tipo_user',3)->Paginate(10);
         $carreras=DB::table('carreras')->select('*')->Paginate(10);
