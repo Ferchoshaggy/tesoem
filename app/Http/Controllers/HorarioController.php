@@ -17,6 +17,9 @@ class HorarioController extends Controller
 
     public function view_horario(){
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
+        if ($etapa==null) {
+            return redirect("/redirects");
+        }
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<3){
             return redirect("/redirects");
         }

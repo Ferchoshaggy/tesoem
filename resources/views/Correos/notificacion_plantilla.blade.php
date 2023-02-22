@@ -16,7 +16,7 @@
 		<br>
 		<div style="margin-bottom: 20px; text-align: center;">
 			<a href="{{url('/')}}/{{$ruta}}" style="border-radius: 10px; text-decoration: none; font-size: 35px; background-color: #B5E4C9; color: black; width: 100%; padding: 15px;">
-				Ir al {{$modulo}}
+				Ir a {{$modulo}}
 			</a>
 		</div>
 		<br><br>
