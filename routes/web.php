@@ -87,7 +87,7 @@ Route::post('/save_form', [SaveFromController::class,'salvar_registro'])->name('
 //usuario config
 Route::get('/User_config', [UserConfigController::class,'vista_user_edit'])->name('edit_user');
 Route::post('/Actualizar_user', [UserConfigController::class,'user_actualizar'])->name('user_actualizar');
-
+Route::get('/vista_correo', [UserConfigController::class,'vista_correo'])->name('vista_correo');
 //documents
 
 Route::post('/save_documents', [DocumentsController::class,'save_documents'])->name('save_documents');

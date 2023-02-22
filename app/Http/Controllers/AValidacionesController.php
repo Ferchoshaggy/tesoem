@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionesCorreo;
+
 //esta es para poder acceder a los datos del usuario
 use Illuminate\Support\Facades\Auth;
 class AValidacionesController extends Controller
@@ -276,6 +279,15 @@ public function view_validacion(){
                 }
 
             }
+
+            $alumno_mensaje=DB::table("users")->where("id",$request["id_alumno"])->first();
+            $mensaje="El administrador ya Aprobo tus materias y calificaciones, ya puedes avanzar al paso 3 donde podras descargar tus formatos";
+            try{
+                Mail::to($alumno_mensaje->email)->send(new NotificacionesCorreo("Materias y calificaiones aprobadas",$mensaje,"Formatos","Formatos"));
+            }catch(\Exception $e){
+
+            }
+
             $exito[0]="si";
             return json_encode($exito);
         }else{

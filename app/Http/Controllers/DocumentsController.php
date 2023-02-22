@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use File;
 use DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionesCorreo;
+
 //esta es para poder acceder a los datos del usuario
 use Illuminate\Support\Facades\Auth;
 
@@ -137,6 +140,18 @@ class DocumentsController extends Controller
                 "fecha" => date("Y-m-d"),
             ]);
 
+            $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
+            foreach($administradores as $administrador){
+                if($administrador->email!=null){
+                    $mensaje="El Alumno: ".Auth::user()->name."ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
+                    try{
+                        Mail::to($administrador->email)->send(new NotificacionesCorreo("Documentos Subidos",$mensaje,"Documentos","ADocumentos"));
+                    }catch(\Exception $e){
+                        
+                    }
+                }
+            }
+
             return redirect()->back()->with(['message' => "Archivos guardados con exito", 'color' => 'success','tipo' => 'agregado']);
 
             //echo "seguardo";
@@ -198,6 +213,19 @@ class DocumentsController extends Controller
                 "estatus" => 2,
                 "fecha" => date("Y-m-d"),
             ]);
+
+
+            $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
+            foreach($administradores as $administrador){
+                if($administrador->email!=null){
+                    $mensaje="El Alumno: ".Auth::user()->name."ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
+                    try{
+                        Mail::to($administrador->email)->send(new NotificacionesCorreo("Documentos Subidos",$mensaje,"Documentos","ADocumentos"));
+                    }catch(\Exception $e){
+                        
+                    }
+                }
+            }
 
             return redirect()->back()->with(['message' => "Archivo guardado con exito", 'color' => 'success','tipo' => 'agregado']);
 
@@ -286,6 +314,19 @@ class DocumentsController extends Controller
             DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->update([
                 "estatus"=>4,
             ]);
+
+            $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
+            foreach($administradores as $administrador){
+                if($administrador->email!=null){
+                    $mensaje="El Alumno: ".Auth::user()->name." actualizo sus documentos, apruebalos para que avance al paso 2 Materias";
+                    try{
+                        Mail::to($administrador->email)->send(new NotificacionesCorreo("Documentos Actualizados",$mensaje,"Documentos","ADocumentos"));
+                    }catch(\Exception $e){
+
+                    }
+                }
+            }
+
             return redirect()->back()->with(['message' => "Archivo(s) actualizado(s) con exito", 'color' => 'warning','tipo' => 'actualizar']);
             //echo "seguardo";
         } catch (\Exception $e) {
