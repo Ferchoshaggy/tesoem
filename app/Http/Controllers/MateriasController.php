@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionesCorreo;
+
 //esta es para poder acceder a los datos del usuario
 use Illuminate\Support\Facades\Auth;
 
@@ -260,6 +264,19 @@ class MateriasController extends Controller
             "estatus" => 4,
         ]);
 
+        $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
+
+        foreach($administradores as $administrador){
+            if($administrador->email!=null){
+                $mensaje="El Alumno: ".Auth::user()->name." ya Subio sus calificaciones, Verificalas para que avance a paso 3 Formatos/Horarios";
+                try{
+                    Mail::to($administrador->email)->send(new NotificacionesCorreo("Calificaciones Subidas",$mensaje,"Validacion","AValidaciones"));
+                }catch(\Exception $e){
+
+                }
+            }
+        }
+
         return redirect()->back()->with(['message' => "Calificaciones registradas corectamente, Ya solo espera que sean aprobadas", 'color' => 'success','tipo' => 'agregado']);
     }
 
@@ -288,6 +305,19 @@ class MateriasController extends Controller
         DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->update([
             "estatus" => 4,
         ]);
+
+        $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
+
+        foreach($administradores as $administrador){
+            if($administrador->email!=null){
+                $mensaje="El Alumno: ".Auth::user()->name." ya Subio sus calificaciones, Verificalas para que avance a paso 3 Formatos/Horarios";
+                try{
+                    Mail::to($administrador->email)->send(new NotificacionesCorreo("Calificaciones Subidas",$mensaje,"Validacion","AValidaciones"));
+                }catch(\Exception $e){
+
+                }
+            }
+        }
 
         return redirect()->back()->with(['message' => "Calificaciones registradas corectamente, Ya solo espera que sean aprobadas", 'color' => 'success','tipo' => 'agregado']);
     }

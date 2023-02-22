@@ -33,6 +33,14 @@ class UserConfigController extends Controller
         return view('UserConfig.Edit',compact('datos_user'));
     }
 
+    public function vista_correo(){
+        $mensaje = "ya te dieron viada compa";
+        $subject = "documentos aceptados";
+        $modulo = "documentos";
+        $ruta = "Documentos";
+        return view('Correos.notificacion_plantilla',compact("mensaje","subject","modulo","ruta"));
+    }
+
     public function user_actualizar(Request $request){
 
         $foto_delete=DB::table("users")->where("id",Auth::user()->id)->first();
