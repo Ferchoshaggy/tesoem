@@ -354,12 +354,6 @@ return [
             'can' =>  'docentes',
         ],
         [
-            'text' => 'Catalogo de Materias',
-            'route'=> 'materias_view',
-            'icon' => 'nav-icon far fa-file-alt',
-            'can' =>  'docentes',
-        ],
-        [
             'text' => 'Validaciones',
             'route'=> 'validacion_view',
             'icon' => 'nav-icon far fa-list-alt',
@@ -370,6 +364,12 @@ return [
             'route'=> 'cuentas_view',
             'icon' => 'nav-icon fas fa-users',
             'can' => 'administrador-docente',
+        ],
+        [
+            'text' => 'Catalogo de Materias',
+            'route'=> 'materias_view',
+            'icon' => 'nav-icon far fa-file-alt',
+            'can' =>  'docentes',
         ],
         [
             'text' => 'Catalogo de Instituciones',

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionesCorreo;
+
 class ADocumentsController extends Controller
 {
     public function __construct(){
@@ -50,6 +53,16 @@ DB::table('procesos_alumno')->where("id",$request["id_ha_pa"])->update([
     "estatus"=>3,
     ]);
 
+    $alum_pro=DB::table('procesos_alumno')->where("id",$request["id_ha_pa"])->first();
+
+    $alumno_mensaje=DB::table("users")->where("id",$alum_pro->id_user)->first();
+    $mensaje="Tu docente de carrera Rechazo tu Hisorial Academico";
+    try{
+        Mail::to($alumno_mensaje->email)->send(new NotificacionesCorreo("Historial Academico Rechazado",$mensaje,"Documentos","Documentos"));
+    }catch(\Exception $e){
+
+    }
+
     return response()->json([]);
 
     }
@@ -66,6 +79,15 @@ public function rechazadoCP(Request $request){
         DB::table('procesos_alumno')->where("id",$request["id_cp_pa"])->update([
             "estatus"=>3,
             ]);
+           $alum_pro=DB::table('procesos_alumno')->where("id",$request["id_cp_pa"])->first();
+
+            $alumno_mensaje=DB::table("users")->where("id",$alum_pro->id_user)->first();
+            $mensaje="Tu docente de carrera Rechazo tu Comprobante de pago";
+            try{
+                Mail::to($alumno_mensaje->email)->send(new NotificacionesCorreo("Comprobante de pago Rechazado",$mensaje,"Documentos","Documentos"));
+            }catch(\Exception $e){
+
+            }
 
             return response()->json([]);
 
@@ -109,6 +131,16 @@ public function Docfinalizar (Request $request){
             "estatus"=>1,
             "etapa"=>2,
             ]);
+
+            $alum_pro=DB::table('procesos_alumno')->where("id",$request["id_pa_f"])->first();
+
+            $alumno_mensaje=DB::table("users")->where("id",$alum_pro->id_user)->first();
+            $mensaje="Tu docente de carrera Aprobo todos tus archivos, y puedes pasar a la etapa 2 que es seleccionar tus Materias";
+            try{
+                Mail::to($alumno_mensaje->email)->send(new NotificacionesCorreo("Documentos Aprovados",$mensaje,"Materias","Materias"));
+            }catch(\Exception $e){
+
+            }
 
             return response()->json([]);
     }
