@@ -21,7 +21,9 @@ return view('viewAdmin.documents');
     }
 
     public function view_documenJax(){
-
+        if(Auth::user()->tipo_user!=2){
+            return redirect("/redirects");
+        }
         $carreras=DB::table('carreras')->where('id',Auth::user()->carrera_tesoem)->first();
         $usuarios=DB::table('users')->where('carrera_tesoem',$carreras->id)->where('tipo_user',3)->Paginate(10);
         $carrerass=DB::table('carreras')->where('id',Auth::user()->carrera_tesoem)->get();

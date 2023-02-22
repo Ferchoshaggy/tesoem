@@ -17,7 +17,9 @@ class AValidacionesController extends Controller
     }
 
     public function view_validacionJax(){
-
+        if(Auth::user()->tipo_user!=2){
+            return redirect("/redirects");
+        }
         $alumnos=DB::table("users")->join('procesos_alumno', 'users.id_proceso_activo', '=', 'procesos_alumno.id')->join('instituciones', 'procesos_alumno.id_institucion_old', '=', 'instituciones.id')->select('users.*','procesos_alumno.etapa','procesos_alumno.estatus', 'instituciones.nombre')->where("procesos_alumno.etapa",2)->paginate(10);
         $carrera=DB::table("carreras")->where("id",Auth::user()->carrera_tesoem)->first();
         $materias_new=DB::table("materias")->where("id_carrera", Auth::user()->carrera_tesoem)->get();

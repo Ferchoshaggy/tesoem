@@ -15,6 +15,9 @@ class AMateriasController extends Controller
     }
 
     public function view_materias(){
+        if(Auth::user()->tipo_user!=2){
+            return redirect("/redirects");
+        }
         $datos_pdf=DB::table("datos_pdf")->where("id_carrera",Auth::user()->carrera_tesoem)->first();
         $horarios=DB::table('archivo_horarios')->where("carrera_tesoem",Auth::user()->carrera_tesoem)->first();
         return view('viewAdmin.materias',compact("horarios","datos_pdf"));
