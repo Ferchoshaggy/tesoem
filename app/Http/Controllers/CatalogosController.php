@@ -14,7 +14,7 @@ class CatalogosController extends Controller
     }
 
 public function view_cat_instituciones(){
-    if(Auth::user()->tipo_user==1){
+    if(Auth::user()->tipo_user!=1){
         return redirect("/redirects");
     }
 return view('viewAdmin.cat_instituciones');
@@ -84,7 +84,7 @@ public function delete_instituciones(Request $request){
  //catalogo de carreras
 
 public function view_cat_carreras(){
-    if(Auth::user()->tipo_user==1){
+    if(Auth::user()->tipo_user!=1){
         return redirect("/redirects");
     }
     $escuelas=DB::table('instituciones')->select("*")->get();

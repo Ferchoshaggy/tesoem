@@ -20,7 +20,7 @@ class ACuentasController extends Controller
 
 
   public function view_cuentasJax(){
-    if(Auth::user()->tipo_user<=2){
+    if(Auth::user()->tipo_user==3){
         return redirect("/redirects");
     }
     if(Auth::user()->tipo_user==1){
