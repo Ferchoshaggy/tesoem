@@ -65,7 +65,7 @@
     <button class="btn btn-success" style="width: 100%;" data-toggle="modal" data-target="#modal_horario">Cargar Horario</button>
     </div>
     <div class="col-md-6">
-        
+
     </div>
     <div class="col-md-3" style="text-align: right;">
     <button class="btn btn-info" style="width: 100%;"  data-toggle="modal" data-target="#modal_datos_pdf">Datos de los FORMATOS</button>
@@ -108,7 +108,7 @@
                               <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_control_escolar" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
                               <select class=" edit_select" name="sexo_j_control_escolar" required >
                                   <option value="" disabled selected>Sexo</option>
-                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf!=null)
                                   @if($datos_pdf->sexo_j_control_escolar==1)
                                   <option value="1" selected>Mujer</option>
                                   <option value="2">Hombre</option>
@@ -120,7 +120,7 @@
                                   <option value="1">Mujer</option>
                                   <option value="2">Hombre</option>
                                   @endif
-                                  
+
                               </select>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                               <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_division" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
                               <select class=" edit_select" name="sexo_j_division" required>
                                   <option value="" disabled selected>Sexo</option>
-                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf!=null)
                                   @if($datos_pdf->sexo_j_division==1)
                                   <option value="1" selected>Mujer</option>
                                   <option value="2">Hombre</option>
@@ -151,7 +151,7 @@
                               <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="p_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->p_academia}} @endif">
                               <select class=" edit_select" name="sexo_p_academia" required>
                                   <option value="" disabled selected>Sexo</option>
-                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf!=null)
                                   @if($datos_pdf->sexo_p_academia==1)
                                   <option value="1" selected>Mujer</option>
                                   <option value="2">Hombre</option>
@@ -172,7 +172,7 @@
                               <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="s_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->s_academia}} @endif">
                               <select class=" edit_select" name="sexo_s_academia" required>
                                   <option value="" disabled selected>Sexo</option>
-                                  @if($datos_pdf!=null) 
+                                  @if($datos_pdf!=null)
                                   @if($datos_pdf->sexo_s_academia==1)
                                   <option value="1" selected>Mujer</option>
                                   <option value="2">Hombre</option>
@@ -612,20 +612,20 @@
 $('#masmaterias').append('<div class="row dinamic-row" id="newRow'+i+'">'
 +'<div class="col-md-3" >'
 +'<label for="Materias">Materias</label>'
-+'<input type="text" class="form-control" id="materiasD[]" name="materiasD[]" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();">'
++'<input type="text" class="form-control" id="materiasD[]" name="materiasD[]" placeholder="MATERIA" onkeyup="this.value = this.value.toUpperCase();" required>'
 +'</div>'
 +'<div class="col-md-3">'
 +'<label  style="visibility: hidden">--</label>'
-+'<input type="text" class="form-control" id="claveD[]" name="claveD[]" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();">'
++'<input type="text" class="form-control" id="claveD[]" name="claveD[]" placeholder="CLAVE" onkeyup="this.value = this.value.toUpperCase();" required>'
 +'</div>'
 +'<div class="col-md-2">'
 +'<label style="visibility: hidden">--</label>'
-+'<input type="number" class="form-control" name="creditosD[]" id="creditosD[]" placeholder="CREDITOS">'
++'<input type="number" class="form-control" name="creditosD[]" id="creditosD[]" placeholder="CREDITOS" required>'
 +'</div>'
 
 +'<div class="col-md-3">'
 +'<label style="visibility: hidden">--</label>'
-+'<input type="file" name="temarioD[]" id="foto_archivo[]" class="form-control input_edit archivo" onchange="cambio_archivo(this);" data-temario="'+i+'">'
++'<input type="file" name="temarioD[]" id="foto_archivo[]" class="form-control input_edit archivo" onchange="cambio_archivo(this);" data-temario="'+i+'" required>'
 +'<label id="button_file_'+i+'" onclick="temario_edit('+i+');" class="form-control boton_file" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/></svg>  &#160;&#160;Subir Temario</label>'
 +'</div>'
 

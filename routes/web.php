@@ -68,6 +68,13 @@ Route::group(['middleware' => ['auth', 'alumno']], function () {
     Route::get('/Horarios', [HorarioController::class,'view_horario'])->name('view_horario');
 });
 
+Route::group(['middleware' => ['auth', 'super']], function () {
+
+    Route::get('/view_cat_instituciones',[CatalogosController::class,'view_cat_instituciones'])->name('view_cat_instituciones');
+    Route::get('/view_cat_carreras',[CatalogosController::class,'view_cat_carreras'])->name('view_cat_carreras');
+
+});
+
 //redirect login
 Route::get('/redirects',[UserConfigController::class,'index'])->name('index_vista');
 
@@ -153,10 +160,17 @@ Route::post('/nuevo_user',[ACuentasController::class,'save_user'])->name('nuevo_
 Route::post('/reinicio_alumno',[ACuentasController::class,'reinicio_alumno'])->name('reinicio_alumno');
 
 //catalogo de instituciones
-Route::get('/view_cat_instituciones',[CatalogosController::class,'view_cat_instituciones'])->name('view_cat_instituciones');
+
 Route::get('/view_cat_institucionesJax/{page?}',[CatalogosController::class,'view_cat_institucionesJax'])->name('view_cat_institucionesJax');
 Route::post('/save_instituciones',[CatalogosController::class,'save_instituciones'])->name('save_instituciones');
+Route::get('/search_institucion/{id}',[CatalogosController::class,'institucional_modal'])->name('search_institucion');
+Route::post('/update_instituciones',[CatalogosController::class,'update_instituciones'])->name('update_instituciones');
+Route::post('/delete_instituciones',[CatalogosController::class,'delete_instituciones'])->name('delete_instituciones');
 
 //catalogo de materias
-Route::get('/view_cat_carreras',[CatalogosController::class,'view_cat_carreras'])->name('view_cat_carreras');
+
 Route::get('/view_cat_carrerasJax/{page?}',[CatalogosController::class,'view_cat_carrerasJax'])->name('view_cat_carrerasJax');
+Route::post('/save_carreras',[CatalogosController::class,'save_carreras'])->name('save_carreras');
+Route::get('/search_carrera/{id}',[CatalogosController::class,'carrera_modal'])->name('search_carrera');
+Route::post('/update_carrera',[CatalogosController::class,'update_carrera'])->name('update_carrera');
+Route::post('/delete_carrera',[CatalogosController::class,'delete_carrera'])->name('delete_carrera');
