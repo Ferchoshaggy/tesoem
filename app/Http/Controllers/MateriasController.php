@@ -22,7 +22,7 @@ class MateriasController extends Controller
 
         $etapa=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         if ($etapa==null) {
-            return redirect("/Documentos");
+            return redirect("/redirects");
         }
         if(Auth::user()->tipo_user!=3 || $etapa->etapa<2){
             return redirect("/redirects");

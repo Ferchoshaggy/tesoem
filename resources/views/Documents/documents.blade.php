@@ -204,7 +204,7 @@
             </div>
             <div class="col-md-2" style="text-align: right;">
                 <br><br>
-                <button class="btn btn-success" id="button_envio" disabled title="Guardar"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
+                <button class="btn btn-success" id="button_envio" disabled title="Guardar" data-toggle="modal" data-target="#exito_guardado"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
             </div>
             
         </div>
@@ -236,7 +236,7 @@
             </div>
             <div class="col-md-2" style="text-align: right;">
                 <br><br>
-                <button class="btn btn-success" id="button_envio" disabled title="Guardar"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
+                <button class="btn btn-success" id="button_envio" disabled title="Guardar" data-toggle="modal" data-target="#exito_guardado"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
             </div>
             
         </div>
@@ -245,6 +245,32 @@
     @endif
 </div>
 @endif
+
+<input type="hidden" id="check_exito" data-toggle="modal" data-target="#exito_guardado">
+<!-- agregado con exito modal de espera de carga-->
+<div class="modal fade" id="exito_guardado" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff; overflow-y: auto; background-color: #111111bd;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Guardando datos</h5>
+
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333;">
+
+            <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px; text-align: center;">
+
+                <div class="col-md-12" id="carga_espera">
+                    <img src="{{url('img/cargando_12.gif')}}" style="width: 100%; height: auto; border-radius: 10%; "><br>
+                    Espere un momento...
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off">Aceptar</button>
+        </div>
+    </div>
+  </div>
+</div>
 
 <div id="div_notification" class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="display: none; position: fixed; padding: 20px; background-color: #3d9970; width: auto;  margin-right: 25px;">
     <button type="button" class="close" style="margin-right: -17px; margin-top: -20px; " onclick="cerrar_div_notifiaction();">

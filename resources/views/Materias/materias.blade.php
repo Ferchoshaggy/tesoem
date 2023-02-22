@@ -186,7 +186,7 @@
                 Al terminar preciona el boton de guardar.
             </div>
             <div class="col-md-6" style="margin-bottom:25px; text-align: right;" >
-                <button class="btn btn-success"id="button_calificaciones_save" title="Guardar" disabled><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
+                <button class="btn btn-success"id="button_calificaciones_save" title="Guardar" disabled data-toggle="modal" data-target="#exito_guardado_22"><img src="{{url('icons/4305589.png')}}" style="width: 45px; height:auto;"></button>
                 
             </div>
         </div>     
@@ -307,7 +307,7 @@
                         Al terminar preciona el boton de guardar.
                     </div>
                     <div class="col-md-6" style="margin-bottom:25px; text-align: right;" >
-                        <button class="btn btn-success"id="button_materias_save" title="Guardar"><img src="{{url('icons/4305589.png')}}" style="width: 25px; height:auto;"></button>
+                        <button class="btn btn-success"id="button_materias_save" title="Guardar" data-toggle="modal" data-target="#exito_guardado_22"><img src="{{url('icons/4305589.png')}}" style="width: 25px; height:auto;"></button>
                         
                     </div>
                 </div>     
@@ -551,6 +551,32 @@
             </div>
             
         </form>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="check_exito_22" data-toggle="modal" data-target="#exito_guardado_22">
+<!-- agregado con exito modal de espera de carga-->
+<div class="modal fade" id="exito_guardado_22" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff; overflow-y: auto; background-color: #111111bd;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Guardando datos</h5>
+
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333;">
+
+            <div class="card-body secciones_body" style=" text-align: left; margin-bottom: 0px; text-align: center;">
+
+                <div class="col-md-12" id="carga_espera_22">
+                    <img src="{{url('img/cargando_12.gif')}}" style="width: 100%; height: auto; border-radius: 10%; "><br>
+                    Espere un momento...
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#iniciar" style="display: none;" id="check_off_22">Aceptar</button>
+        </div>
     </div>
   </div>
 </div>
