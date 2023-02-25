@@ -21,7 +21,7 @@ class AMateriasController extends Controller
             }
 
     public function view_materiasJax(){
-        $materias=DB::table('materias')->where("id_carrera",Auth::user()->carrera_tesoem)->paginate(10);
+        $materias=DB::table('materias')->where("id_carrera",Auth::user()->carrera_tesoem)->orderBy('semestre', 'asc')->paginate(10);
 
         return view('viewAdmin.materiasJax',compact("materias"));
     }
