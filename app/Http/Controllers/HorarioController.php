@@ -105,7 +105,7 @@ class HorarioController extends Controller
         $materias=DB::table("horario_alumnos")->join('materias_convalidacion', 'materias_convalidacion.id', '=', 'horario_alumnos.id_materia_convalidacion')->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("horario_alumnos.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos","materias_convalidacion.id_materia")->where("horario_alumnos.id_proceso_alumno",Auth::user()->id_proceso_activo)->get();
 
         $pdf = PDF::loadView('Horario.PDF_eqv',compact("datos_alumno","proceso","datos_institucion","datos_carrera","datos_carrera_new","datos_institucion_new","materias","datos_pdf"))->setPaper(array(0,0,612.00,792.00));
-        return $pdf->stream("EQV".Auth::user()->name.".pdf");
+        return $pdf->stream("EQV_".Auth::user()->name.".pdf");
         
     }
 
