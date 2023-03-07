@@ -24,14 +24,7 @@
             <div class="container-fluid fixed-top p-4">
         <div class="col-12">
             <div class="d-flex justify-content-end">
-                @if (Route::has('login'))
-                    <div class="">
-                        @auth
-                            <a href="" class="text-muted">Entrar</a>
-                        @else
-                        @endif
-                    </div>
-                @endif
+                
             </div>
         </div>
     </div>
@@ -45,7 +38,18 @@
                 <div class="mb-3">
                     <x-jet-input type="text" name="matricula" :value="old('matricula')" placeholder="Matricula" required style="font-weight: bold; font-size: 20px;"/>
                 </div>
-
+                <div class="mb-3" style="background-color: #707070; color: #fff; padding: 10px; border-radius: 0.25rem;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label class="form-check-label" for="flexSwitchCheckReverse">Si ya has refrendado o convalidado previamente marca la casilla</label>
+                        </div>
+                        <div class="col-md-2" style="text-align: center;">
+                            <input name="m_tesoem" class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" style="width: 25px; height: 25px; margin-top: 10px;" value="1">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
                 <div class="mb-3">
                     <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
                                  :value="old('name')" required autofocus autocomplete="name" style="font-weight: bold; font-size: 20px;" placeholder="Nombre(s)" id="nombre"/>

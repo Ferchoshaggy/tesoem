@@ -70,10 +70,10 @@
         La paz Estado de México a <?php echo date("d"); ?> de <?php if(date("m")==1){echo "enero";}  if(date("m")==2){echo "febrero";} if(date("m")==3){echo "marzo";} if(date("m")==4){echo "abril";} if(date("m")==5){echo "mayo";} if(date("m")==6){echo "junio";} if(date("m")==7){echo "julio";} if(date("m")==8){echo "agosto";} if(date("m")==9){echo "septiembre";} if(date("m")==10){echo "octubre";} if(date("m")==11){echo "noviembre";} if(date("m")==12){echo "diciembre";}?> del <?php echo date("Y"); ?>
     </p>
     <p style=" margin-top: 5px; text-align: right; font-size: 11px;">
-        Oficio No. __________________________________________
+        Oficio No. {{$proceso->folio}}
     </p>
     <p style=" margin-top: 8px; text-align: right; font-size: 11px;">
-        Asunto: Asignaturas a cursar en el semestre _______________
+        Asunto: Asignaturas a cursar en el semestre <?php echo date("Y"); ?><?php if(date("m")>=1 && date("m")<=5) echo "-1"; elseif(date("m")>=7 && date("m")<=10){echo "-2";}else{ echo "--";}?>
     </p>
 
     <p style=" margin-top: 25px; text-align: left; font-size: 14px; font-weight: bold;">
@@ -88,9 +88,9 @@
 
     <p style=" margin-top: 25px; text-align: justify; font-size: 12px; ">
         @if($proceso->tipo_proceso==1)
-        En seguimiento al proceso de <label style="color: red;">CONVALIDACIÓN</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula {{$datos_alumno->matricula}} de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, si el estudiante cumple con los requisitos previos de los documentos originales de la convalidación, sugerimos se le permita la inscripción a las siguientes asignaturas:
+        En seguimiento al proceso de <label style="color: red;">CONVALIDACIÓN</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula @if($datos_alumno->m_tesoem==1) {{$datos_alumno->matricula}} @else <label style="color: red;">pendiente</label> @endif de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, si el estudiante cumple con los requisitos previos de los documentos originales de la convalidación, sugerimos se le permita la inscripción a las siguientes asignaturas:
         @else
-        En seguimiento al proceso de <label style="color: red;">REFRENDO</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula {{$datos_alumno->matricula}} de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, le permita la inscripción a las siguientes asignaturas:
+        En seguimiento al proceso de <label style="color: red;">REFRENDO</label> del solicitante <u style="font-weight: bold;">{{$datos_alumno->name}}</u> con matrícula @if($datos_alumno->m_tesoem==1) {{$datos_alumno->matricula}} @else <label style="color: red;">pendiente</label> @endif de la carrera <label style="color: red;">{{$datos_carrera_new->nombre}}</label> solicito a usted, le permita la inscripción a las siguientes asignaturas:
         @endif
     </p>
 

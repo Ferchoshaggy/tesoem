@@ -44,6 +44,12 @@ class CreateNewUser implements CreatesNewUsers
             }
 
         }
+
+        if(isset($input['m_tesoem'])){
+            $mat_tesoem=1;
+        }else{
+            $mat_tesoem=null;
+        }
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
@@ -51,6 +57,7 @@ class CreateNewUser implements CreatesNewUsers
             'matricula' => $input['matricula'],
             'foto' => $foto,
             'tipo_user'=>3,
+            'm_tesoem' => $mat_tesoem,
             'carrera_tesoem' => $input['carrera_tesoem'],
         ]);
     }

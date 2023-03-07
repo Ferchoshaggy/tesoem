@@ -37,7 +37,7 @@ class AMateriasController extends Controller
         if($request['temario']!=null){
 
             //guardamos la nueva
-            $archivo = $time.''.rand(11111,99999).'temario_'.$request["materias"].".".$request["temario"]->getClientOriginalExtension();
+            $archivo = rand(11111,99999).'temario_'.$request["materias"].".".$request["temario"]->getClientOriginalExtension();
             $destinationPath = public_path().'/temarios';
             $file_save = $request['temario'];
             $file_save->move($destinationPath,$archivo);
@@ -66,7 +66,7 @@ if (isset($request["temarioD"])) {
 
                                 if($request['temarioD'][$j]->getClientOriginalExtension()=="pdf"){
 
-                                    $temario = $time.''.rand(11111,99999)."temario_".$request['materiasD'][$j].".pdf";
+                                    $temario = rand(11111,99999)."temario_".$request['materiasD'][$j].".pdf";
                                     $destinationPath = public_path().'/temarios';
                                     $file_save = $request['temarioD'][$j];
                                     $file_save->move($destinationPath,$temario);
@@ -129,7 +129,7 @@ if($request['temario']!=null){
         File::delete( $rute_temario);
     }
     //guardamos el nuevo temario
-    $temario = $time.''.rand(11111,99999).'temario'.".".$request['temario']->getClientOriginalExtension();
+    $temario = rand(11111,99999).'temario'.".".$request['temario']->getClientOriginalExtension();
     $destinationPath = public_path().'/temarios';
     $file_save = $request->file('temario');
     $file_save->move($destinationPath,$temario);

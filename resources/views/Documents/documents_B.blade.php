@@ -9,31 +9,6 @@
 
 @section('content')
 
-<style type="text/css">
-    .secciones_body{
-        background-color: #234747;
-        border-radius: 10px; 
-        margin-bottom: 35px; 
-        color: #fff; 
-        text-align: center; 
-        font-size: 20px;
-    }
-    /*este es para el diseño del archivo */
-    .archivo{
-      display: none;
-    }
-
-    .boton_file{
-      display: inline-block;
-      cursor: pointer;
-      width: 50%;
-      font-size: 1.3rem; 
-      font-weight: bold;
-    }
-    html{
-        background-color: #193333;
-    }
-</style>
 
 <div>
     <h3 style="color: white; margin-bottom: 45px;">Subir documentos</h3>
@@ -133,7 +108,7 @@
         </div>
     </div>
     @elseif($proceso->estatus==2 || $proceso->estatus==4)
-    <div style="text-align: justify;">Todos los documentos han sido subidos correctamente, espera la comprobacion de los mismos, se le notificara al correo personal que proporcionaste o en la campana de notificaciones para que continues con tu tramite.</div>
+    <div style="text-align: justify;">Todos los documentos han sido subidos correctamente, espera la comprobacion de los mismos, se le notificara al correo personal que proporcionaste para que continues con tu tramite.</div>
     <br>
     <div class="col-md-12" style="text-align: right;">
         <img src="{{url('icons/paloma.png')}}" style="width: 9vh; height: auto; margin-right: -25px; margin-bottom: -35px;">
@@ -235,21 +210,62 @@
 </div>
 @endif
 
-<div id="div_notification" class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="display: none; position: fixed; padding: 20px; background-color: #3d9970; width: auto;  margin-right: 25px;">
-    <button type="button" class="close" style="margin-right: -17px; margin-top: -20px; " onclick="cerrar_div_notifiaction();">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
-            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-    </button>
-    <br>
-    hola soy las notifiaciones!!
+
+<!-- ayuda -->
+<div class="modal fade" id="ver_ayuda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Ayuda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <iframe width="100%" height="340" src="https://www.youtube.com/embed/PBkcWbhCOug" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+    </div>
+  </div>
 </div>
-
-
+<input type="hidden" name="" id="button_ayuda" data-toggle="modal" data-target="#ver_ayuda">
 @stop
 
 @section('css')
+<style type="text/css">
+    .secciones_body{
+        background-color: #234747;
+        border-radius: 10px; 
+        margin-bottom: 35px; 
+        color: #fff; 
+        text-align: center; 
+        font-size: 20px;
+    }
+    /*este es para el diseño del archivo */
+    .archivo{
+      display: none;
+    }
+
+    .boton_file{
+      display: inline-block;
+      cursor: pointer;
+      width: 50%;
+      font-size: 1.3rem; 
+      font-weight: bold;
+    }
+    html{
+        background-color: #193333;
+    }
+    #not_li{
+        background-color: #8340EC;
+        border-radius: 8px;
+    }
+</style>
 
 @stop
 
@@ -258,7 +274,9 @@
 
 
 <script type="text/javascript">
-    
+    document.getElementById("not_li").addEventListener("click",function () {
+        document.getElementById("button_ayuda").click();
+    })
 
     function document_up(file){
         if (file.id=="archivo1") {
@@ -347,33 +365,6 @@
     function img_pathUrl(input){
       $('#img_url1')[0].src = (window.URL ? URL : webkitURL).createObjectURL();
   }
-
-    document.getElementById("not_li").innerHTML='<a href="#" class="nav-link" id="notification"><i class="fas fa-solid far fa-bell"></i><span style="position: absolute;top: 2px; font-weight: 0; text-decoration: none;" id="number_notification">1</span></a>';
-
-    document.getElementById("notification").addEventListener("click",function () {
-
-        //asi se optiene el valor del objeto clickeado
-        let rect = this.getBoundingClientRect();
-        //asi del mause
-        var coordenadas_y=event.clientY; //odtenemos el valor de la posicion del boton
-        var coordenadas_x=event.clientX; //odtenemos el valor de la posicion del boton
-        document.getElementById("div_notification").style.top=rect.y+60+"px";
-        //document.getElementById("div_notification").style.left=rect.x-180+"px";
-        //document.getElementById("div_notification").style.position="absolute";
-        if (document.getElementById("div_notification").style.display=="none"){
-            document.getElementById("div_notification").style.display="block";
-        }else{
-            document.getElementById("div_notification").style.display="none";
-        }
-    })
-
-    document.getElementById("div_notification").addEventListener("mouseleave",function(){
-        document.getElementById("div_notification").style.display="none";
-    });
-
-    function cerrar_div_notifiaction(){
-        document.getElementById("div_notification").style.display="none";
-    }
     
 </script>
 

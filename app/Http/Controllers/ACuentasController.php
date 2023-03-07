@@ -39,12 +39,17 @@ class ACuentasController extends Controller
 public function editar_user(Request $request){
 
     if($request->ajax()){
-
+        if (isset($request["m_tesoem"])) {
+            $m_tesoem=1;
+        }else{
+            $m_tesoem=null;
+        }
    if($request["contraseña"] && $request["contraseña2"]){
     DB::table('users')->where("id",$request["id_user"])->update([
         'matricula'=>$request["matricula"],
         'name'=>$request["nombre"],
         'email'=>$request["correo"],
+        'm_tesoem'=> $m_tesoem,
         'password'=>bcrypt($request["contraseña"]),
         ]);
    }else{
@@ -52,6 +57,7 @@ public function editar_user(Request $request){
     'matricula'=>$request["matricula"],
     'name'=>$request["nombre"],
     'email'=>$request["correo"],
+    'm_tesoem'=> $m_tesoem,
     ]);
    }
 
@@ -147,6 +153,20 @@ public function reinicio_alumno(Request $request){
 
 }
 
+
+public function asignar_folio(Request $request){
+    date_default_timezone_set('America/Mexico_City');
+    if($request->ajax()){
+        $datos_alumno=DB::table("users")->where("id",$request["id_alumno_folio"])->first();
+        DB::table("procesos_alumno")->where("id",$datos_alumno->id_proceso_activo)->update([
+            "folio" => $request["folio_alum"]
+        ]);
+        return response()->json([]);
+    }else{
+        return response()->json([]);
+    }
+
+}
 
 
 }

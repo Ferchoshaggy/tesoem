@@ -292,8 +292,7 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text' => '',
-            'icon' => 'fas fa-solid far fa-bell user-menu',
+            'text' => 'Video de ayuda',
             'url' => '#',
             'topnav_right' => true,
             'id' => 'not_li',

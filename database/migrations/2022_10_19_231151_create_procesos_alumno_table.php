@@ -23,6 +23,7 @@ class CreateProcesosAlumnoTable extends Migration
             $table->integer("estatus");
             $table->integer("etapa");
             $table->integer("tipo_proceso");
+            $table->string("folio")->nullable();
             $table->foreign("id_user")->references("id")->on("users")->onDelete("cascade");
             $table->foreign("id_institucion_old")->references("id")->on("instituciones")->onDelete("set null");
             $table->foreign("id_carrera_old")->references("id")->on("carreras")->onDelete("set null");

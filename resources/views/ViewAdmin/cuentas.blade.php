@@ -50,7 +50,7 @@
 <form id="form-user" method="POST" action="{{url('/cambios_user')}}">
             @csrf
         <div class="modal-body">
-          A continuacion se muestran los datosde la cuentapuede editar los datos rescribiendo los campos y guardando los cambios o eliminar la cuenta en casode ser necesario.
+          A continuacion se muestran los datos de la cuenta, puede editar los datos rescribiendo los campos y guardando los cambios o eliminar la cuenta en casode ser necesario. Si el alumno ya cuenta con matricula del tesoem, marque la casilla
          <br><br>
          <div class="row">
 <div class="col-md-2">
@@ -65,7 +65,12 @@
 
 <div class="col-md-4">
 <label for="">Matricula</label>
-<input type="number" class="form-control input_edit" id="matricula" name="matricula" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();">
+<div class="input-group">
+  <div class="input-group-text" style="padding: 0.375rem 20px;" title="si la matricula es del tesoem, preciona el check">
+    <input class="form-check-input mt-0" type="checkbox" value="1" name="m_tesoem" id="m_tesoem" style="margin-left: -10px; width:20px; height: 20px;" title="si la matricula es del tesoem, preciona el check">
+  </div>
+  <input type="number" class="form-control input_edit" id="matricula" name="matricula" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();">
+</div>
 </div>
 
 <div class="col-md-4">
@@ -102,7 +107,7 @@
         <div class="modal-footer">
             <input type="hidden" name="id_user" id="id_user">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#avisoEliminar">Eliminar Cuenta</button>
-          <button class="btn btn-success" id="btnSaveUs">Guardar Cambios</button>
+          <button class="btn btn-success" id="btnSaveUs" data-toggle="modal" data-target="#exito_guardado">Guardar Cambios</button>
         </div>
     </form>
       </div>
@@ -293,6 +298,39 @@
   </div>
 </div>
 
+<!-- folio -->
+<div class="modal fade" id="folio_alumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Asignar Folio</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <div class="secciones_body" style="padding: 25px;">
+                <label id="nombre_label_2" style="font-size: 25px;"></label><br>
+                <label id="matricula_label_2" style="font-size: 25px;"></label><br>
+                <form method="POST" action="" id="from_alumno_folio" style="text-align: left;">
+                    @csrf
+                    <label >Folio</label>
+                    <input type="text" name="folio_alum" id="folio_alum" class="form-control input_edit" placeholder="Asigna un folio al alumno" title="las maysculas estan desactivadas en este campo" onchange="verificar_folio(this);" onkeyup="verificar_folio(this);">
+                    <input type="hidden" name="id_alumno_folio" id="id_alumno_folio">
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal"  data-toggle="modal" data-target="#exito_guardado" onclick="envio_from_folio();" id="folio_button_1" disabled>Asignar</button>
+        </div>
+    </div>
+  </div>
+</div>
+
 <input type="hidden" id="check_exito" data-toggle="modal" data-target="#exito_guardado">
 <!-- agregado con exito modal de espera de carga-->
 <div class="modal fade" id="exito_guardado" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff; overflow-y: auto; background-color: #111111bd;">
@@ -312,6 +350,9 @@
                 <div class="col-md-12" id="texto_exito_2" style="display: none;">
                      El Alumno ya fue Reiniciado.<br><br>
                 </div>
+                <div class="col-md-12" id="texto_exito_3" style="display: none;">
+                     El folio fue asignado.<br><br>
+                </div>
                 <div class="col-md-12" id="carga_espera">
                     <img src="{{url('img/cargando_12.gif')}}" style="width: 100%; height: auto; border-radius: 10%; "><br>
                     Espere un momento...
@@ -326,7 +367,7 @@
 </div>
 
 <!--menu de opciones de la tabla-->
-<div id="menu_opciones" class="visible_off " style=" padding: 15px; background-color: #193333;">
+<div id="menu_opciones" class="visible_off" style=" padding: 15px; background-color: #193333;">
 
     <button type="button" class="close" style="margin-right: -5px; margin-top: -15px; margin-bottom: 10px" onclick="cerrar_menu();">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
@@ -335,7 +376,7 @@
           </svg>
     </button>
 
-    <button class="btn marca" style="color:white" data-toggle="modal" data-target="#ConfigUser" onclick="materia_edit();">
+    <button class="btn marca" style="color:white" data-toggle="modal" data-target="#ConfigUser">
         Editar
       </button>
       <br>
@@ -343,12 +384,54 @@
         Reiniciar
       </button>
       <br>
+      <button class="btn marca" style="color:white" data-toggle="modal" data-target="#folio_alumno" onclick="asignar_folio();">
+        Asignar folio
+      </button>
+      <br>
 </div>
+
+
+<!-- ayuda -->
+<div class="modal fade" id="ver_ayuda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Ayuda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <iframe width="100%" height="340" src="https://www.youtube.com/embed/yURRmWtbTbo" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" name="" id="button_ayuda" data-toggle="modal" data-target="#ver_ayuda">
 
 @stop
 
 @section('css')
 <style>
+
+    .ayuda{
+        position: absolute; 
+        right: 10px; 
+        top: 10px; 
+        border-radius: 100%; 
+        width: 50px; 
+        transition: 1s;
+    }
+    .ayuda:hover{
+        width: 70px; 
+        transition: 1s;
+    }
     .secciones_body{
         background-color: #234747;
         border-radius: 10px;
@@ -465,6 +548,10 @@
         padding-left: 10px;
         padding-top: 4px;
     }
+    #not_li{
+        background-color: #8340EC;
+        border-radius: 8px;
+    }
 </style>
 @stop
 
@@ -479,6 +566,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
+    var menu_opciones= document.getElementById("menu_opciones");
     //FUNCION PARA MOSTRAR LA TABLA AL ENTRAR A CUENTAS
 $(document).ready(function() {
     tableRE();
@@ -510,11 +598,17 @@ $('#tabla-reload').empty().html(carreras,usuarios);
  });
 }
 
+document.getElementById("not_li").addEventListener("click",function () {
+    jQuery.noConflict();
+    $('#ver_ayuda').modal('show');
+})
+
 //FUNCION PARA BUSCAR DATOS DEL USUARIO A EDITAR
 var id_user=null;
 var nombre_alumno=null;
 var matricula_alumno=null;
 var etapa_alumno=null;
+var folio_alumno=null;
 function tomar_id($id_tr){
     id_user=$id_tr;
     if({{Auth::user()->tipo_user}}==2){
@@ -553,8 +647,15 @@ function tomar_id($id_tr){
     document.getElementById("id_userD").value=datosUser[0].id;
     nombre_alumno=datosUser[0].name;
     matricula_alumno=datosUser[0].matricula;
+    if(datosUser[0].m_tesoem==1){
+        document.getElementById("m_tesoem").checked=true;
+    }else{
+        document.getElementById("m_tesoem").checked=false;
+    }
+
     if(datosUser[1]!=null){
         etapa_alumno=datosUser[1].etapa;
+        folio_alumno=datosUser[1].folio;
     }
   }
 });
@@ -599,9 +700,24 @@ function tomar_id($id_tr){
         
     }
 
+    function asignar_folio(){
+        document.getElementById("nombre_label_2").innerHTML="Alumno: "+nombre_alumno;
+        document.getElementById("matricula_label_2").innerHTML="Matricula: "+matricula_alumno;
+        document.getElementById("folio_alum").value=folio_alumno;
+        document.getElementById("id_alumno_folio").value=id_user;
+    }
+
+    function verificar_folio(input){
+        if(input.value==""){
+            document.getElementById("folio_button_1").disabled=true;
+        }else{
+            document.getElementById("folio_button_1").disabled=false;
+        }
+    }
     function envio_from_reinicio(){
         document.getElementById("texto_exito").style.display="none";
         document.getElementById("texto_exito_2").style.display="none";
+        document.getElementById("texto_exito_3").style.display="none";
         document.getElementById("check_off").style.display="none";
         document.getElementById("carga_espera").style.display="block";
         if (etapa_alumno>=4){
@@ -633,6 +749,35 @@ function tomar_id($id_tr){
 
     }
 
+    function envio_from_folio(){
+        document.getElementById("texto_exito").style.display="none";
+        document.getElementById("texto_exito_2").style.display="none";
+        document.getElementById("texto_exito_3").style.display="none";
+        document.getElementById("check_off").style.display="none";
+        document.getElementById("carga_espera").style.display="block";
+        var dataString =new FormData($("#from_alumno_folio")[0]);
+        $.ajax({
+          url:"{{url('/asignar_folio_alumno')}}",
+            type:'POST',
+            dataType:'json',
+            data:dataString,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(Response){
+                jQuery.noConflict();
+                tableRE();
+                document.getElementById("texto_exito_3").style.display="block";
+                document.getElementById("check_off").style.display="block";
+                document.getElementById("carga_espera").style.display="none";
+            },
+            error:function (Response){
+                alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+                document.getElementById("check_off").style.display="block";
+            }
+        });
+    }
+
 
 //ajax editar usuarios
 
@@ -640,8 +785,11 @@ $(document).ready(function() {
 
 $("#btnSaveUs").click(function(e){
     e.preventDefault();  //evita recargar la pagina
-
-
+    document.getElementById("texto_exito").style.display="none";
+    document.getElementById("texto_exito_2").style.display="none";
+    document.getElementById("texto_exito_3").style.display="none";
+    document.getElementById("check_off").style.display="none";
+    document.getElementById("carga_espera").style.display="block";
     var dataString =new FormData($("#form-user")[0]);
 
      $.ajax({
@@ -658,9 +806,13 @@ $("#btnSaveUs").click(function(e){
             tableRE();
             $("#form-user")[0].reset();
             document.getElementById("cont").style.display="none";
+            document.getElementById("texto_exito").style.display="block";
+            document.getElementById("check_off").style.display="block";
+            document.getElementById("carga_espera").style.display="none";
         },
         error:function (Response){
             alert("Ocurrio un Problema Por favor de reportarlo para solucionarlo");
+            document.getElementById("check_off").style.display="block";
         }
 
     });

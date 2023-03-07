@@ -143,7 +143,7 @@ class DocumentsController extends Controller
             $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
             foreach($administradores as $administrador){
                 if($administrador->email!=null){
-                    $mensaje="El Alumno: ".Auth::user()->name."ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
+                    $mensaje="El Alumno: ".Auth::user()->name." ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
                     try{
                         Mail::to($administrador->email)->send(new NotificacionesCorreo("Documentos Subidos",$mensaje,"Documentos","ADocumentos"));
                     }catch(\Exception $e){
@@ -218,7 +218,7 @@ class DocumentsController extends Controller
             $administradores=DB::table("users")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->where("tipo_user",2)->get();
             foreach($administradores as $administrador){
                 if($administrador->email!=null){
-                    $mensaje="El Alumno: ".Auth::user()->name."ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
+                    $mensaje="El Alumno: ".Auth::user()->name." ya subio sus documentos, apruebalos para que avance al paso 2 Materias";
                     try{
                         Mail::to($administrador->email)->send(new NotificacionesCorreo("Documentos Subidos",$mensaje,"Documentos","ADocumentos"));
                     }catch(\Exception $e){

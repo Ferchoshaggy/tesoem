@@ -27,6 +27,9 @@ class HorarioController extends Controller
         if ($datos_pdf==null) {
             return view("vacio");
         }
+        if ($etapa->folio==null) {
+            return view("vacio");
+        }
         $materias=DB::table("materias_convalidacion")->join('materias', 'materias_convalidacion.id_materia', '=', 'materias.id')->select("materias_convalidacion.*","materias.semestre","materias.nombre","materias.matricula","materias.creditos")->where("materias_convalidacion.id_user",Auth::user()->id)->get();
         $proceso=DB::table("procesos_alumno")->where("id",Auth::user()->id_proceso_activo)->first();
         $horarios_pdf=DB::table("archivo_horarios")->where("carrera_tesoem",Auth::user()->carrera_tesoem)->first();
