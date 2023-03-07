@@ -158,6 +158,7 @@ Route::post('/cambios_user',[ACuentasController::class,'editar_user'])->name('ca
 Route::post('/delete_user',[ACuentasController::class,'eliminar_user'])->name('delete_user');
 Route::post('/nuevo_user',[ACuentasController::class,'save_user'])->name('nuevo_user');
 Route::post('/reinicio_alumno',[ACuentasController::class,'reinicio_alumno'])->name('reinicio_alumno');
+Route::post('/asignar_folio_alumno',[ACuentasController::class,'asignar_folio'])->name('asignar_folio');
 
 //catalogo de instituciones
 

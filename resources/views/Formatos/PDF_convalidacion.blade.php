@@ -23,8 +23,8 @@
         font-size: 15px;
         font-family: 'Soberana Sans', sans-serif;
         font-style: normal;
-        padding-top: 130px;
-        padding-bottom: 160px;
+        padding-top: 115px;
+        padding-bottom: 140px;
         padding-right: 50px;
         padding-left: 50px;
         margin: 0;
@@ -37,7 +37,7 @@
 
     header{
         position: fixed;
-        top: 100px;
+        top: 85px;
         left: 0cm;
         right: 0cm;
         height: 2cm;
@@ -50,11 +50,12 @@
         padding-bottom: 20px;
         border-bottom: 2px solid #cccccc;
     }
+
 </style>
 <body>
 <?php date_default_timezone_set('America/Mexico_City'); ?>
 <header>
-    <p style=" width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: #9B9B9B;">"{{$datos_pdf->texto_superior}}"</p>
+    <p style=" width: 100%; text-align: center; font-size: 11px; font-weight: bold; color: #9B9B9B;">"{{$datos_pdf->texto_superior}}"</p>
 </header>
 
     <p style=" margin-top: -10px; text-align: right; font-size: 12px;">
@@ -69,10 +70,12 @@
         <table style="padding-left: 50px; padding-right: 50px; border-collapse:collapse; width: 100%;">
             <thead>
                 <tr>
-                    <th style="width: 10%; border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">SEMESTRE</th>
-                    <th style="width: 50%; border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">NOMBRE DE LA ASIGNATURA</th>
-                    <th style=" border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">CLAVE</th>
-                    <th style=" border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">MATERIAS CONVALIDADAS</th>
+                    <th style="border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">SEMESTRE</th>
+                    <th style="border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">NOMBRE DE LA ASIGNATURA</th>
+                    <th style="border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">CLAVE</th>
+                    <th style="border: black 1px solid; padding: 5px; font-size: 10px; font-weight: bold; background-color: #CECECE;">
+                        MATERIAS<br>CONVALIDADAS
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +92,7 @@
                 @foreach($materias as $materia)
                 @if($materia->semestre==$i)
                 <tr>
-                    <td style="border: black 1px solid; padding: 3px; text-align: center;">
+                    <td style="border: black 1px solid; padding: 3px; text-align: center; font-weight: bold;">
                     @if($primero==1)
 
                     @if($i==1)Primero @endif @if($i==2)Segundo @endif @if($i==3)Tercero @endif @if($i==4)Cuarto @endif @if($i==5)Quinto @endif @if($i==6)Sexto @endif @if($i==7)Séptimo @endif @if($i==8)Octavo @endif @if($i==9)Noveno @endif
@@ -97,7 +100,7 @@
                     @endif
                     </td>
                     <td style="border: black 1px solid; padding: 3px; ">{{$materia->nombre}}</td>
-                    <td style="border: black 1px solid; padding: 3px; text-align: center;">{{$materia->matricula}}</td>
+                    <td style="border: black 1px solid; padding: 3px; text-align: center; font-weight: bold;">{{$materia->matricula}}</td>
                     <td style="border: black 1px solid; padding: 3px; text-align: center;">
                         @if($materia->validacion=="si" && $materia->calificacion>=70)
                         CONVALIDADA
@@ -110,7 +113,6 @@
                 @endif
                 @endforeach
                 @endfor
-                
             </tbody>
         </table>
     </div>
@@ -118,16 +120,16 @@
         <table style=" border-collapse:collapse; width: 100%;">
             <thead>
                 <tr>
-                    <th style="width: 25%; border: black 1px solid; padding: 20px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 70px;">
+                    <th style="width: 25%; border: black 1px solid; padding: 7px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 50px;">
                     ___________________________________
-                    {{$datos_pdf->p_academia}}
+                    {{$datos_pdf->p_academia}}<br>
                     @if($datos_pdf->sexo_p_academia==1) Presidenta @else Presidente @endif de Academia de ISC.
 
                     </th>
                     <th style="border: black 1px solid; padding: 5px; font-size: 10px; text-align: center;"></th>
-                    <th style="width: 25%; border: black 1px solid; padding: 20px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 70px;">
+                    <th style="width: 25%; border: black 1px solid; padding: 7px; font-size: 10px; font-weight: bold; text-align: center; padding-top: 50px;">
                     ___________________________________
-                    {{$datos_pdf->s_academia}}
+                    {{$datos_pdf->s_academia}}<br>
                     @if($datos_pdf->sexo_s_academia==1) Secretaria @else Secretario @endif de Academia de ISC.
 
                     </th>

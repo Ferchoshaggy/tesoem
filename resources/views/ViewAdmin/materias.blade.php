@@ -68,7 +68,7 @@
 
     </div>
     <div class="col-md-3" style="text-align: right;">
-    <button class="btn btn-info" style="width: 100%;"  data-toggle="modal" data-target="#modal_datos_pdf">Datos de los FORMATOS</button>
+    <button class="btn btn-info" style="width: 100%;"  data-toggle="modal" data-target="#modal_datos_pdf">Datos de los formatos</button>
     </div>
 </div>
 </div>
@@ -100,12 +100,12 @@
                     <div class="row">
                         <div class="col-xl-12" style="margin-bottom: 25px;">
                             <label>Leyenda Superior</label>
-                            <input type="text" name="texto_superior" required class="form-control input_edit" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->texto_superior}} @endif">
+                            <input type="text" name="texto_superior" required class="form-control input_edit" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null){{$datos_pdf->texto_superior}} @endif">
                         </div>
                         <div class="col-xl-6" style="margin-bottom: 25px;">
                             <label>Jefe del departamento de control escolar </label>
                             <div class="input-group mb-3">
-                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_control_escolar" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_control_escolar" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null){{$datos_pdf->j_control_escolar}} @endif">
                               <select class=" edit_select" name="sexo_j_control_escolar" required >
                                   <option value="" disabled selected>Sexo</option>
                                   @if($datos_pdf!=null)
@@ -127,7 +127,7 @@
                         <div class="col-xl-6" style="margin-bottom: 25px;">
                             <label>Jefe de División</label>
                             <div class="input-group mb-3">
-                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_division" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->j_control_escolar}} @endif">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="j_division" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null){{$datos_pdf->j_division}} @endif">
                               <select class=" edit_select" name="sexo_j_division" required>
                                   <option value="" disabled selected>Sexo</option>
                                   @if($datos_pdf!=null)
@@ -148,7 +148,7 @@
                         <div class="col-xl-6" style="margin-bottom: 25px;">
                             <label>Presidente de Academia</label>
                             <div class="input-group mb-3">
-                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="p_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->p_academia}} @endif">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="p_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null){{$datos_pdf->p_academia}} @endif">
                               <select class=" edit_select" name="sexo_p_academia" required>
                                   <option value="" disabled selected>Sexo</option>
                                   @if($datos_pdf!=null)
@@ -169,7 +169,7 @@
                         <div class="col-xl-6" style="margin-bottom: 25px;">
                             <label>Secretario de Academia</label>
                             <div class="input-group mb-3">
-                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="s_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null) {{$datos_pdf->s_academia}} @endif">
+                              <input type="text" class="form-control input_edit" aria-label="Text input with dropdown button" name="s_academia" required onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" value="@if($datos_pdf!=null){{$datos_pdf->s_academia}} @endif">
                               <select class=" edit_select" name="sexo_s_academia" required>
                                   <option value="" disabled selected>Sexo</option>
                                   @if($datos_pdf!=null)
@@ -479,6 +479,30 @@
 
 </div>
 
+
+<!-- ayuda -->
+<div class="modal fade" id="ver_ayuda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Ayuda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <iframe width="100%" height="340" src="https://www.youtube.com/embed/yURRmWtbTbo" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" name="" id="button_ayuda" data-toggle="modal" data-target="#ver_ayuda">
 @stop
 
 @section('css')
@@ -587,6 +611,10 @@
         background: #797d8b80;
         transition: 1s;
     }
+    #not_li{
+        background-color: #8340EC;
+        border-radius: 8px;
+    }
 
 </style>
 @stop
@@ -603,6 +631,10 @@
 
 
 <script>
+
+    document.getElementById("not_li").addEventListener("click",function () {
+        document.getElementById("button_ayuda").click();document.getElementById("button_ayuda").click();
+    })
     //Campos dinamicos de materias
     $(function () {
     var i = 0;

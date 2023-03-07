@@ -9,7 +9,10 @@
         <th style="text-align: center;">Matricula</th>
         <th style="text-align: center;">Nombre</th>
         <th style="text-align: center;">Correo</th>
-        <th style="text-align: center;">Etapa</th>
+        <th style="text-align: center;">Paso</th>
+        @if(Auth::user()->tipo_user==2)
+        <th style="text-align: center;">Folio</th>
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -40,10 +43,14 @@
 <td style="text-align: center;">Documentos</td>
 @elseif($proceso->etapa==2)
 <td style="text-align: center;">Materias</td>
-@elseif($proceso->etapa==3)
+@elseif($proceso->etapa>=3)
 <td style="text-align: center;">Formatos/Horario</td>
 @endif
+@if(Auth::user()->tipo_user==2)
+<td style="text-align: center;"> @if($proceso->folio==null) <label style="color: red;">Sin folio</label> @else {{$proceso->folio}} @endif </td>
 @endif
+@endif
+
 @endforeach
 
 @if($usuario->id_proceso_activo==null)

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string("foto")->nullable();
             $table->string('matricula')->unique();
+            $table->integer('m_tesoem')->nullable();
             $table->integer('carrera_tesoem');
             $table->bigInteger('id_proceso_activo')->nullable();
             $table->unsignedBigInteger('tipo_user');

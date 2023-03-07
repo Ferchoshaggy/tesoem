@@ -124,7 +124,7 @@
             <img src="{{url('icons/M1.png')}}" style="width: 75%; height: auto;">
         </div>
         <div class="col-md-10" style="padding-top: 25px; text-align: justify;">
-            Todas tus calificaciones fueron guardadas y has concluido el paso 2, espera a que se te notifique tu aprovacion a travez de la campana o via correo para el siguiente paso a realizar.
+            Todas tus calificaciones fueron guardadas y has concluido el paso 2, espera a que se te notifique tu aprovacion a travez del correo para el siguiente paso a realizar.
         </div>
         <div class="col-md-12" style="text-align: right;">
             <img src="{{url('icons/paloma.png')}}" style="width: 9vh; height: auto; margin-right: -25px; margin-bottom: -35px;">
@@ -225,19 +225,29 @@
 @endif
 @endif
 
-
-
-<div id="div_notification" class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="display: none; position: fixed; padding: 20px; background-color: #3d9970; width: auto;  margin-right: 25px;">
-    <button type="button" class="close" style="margin-right: -17px; margin-top: -20px; " onclick="cerrar_div_notifiaction();">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" >
-            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-    </button>
-    <br>
-    hola soy las notifiaciones!!
+<!-- ayuda -->
+<div class="modal fade" id="ver_ayuda" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff;">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background-color: #193333;">
+        <div class="modal-header" style="border-bottom: 1px solid #193333;">
+            <h5 class="modal-title" id="exampleModalLabel">Ayuda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" style="color: #fff;">
+                  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom: 1px solid #193333; text-align: center;">
+            <iframe width="100%" height="340" src="https://www.youtube.com/embed/nmZpYvFVSz4" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #193333;">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+    </div>
+  </div>
 </div>
-
+<input type="hidden" name="" id="button_ayuda" data-toggle="modal" data-target="#ver_ayuda">
 
 @stop
 
@@ -334,6 +344,10 @@
         .select2-selection__arrow{
             color: #fff !important;
         }
+        #not_li{
+            background-color: #8340EC;
+            border-radius: 8px;
+        }
     </style>
 
 @stop
@@ -351,8 +365,9 @@
 
 
 <script type="text/javascript">
-
-
+    document.getElementById("not_li").addEventListener("click",function () {
+        document.getElementById("button_ayuda").click();
+    })
     function inputs_empy2(){
         for(var i=0; i < $("input[id='calificaciones[]']").length; i++){
 
